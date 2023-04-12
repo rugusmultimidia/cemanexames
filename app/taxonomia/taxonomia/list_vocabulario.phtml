@@ -1,0 +1,40 @@
+<div class="breadcrumb"> 
+
+	<span> Inicio </span> 
+    > <span>Vocabularios</span> 
+
+</div>
+
+<div class="add_button" style="display:none"> 
+	<a href="taxonomia/add"  class="lightbox_trigger btn btn-default"> Cadastrar Vocabulario </a> 
+</div>
+
+<div id="title">Taxonomias</div>
+
+<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+    <thead>
+  <tr style="font-weight:bold">
+    <td width="102" align="right">ID</td>
+    <td width="422">Vocabulario</td>
+    <td width="1342">Ações</td>
+  </tr>
+  </thead>
+ <tbody class="table_content">
+<?php  foreach($view_data as $dados ) { ?>
+	
+   <tr class="line">
+    <td align="right"><?php print $dados['id_taxonomia']; ?></td>
+    <td><a href="taxonomia/termos/vocabulario/<?php print $dados['id_taxonomia']; ?>" title="listar termos"><?php print $dados['value']; ?></a></td>
+    <td class="actions">
+    	<a href="taxonomia/termos/vocabulario/<?php print $dados['id_taxonomia']; ?>" title="listar termos"><img src="assets/icons/table.png" width="16" height="16" /></a>  
+    	<a href="taxonomia/edit/id/<?php print $dados['id_taxonomia'] ?>" title="Editar taxonomia" class="edit lightbox_trigger"><img src="assets/imagens/icons/edit.png" width="16" height="16" /></a>  
+        <a href="javascript:void(0)"  style="display:none" class="del" data-controller="taxonomia/del" title="Apagar Vocabulario" data-id="<?php print $dados['id_taxonomia']; ?>">
+        	<img src="assets/imagens/icons/delete.png" width="16" height="16" />
+        </a>
+    </td>
+
+  </tr>
+	
+<?php  }  ?>
+</tbody>
+</table>

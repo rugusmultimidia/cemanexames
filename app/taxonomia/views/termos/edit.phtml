@@ -1,0 +1,12 @@
+<form id="add" name="form1" method="post" action="admin/taxonomia/termos/vocabulario/<?php print $this->_get('vocabulario'); ?>">
+
+<input name="vocabulario" type="hidden" value="<?php print $this->_get('vocabulario'); ?>" />
+<input name="id" type="hidden" value="<?php print $this->_get('id'); ?>" />
+<table width="" border="0" cellpadding="5" cellspacing="0" class="table table-striped">
+  <tr>
+    <td width="130" align="right">Termo</td>
+    <td width="866"><input name="nome" type="text" id="nome" size="50" class="form-control" value="<?php print $view_termo[0]['taxonomy_entity']?>" style="width:50%" /></td>
+  </tr>
+  </table>
+
+</form>

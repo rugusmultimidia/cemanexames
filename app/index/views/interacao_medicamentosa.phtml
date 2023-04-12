@@ -1,0 +1,127 @@
+<style type="text/css">
+	
+.int_n td {
+	background-color: rgba(20, 134, 29, 0.66);
+    color: #FFF;
+}
+
+.int_y td {
+	background-color: rgba(193, 0, 0, 0.66);
+    color: #FFF;
+}
+
+</style>
+<section class="content-header">
+          <h1>
+            Interação Medicamentosa
+            <small></small>
+          </h1>
+          
+</section>
+        
+<section class="content"> 
+
+    <div class="box">
+        <div class="box-body">
+     
+            
+            <?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?> 
+            
+            <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1" >
+
+                
+                    <div class="col-xs-12 name-nome type-textfield">
+						<div class="form-group fields">
+							<label for="nome">Medicação</label>
+							<select class="select2" id="medicamento" style="width: 100%" multiple="multiple">
+								<?php foreach($this->medicamentos as $medicamento) { ?>
+
+									<option value="<?php print $medicamento['medicamento']; ?>"><?php print $medicamento['medicamento']; ?></option>
+
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-xs-12 result">
+
+
+							<table class="table table-stripped" style="display: none">
+								<thead>
+									<tr>
+										<td><strong>Medicamento</strong></td>
+										<td><strong>Interação</strong></td>
+										<td><strong>Efeito</strong></td>
+										<td><strong>Grau</strong></td>
+										<td><strong>Ação</strong></td>
+										<td><strong>Recomendação</strong></td>
+									</tr>
+								</thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+
+
+					</div>
+
+
+
+
+			</form>
+
+        
+        </div>
+    </div>
+    <div style="margin-top: 50px;">
+    <p><i>fonte:</i> </p>
+    <p><small>UNIVERSIDADE FEDERAL DE GOIÁS HOSPITAL DAS CLÍNICAS COORDENAÇÃO DE FARMÁCIA, Goiânia 2011.</small></p>
+    </div>
+</section>
+
+<script type="text/javascript">
+	
+
+$(function(){
+
+	$("#medicamento").change(function(){
+
+		var medicamento = $(this).val();
+		
+		$.post("admin/index/get_interacoes", {medicamento:medicamento}, function(data){
+
+			var html = "";
+
+			var obj = jQuery.parseJSON( data );
+
+			$.each(obj, function(k,v){
+
+				var interage = "int_n";
+				if(v.conflito){
+					interage = "int_y";
+				}
+
+				html +="<tr class='"+interage+"'>\
+							<td>"+v.medicamento+"</td>\
+							<td>"+v.interage+"</td>\
+							<td>"+v.efeito+"</td>\
+							<td>"+v.grau+"</td>\
+							<td>"+v.acao+"</td>\
+							<td>"+v.recomendacao+"</td>\
+						</tr>";
+
+			})
+
+			$('.result table').show();
+
+			$('.result tbody').html(html);
+
+		});
+	});
+
+
+
+});
+
+
+</script>

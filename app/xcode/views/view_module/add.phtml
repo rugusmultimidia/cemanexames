@@ -1,0 +1,156 @@
+<section class="content-header">
+          <h1>
+            Views
+            <small>Gerar estrutura</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">xcode</a></li>
+            <li class="active">Add new module</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+<div class="box">
+<div class="box-body">
+      
+	  
+<?php if($this->_post()) $this->message->getMsg(); ?>
+	  
+<form action="" class="form-group" method="post" enctype="multipart/form-data" name="form">
+  
+  	
+    <div class="row">
+        <div class="col-md-10">
+          <fieldset> 
+          	<legend> View name </legend>
+            <input name="controller" type="text" placeholder="field name" class="form-control" required="required" />
+          </fieldset>
+        </div>
+    </div>
+	
+	
+	<div class="row">
+		<div class="col-md-6">
+			<label for="view_select">Selecione o modulo</label>
+			<select name="view_select" id="view_select" class="form-control" >
+				<option value=""> Selecione </option>				
+                <?php foreach($view_modules as $module) { ?>
+                
+                    <option value="<?php print $module['id_controller'] ?>">
+						<?php print $module['controller']; ?>
+                    </option>
+                
+                <?php  }  ?>
+			</select>
+		</div>
+	
+	</div>
+	
+    <div class="row">
+        
+        <div class="col-md-10">
+        <fieldset> 
+          <legend> Campos </legend>
+                    
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td>Nome do campo</td>
+                <td>Tipo do campo</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>
+                  <input name="field_name" id="field_name" type="text" class="form-control" />
+                </td>
+                <td>
+                  <select name="tipo" id="field_type" class="form-control" >
+                    <option value="textfield">Text</option>
+                    <option value="textarea">Textarea</option>
+                    <option value="select">Select</option>
+					<option value="image">Imagem</option>
+					<option value="file">Arquivo</option>
+					<option value="radio">Radio Button</option>
+                    <option value="checkbox">Checkbox</option>
+					<option value="taxonomy">Taxonomia</option>
+					<option value="entity">Entidade</option>
+                  </select>
+                </td>
+                <td>
+                  <input name="input" type="button" class="btn btn-default add_field" value="Add field" />
+                </td>
+              </tr>
+			  <tr>
+                <td><input name="field_machine_name" id="field_machine_name" type="text" class="form-control" /></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+            
+            
+            
+        </fieldset>
+		
+    	</div>
+                
+    </div>
+    
+    <div class="row">
+        
+        <div class="col-md-10">
+        <fieldset> 
+          <legend> Lista de campos</legend>
+                    
+            <table class="table table-bordered table-striped draggable">
+              <thead>
+				<tr>
+					<td width="32%">Nome do campo</td>
+					<td width="32%">Tipo do campo</td>
+					<td width="13%" style="text-align:center;">Grid Size</td>
+					<td width="8%" style="text-align:center;">Coluna</td>
+					<td width="15%" colspan="3" style="text-align:center;">Actions</td>
+				</tr>
+			  </thead>
+			  <tbody class="table_content">
+
+			  </tbody>
+            </table>
+            
+        </fieldset>
+    	</div>
+                
+    </div>
+    
+    <div class="row">
+        
+        <div class="col-md-10">
+        <fieldset> 
+          <legend> Opções</legend>
+                    
+            <table width="261" class="table table-bordered table-striped draggable">
+
+					<tr>
+					<td width="35%">Usar Paginação</td>
+					<td width="30%"><input name="pagination" type="checkbox" id="pagination" value="true" checked="checked" />
+					  <label for="pagination"></label></td>
+				</tr>
+
+            </table>
+            
+        </fieldset>
+    	</div>
+                
+    </div>
+    
+    
+    
+     
+
+<input type="submit" class="btn btn-default" value="Gerar Estrutura" />
+
+</form>
+
+</div>
+</div>
+</section>

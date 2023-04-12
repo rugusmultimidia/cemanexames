@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<template>
+
+	<header> 
+	
+		<js>themes/admin/js/jquery-2.1.1.js</js>	
+		<js>themes/admin/assets/js/jquery-ui.custom.js</js>	
+		<js>themes/admin/assets/plugins/colorbox/jquery.colorbox-min.js</js>
+		<js>themes/admin/assets/plugins/ckeditor/ckeditor.js</js>		
+		<js>themes/admin/assets/plugins/summernote-master/dist/summernote.js</js>
+
+		<css>themes/admin/assets/plugins/colorbox/colorbox.css</css>
+		<css>themes/admin/assets/css/icheck/flat/blue.css</css>		
+		<css>themes/admin/assets/plugins/summernote-master/dist/summernote.css</css>
+
+	
+	</header>
+
+</template>

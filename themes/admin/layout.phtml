@@ -1,0 +1,299 @@
+<?php
+
+define('DIR', 'themes/admin/');
+
+?>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Sistema Ceman</title>
+	<base href="<?php print PATH; ?>"  />
+	<link href="<?php print DIR; ?>css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php print DIR; ?>font-awesome/css/font-awesome.css" rel="stylesheet">
+
+	<link href="<?php print DIR; ?>assets/plugins/tipsy/tipsy.css" rel="stylesheet">
+	<link href="<?php print DIR; ?>assets/plugins/select2/select2.css" rel="stylesheet">
+	<link href="<?php print DIR; ?>assets/plugins/icheck/all.css" rel="stylesheet">
+	<link href="<?php print DIR; ?>css/jquery-ui.css" rel="stylesheet">
+
+	<link href="<?php print DIR; ?>css/animate.css" rel="stylesheet">
+	<link href="<?php print DIR; ?>css/style.css" rel="stylesheet">
+
+
+	<!-- Mainly scripts -->
+	<?php print $this->get_head(); ?>
+	<script src="<?php print DIR; ?>js/jquery-ui-1.10.4.min.js"></script>
+	<script src="<?php print DIR; ?>js/bootstrap.min.js"></script>
+	<script src="<?php print DIR; ?>js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="<?php print DIR; ?>js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	
+	<!-- Custom and plugin javascript -->
+	<script src="<?php print DIR; ?>js/inspinia.js"></script>
+	<script src="<?php print DIR; ?>js/plugins/pace/pace.min.js"></script>
+	<script src="<?php print DIR; ?>assets/plugins/tipsy/jquery.tipsy.js"></script>
+	<script src="<?php print DIR; ?>assets/plugins/select2/select2.js"></script>
+	<script src="<?php print DIR; ?>assets/plugins/icheck/jquery.icheck.js"></script>
+	<script src="<?php print DIR; ?>assets/plugins/jquery.mask.min.js"></script>
+
+	<script src="<?php print DIR; ?>js/functions.js"></script>
+
+	
+
+	<style type="text/css">
+
+	 .fa {
+	 	font-size: 14px;
+	 }
+
+	 .ibox-title {
+	    -moz-border-bottom-colors: none;
+	    -moz-border-left-colors: none;
+	    -moz-border-right-colors: none;
+	    -moz-border-top-colors: none;
+	    background-color: #ffffff;
+	    border-color: #e7eaec;
+	    border-image: none;
+	    border-style: solid solid none;
+	    border-width: 3px 0 0;
+	    color: inherit;
+	    margin-bottom: 0;
+	    padding: 14px 15px 7px;
+	    min-height: 48px;
+	}
+
+	 .box-body {
+	    background-color: #ffffff;
+	    color: inherit;
+	    padding: 15px 20px 20px 20px;
+	    border-color: #e7eaec;
+	    border-image: none;
+	    border-style: solid solid none;
+	    border-width: 1px 0;
+	    display: table;
+    	width: 100%;
+	}
+
+	.breadcrumb {
+		display: none;
+	}
+
+	.select2-container-multi .select2-choices .select2-search-choice {
+	    background-color: #428BCA;
+	    background-image: none;
+	    filter: none;
+	    border-color: #428BCA;
+	    box-shadow: none;
+	    font-size: 12px;
+	    color: #ffffff;
+	}
+
+	.modal-backdrop {
+	    position: fixed;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    z-index: 1040;
+	    background-color: #000;
+	}
+
+
+
+	.actions {
+	    font-size: 16px;
+	}
+
+
+
+	</style>
+
+
+</head>
+
+<body class="pace-done">
+
+<div id="wrapper">
+
+	<nav class="navbar-default navbar-static-side" role="navigation">
+		<div class="sidebar-collapse">
+			<ul class="nav metismenu" id="side-menu">
+				
+				<!-- User DATA -->
+
+				<li class="nav-header">
+					<div class="dropdown profile-element">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0)">
+							<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">User</strong>
+							 </span> <span class="text-muted text-xs block">administrador <b class="caret"></b></span> </span> </a>
+							<ul class="dropdown-menu animated fadeInRight m-t-xs">
+								<li><a href="admin/users/logout">Logout</a></li>
+							</ul>
+					</div>
+					<div class="logo-element">
+						Ceman
+					</div>
+				</li>
+
+				<!-- Menu -->
+
+				<li class="<?php if($this->controller == 'medicos') print 'active'; ?>">
+					
+					<a href="javascript:void(0)"><i class="fa  fa-user-md"></i> <span class="nav-label">Médicos</span></a>
+
+					<ul class="nav nav-second-level collapse">
+						<li><a href="admin/medicos/add">Cadastrar</a></li>
+						<li><a href="admin/medicos">Listar</a></li>							
+					</ul>
+				</li>
+
+				<!-- Menu -->
+
+				<li class="<?php if($this->controller == 'exames') print 'active'; ?>">
+					
+					<a href="javascript:void(0)"><i class="fa fa-medkit"></i> <span class="nav-label">Exames</span></a>
+
+					<ul class="nav nav-second-level collapse">
+						<li><a href="admin/exames/add">Cadastrar</a></li>
+						<li><a href="admin/exames">Listar</a></li>							
+					</ul>
+				</li>
+
+				<!-- Menu -->
+
+				<li class="<?php if($this->controller == 'pacientes') print 'active'; ?>">
+					
+					<a href="javascript:void(0)"><i class="fa fa-stethoscope"></i> <span class="nav-label">Pacientes</span></a>
+
+					<ul class="nav nav-second-level collapse">
+						<li><a href="admin/pacientes/add">Cadastrar</a></li>
+						<li><a href="admin/pacientes">Listar</a></li>							
+					</ul>
+				</li>
+
+
+				<!-- Menu -->
+
+				<li class="<?php if($this->controller == 'index') print 'active'; ?>">
+					
+					<a href="admin/index/interacao_medicamentosa"><i class="fa fa-stethoscope"></i> <span class="nav-label">Interação medicamentosa</span></a>
+				</li>
+
+				<!-- Menu -->
+
+				<li class="<?php if($this->controller == 'users') print 'active'; ?>">
+					
+					<a href="javascript:void(0)"><i class="fa fa-user"></i> <span class="nav-label">users</span></a>
+
+					<ul class="nav nav-second-level collapse">
+						<li><a href="admin/users/add">Cadastrar</a></li>
+						<li><a href="admin/users">Listar</a></li>							
+					</ul>
+				</li>
+
+
+
+
+			</ul>
+
+		</div>
+	</nav>
+
+	<div id="page-wrapper" class="gray-bg">
+		<div class="row border-bottom">
+			<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0;    padding: 10px 0;">
+				<div class="navbar-header">
+					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0)"><i class="fa fa-bars"></i> </a>
+					<div style="float: left; margin: 7px 0 0 15px;">
+
+					</div>
+
+
+				</div>
+
+				<ul class="nav navbar-top-links navbar-right">
+
+	                <li class="dropdown" style="margin-right: 10px; display:none">
+	                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+	                        Colaboradores <i class="fa fa-user"></i>   <span class="label label-primary" style="margin-right: -10px;">16</span>
+	                    </a>
+	                    <ul class="dropdown-menu dropdown-messages">
+	                        <li>
+	                            <a href="pessoa_fisica/add">Cadastrar Colaborador</a>
+	                        </li>
+	                        <li>
+	                            <a href="pessoa_fisica">Colaboradores</a>
+	                        </li>
+	                    </ul>
+	                </li>
+
+					<li>
+						<a href="admin/users/logout">
+							<i class="fa fa-sign-out"></i> Log out
+						</a>
+					</li>
+				</ul>
+
+			</nav>
+		</div>
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-lg-12">
+					
+						<?php $this->getPageView($this->vars); ?>
+					
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="pull-right">
+				...
+			</div>
+			<div>
+				<strong>Copyright</strong> Rugus &copy; 2016
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<div class="modal inmodal" id="change_enterprise" tabindex="-1" role="dialog"  aria-hidden="true" style="display:none">
+    <div class="modal-dialog">
+        <div class="modal-content animated fadeIn">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-briefcase modal-icon"></i>
+                <h4 class="modal-title">Empresa</h4>
+                <small>Escolha a empresa</small>
+            </div>
+            <div class="modal-body">
+                <p>
+                		
+
+
+                </p>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-white" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-primary modal-label-button-enterprise">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	
+$(function(){
+	$('.edittext').summernote();
+})
+
+</script>
+
+</body>
+
+</html>

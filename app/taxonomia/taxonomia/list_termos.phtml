@@ -1,0 +1,44 @@
+<div class="breadcrumb"> 
+
+	<span> Inicio </span> 
+    > <span> <a href="taxonomia">Vocabularios</a> </span> 
+    > <span> termos </span>
+
+</div>
+
+<div class="add_button"> 
+	<a href="taxonomia/add_termo/vocabulario/<?php print $view_id_vocabulario; ?>"  class="lightbox_trigger btn btn-default"> Cadastrar termo </a> 
+</div>
+
+
+<div id="title">Termos de <strong style="color: darkorange; text-transform: capitalize;"><?php print $view_vocabulario[0]['value']?></strong> </div>
+
+
+<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+  
+  <thead>
+  <tr style="font-weight:bold">
+    <td width="102" align="right">ID</td>
+    <td width="422">termo</td>
+    <td width="1342">Ações</td>
+  </tr>
+  </thead>
+ <tbody class="table_content">
+<?php  foreach($view_termos as $dados ) { ?>
+	
+   <tr class="line">
+    <td align="right"><?php print $dados['id_taxonomia_entity']; ?></td>
+    <td><?php print $dados['value']; ?></td>
+    <td class="actions">
+    	<a href="taxonomia/edit_termo/id/<?php print $dados['id_taxonomia_entity'] ?>" title="Editar Termo" class="edit lightbox_trigger"><img src="assets/imagens/icons/edit.png" width="16" height="16" /></a>        
+        <a href="javascript:void(0)" class="del" data-controller="taxonomia/del_termo" title="Apagar termo" data-id="<?php print $dados['id_taxonomia_entity']; ?>">
+        	<img src="assets/imagens/icons/delete.png" width="16" height="16" />
+        </a>
+    </td>
+
+  </tr>
+	
+<?php  }  ?>
+
+</tbody>
+</table>

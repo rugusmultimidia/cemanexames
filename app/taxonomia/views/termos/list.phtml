@@ -1,0 +1,58 @@
+<section class="content-header">
+          <h1>
+            Lista de termos
+            <small>Taxonomias</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="admin/taxonomia">taxonomias</a></li>
+            <li class="active">Listagem de termos</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+<div class="box">
+<div class="box-body">
+
+<div class="add_button"> 
+	<a href="javascript:void(0)"  class="btn btn-default call_modal_add" data-id_vocabulario='<?php print $this->_get('vocabulario')?>'> Cadastrar termo </a> 
+</div>
+
+
+<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+  
+  <thead>
+  <tr style="font-weight:bold">
+    <td width="102" align="right">ID</td>
+    <td width="422">termo</td>
+    <td width="1342">Ações</td>
+  </tr>
+  </thead>
+ <tbody class="table_content">
+<?php  foreach($view_termos as $dados ) { ?>
+	
+   <tr class="line">
+    <td align="right"><?php print $dados['id_taxonomy_entity']; ?></td>
+    <td><?php print $dados['taxonomy_entity']; ?></td>
+    <td class="actions">
+    <a href="javascript:void(0)" title="Editar taxonomia" class="edit call_modal_edit" data-id='<?php print $dados['id_taxonomy_entity'];?>' data-id_vocabulario='<?php print $this->_get('vocabulario')?>'>
+        	<i class="fa fa-fw fa-edit" style="font-size:18px;"></i>
+     </a>  
+        <a href="javascript:void(0)"  class="del" data-controller="admin/taxonomia/del_termo" title="Apagar Vocabulario" data-id="<?php print $dados['id_taxonomy_entity']; ?>">
+        	<i class="fa fa-trash-o" style="font-size:18px;"></i>
+        </a>
+    </td>
+
+  </tr>
+	
+<?php  }  ?>
+
+</tbody>
+</table>
+
+</div>
+</div>
+</section>
+
+

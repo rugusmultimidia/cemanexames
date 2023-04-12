@@ -1,0 +1,70 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+h2 {
+  font-weight: 500;
+  font-family: 'Open Sans',sans-serif;
+}
+
+body {
+  padding-top: 0;
+  font-size: 12px;
+  color: #777;
+  background: #f9f9f9;
+  font-family: 'Open Sans',sans-serif;
+}
+
+.login-wrapper .login-widget {
+  margin: 20px auto;
+  width: 400px;
+}
+
+.text-success {
+  color: #3c8dbc;
+}
+
+.panel.panel-default .panel-heading {
+  background: #fff;
+  color: #777;
+  border-color: #f1f5fc;
+}
+
+.panel {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.login-wrapper {
+  position: absolute;
+  top: 50%;
+  margin-top: -220px;
+  width: 100%;
+  margin-left: 0;
+  animation: bounceInDownSmall 1s ease;
+  -webkit-animation: bounceInDownSmall 1s ease;
+  -moz-animation: bounceInDownSmall 1s ease;
+  -ms-animation: bounceInDownSmall 1s ease;
+  -o-animation: bounceInDownSmall 1s ease;
+}
+
+
+.btn.btn-success {
+  background: #3c8dbc;
+  border: 1px solid #3c8dbc;
+}
+
+.message {
+	float:left;
+}
+
+.message.error {
+	margin: 0px;
+	margin-left: 10px;
+}
+
+.spinner {
+	display:none;
+}

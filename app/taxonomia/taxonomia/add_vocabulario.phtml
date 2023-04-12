@@ -1,0 +1,26 @@
+<div id="title"> Cadastrar Vocabulario </div>
+
+
+<form id="form1" name="form1" method="post" action="taxonomia/add">
+<table width="1016" border="0" cellpadding="5" cellspacing="0" class="table table-striped">
+  <tr>
+    <td width="130" align="right">Vocabulario</td>
+    <td width="866"><input name="nome" type="text" id="nome" size="50" /></td>
+    </tr>
+  <tr>
+    <td align="right">Controller</td>
+    <td><label for="controller"></label>
+      <select name="controller" id="controller">
+        <option value="exames">Exames</option>
+        <option value="animais">Lista de animais</option>
+      </select></td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td><input type="submit" name="button" id="button" value="Salvar" class="save btn btn-default"/></td>
+  </tr>
+  </table>
+
+<div class="node_msg">  </div>
+<img src="assets/icons/ajax-loader.gif" width="24" height="24" class="ajax-loader" />
+</form>

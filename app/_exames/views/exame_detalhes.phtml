@@ -1,0 +1,191 @@
+<script> 
+
+$(function(){
+
+	$.draggableInit = function(){
+
+
+		$( ".assinatura" ).draggable({ 
+
+			cursor: "move", 
+			containment: "parent",
+
+			stop: function(){
+
+	            var position = $(this).position();
+
+	            var elem = $(this).closest('.page');
+
+	            elem.find('._assinatura_y').val(position.top);
+	            elem.find('._assinatura_x').val(position.left);
+	        }
+
+		});
+	}
+
+	//fechar assinatura.
+	$('body').on('click', '.fechar_assinatura', function(){
+
+		$(this).closest('.assinatura').remove();
+
+	});
+
+	//add assinatura.
+	$('.add_assinatura').click(function(event){
+
+		event.preventDefault();
+		var elem = $(this).closest('.page');
+		var img = elem.find('.assinatura_lista').val();
+		var html = '<div class="assinatura"><div><img src="themes/files/uploads/'+img+'" width="450"></div><a href="javascript:void(0)" class="fechar_assinatura"><i class="fa fa-ban"></i></a></div>';
+	    elem.find('._assinatura').val(img);
+		elem.append(html);
+
+		$.draggableInit();
+
+	});
+
+
+	$.draggableInit();
+
+})
+
+</script>
+
+<style type="text/css">
+
+
+	.assinatura {
+
+		width: 450px;
+		height: 150px;
+		background-color: #FFF;
+		position: absolute;
+	}
+
+	.assinatura:hover img {
+		box-shadow: 1px 1px 15px #dadada;
+	}
+
+	.fechar_assinatura {
+
+		position: absolute;
+		right: 0;
+		top:0;
+		padding: 5px;
+
+	}
+
+	.page {
+
+		width:1240px; 
+		height:1724px; 
+		margin:0 auto;
+		position:relative; 
+		margin-top:50px;
+		border-radius: 5px;
+    	border: solid 1px #EAEAEA;
+    	box-shadow: 2px 2px 10px #DADADA;
+
+	}
+
+	.assinatura_box {
+		float: left;
+		padding: 10px;
+		margin: 5px;
+		background-color: rgba(0,0,0,0.2);
+	}
+
+</style>
+
+
+<section class="content-header">
+
+  <h1>
+
+    Paginas Exame
+
+    <small></small>
+
+  </h1>
+
+
+
+  <ol class="breadcrumb">
+
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="Exames">Exames</a></li>
+    <li class="active">Detalhes de Exames</li>
+
+  </ol>
+
+
+
+</section>
+
+
+<section class="content">
+
+    <div class="box">
+        <div class="box-body">
+
+ 		<?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?>  
+
+  		<form method="POST" action="">
+
+	    	<input type="hidden" value="1" name="documentoID" id="documentoID">
+
+	    	<input type="hidden" value="<?php print $view_folder; ?>" name="folder" id="folder">
+
+	    	<?php 
+
+	    	$i = 0;
+
+	    	foreach ($view_files as $file) { ?>	    	
+
+	    	<div style="overflow-x: scroll;width: 850px;">
+	    	
+	    	<div class="page" data-page="1" style="background:url(themes/files/exames/<?php print $view_folder; ?>/<?php print $file; ?>) center top no-repeat; "> 
+
+	    		<input type="hidden" value="<?php print $i; ?>" name="data[<?php print $i; ?>][pagina]" class="_pagina">
+	    		<input type="hidden" value="<?php print $file ?>" name="data[<?php print $i; ?>][img]" class="_imagem">
+	    		<input type="hidden" value="<?php if(isset($view_doc[$i]['assinatura']['img'])) print $view_doc[$i]['assinatura']['img']; ?>" name="data[<?php print $i; ?>][assinatura][img]" class="_assinatura">
+	    		<input type="hidden" value="<?php if(isset($view_doc[$i]['assinatura']['y'])) print $view_doc[$i]['assinatura']['y']; ?>" name="data[<?php print $i; ?>][assinatura][y]" class="_assinatura_y">
+	    		<input type="hidden" value="<?php if(isset($view_doc[$i]['assinatura']['x'])) print $view_doc[$i]['assinatura']['x']; ?>" name="data[<?php print $i; ?>][assinatura][x]" class="_assinatura_x">
+
+	    		<div class="assinatura_box"> 
+
+	    			<select class="assinatura_lista form-control">
+
+	    				<?php foreach ($view_medicos as $value) { ?>
+
+	    					<option value="<?php print $value['assinatura']; ?>"> <?php print $value['nome']; ?> </option>
+
+	    				<?php } ?>
+
+	    			</select>
+
+	    			<button class="add_assinatura btn btn-default">Adicionar Assinatura</button>
+
+	    		</div>
+
+	    		<?php if(!empty($view_doc[$i]['assinatura']['img'])) { ?>
+
+	    			<div class="assinatura" style="left: <?php print $view_doc[$i]['assinatura']['x']; ?>px; top: <?php print $view_doc[$i]['assinatura']['y']; ?>px;"><div><img src="themes/files/uploads/<?php print $view_doc[$i]['assinatura']['img']; ?>" width="450"></div><a href="javascript:void(0)" class="fechar_assinatura"><i class="fa fa-ban"></i></a></div>
+
+	    		<?php } ?>
+
+	    	</div>
+	    	</div>
+	    	<?php  $i++; } ?>
+
+	    	<input type="submit" class="save_document btn btn-default" value="Salvar">
+
+
+	    </form>
+
+
+      </div>
+
+    </div>
+
+</section>

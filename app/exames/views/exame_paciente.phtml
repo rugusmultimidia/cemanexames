@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<base href="<?php print PATH; ?>"  />
+
+<?php print $this->get_head(); ?>
+
+<link href="themes/admin/css/bootstrap.min.css" rel="stylesheet">
+
+<script> 
+
+$(function(){
+
+})
+
+</script>
+
+<style type="text/css">
+
+  body {
+	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: #f3f3f4;
+    font-size: 13px;
+    color: #676a6c;
+    overflow-x: hidden;
+  }
+
+  .page {
+	width:1240px; 
+	height:1724px; 
+	margin:0 auto;
+	position:relative; 
+	margin-top:50px;
+  }
+
+  section.content {
+	    padding: 0 15px;
+	    display: table;
+	    max-width: 1000px;
+	    width: 100%;
+	    margin-bottom: 30px;
+	}
+
+.box-body {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+    display: table;
+    width: 100%;
+}
+
+.user-name {
+    border-bottom: yellowgreen 1px solid;
+    font-size: 18px;
+    font-weight: bold
+}
+
+</style>
+
+</head>
+<body>
+
+<div style="margin:auto; width:1000px;">
+
+
+<section class="content-header">
+
+
+   	<div style="display: table;margin: 30px 0;width: 100%;">  
+
+		  <img src="themes/files/logo.png" width="220"  style="float:left;    margin: 20px 10px 10px -15px;" />
+
+		  <h2 style="color: #666;font-size: 24px;display: inline-block;text-align: center;margin-left: 90px;margin-top: 40px;">
+			Resultado de Exame Ceman
+		  </h2>
+
+		  <a href="users/logout" style="float: right; padding: 20px;">Sair</a>
+
+  	</div>
+
+  	<div style="display:block;    margin-top: 30px;">
+			
+			<p class="user-name"><?php print $_SESSION['@userAppPaciente']['nome']; ?></p>
+			<p>Data nascimento: <?php print $_SESSION['@userAppPaciente']['data_nascimento']; ?></p>
+	</div>	
+
+</section>
+
+		
+
+<section class="content">
+
+
+	<div class="">
+
+		<div class="box-body">   
+
+
+		
+
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td align="left"><strong>Titulo</strong></td>
+					<td><strong>Exame </strong></td>
+					<td align="center"><strong>Visualizar</strong></td>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($view_list as $exame) { 
+
+
+					$exames_geral = unserialize($exame['pdf']);
+
+					foreach($exames_geral as $ex) { 
+
+						//print_r($ex); die;
+
+				?>
+						<tr>
+							<td><?php print $exame['exame']?></td>
+							<td><?php print @$ex['name']?></td>
+							<td align="center"><a href="themes/files/uploads/<?php print @$ex['file']; ?>" target="_blank"><img src="themes/admin/img/pdf_icon.png"></a></td>
+						</tr>
+				<?php }} ?>
+			</tbody>
+		</table>
+
+
+	  </div>
+
+	</div>
+
+</section>
+</div>
+</body>
+
+
+</html>

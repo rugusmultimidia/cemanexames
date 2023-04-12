@@ -1,0 +1,15 @@
+<?php  foreach($view_termos as $dados ) { ?>
+	
+   <tr class="line">
+    <td align="right"><?php print $dados['id_taxonomia_entity']; ?></td>
+    <td><?php print $dados['value']; ?></td>
+    <td class="actions">
+    	<a href="taxonomia/edit_termo/id/<?php print $dados['id_taxonomia_entity'] ?>" title="Editar Termo" class="edit lightbox_trigger"><img src="assets/imagens/icons/edit.png" width="16" height="16" /></a>        
+        <a href="javascript:void(0)" class="del" data-controller="taxonomia/del_termo" title="Apagar termo" data-id="<?php print $dados['id_taxonomia_entity']; ?>">
+        	<img src="assets/imagens/icons/delete.png" width="16" height="16" />
+        </a>
+    </td>
+
+  </tr>
+	
+<?php  }  ?>

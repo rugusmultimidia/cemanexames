@@ -1,0 +1,147 @@
+
+/*--------------------------------------------
+					default
+---------------------------------------------*/
+
+#content-header {
+	padding: 10px;
+    display: table;
+}
+
+body[data-color="grey"] #wrapper {
+    
+}
+
+body[data-color="grey"] #sidebar > ul > li:hover {
+	
+}
+
+body[data-color="grey"] #sidebar > ul > li.open.submenu {
+	
+}
+
+#sidebar > ul ul li {
+	font-size: 12px;
+}
+
+
+.empresa_title {
+	color: #333;
+}
+
+
+/*--------------------------------------------
+					content
+---------------------------------------------*/
+.content-header {
+    padding: 0 30px;
+}
+
+.content-header-list {
+	padding: 0 20px;
+}
+
+.content-header h1, 
+.content-header-list h1 {
+    font-size: 22px;
+    color: #337ab7;
+}
+
+.breadcrumb {
+	display: none;
+}
+
+.actions {
+    font-size: 17px;
+}
+
+section.content {
+	padding: 0 15px;
+    display: table;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+
+/*--------------------------------------------
+	Pessoa Fisica
+---------------------------------------------*/
+
+.colaboradores-list .colaborador {
+    display: inline-block;
+    width: 30%;
+    margin-right: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: solid 1px #CCC;
+    padding: 10px;
+    font-size: 12px;
+    vertical-align: top;
+    height: 190px;
+    position: relative;
+}
+
+.colaboradores-list .colaborador label {
+    display: block;
+    margin-top: 5px;
+}
+
+.nome-colaborador {
+    padding-right: 10px;
+}
+
+.colaboradores-list .colaborador input, 
+.colaboradores-list .colaborador textarea {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #dadada;
+    padding: 3px;
+}
+
+.actions {
+    font-size: 16px;
+}
+
+.delete_colaborador {
+    position: absolute;
+    right: 10px;
+}
+
+
+.pessoa_fisica_row .colaborador {
+    float: left;
+    width: 130px;
+    height: 210px;
+    margin-right: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pessoa_fisica_row .nome-colaborador {
+    padding: 5px;
+    text-align: center;
+    font-size:11px;
+}
+
+.fonte-geradora-list , 
+.epis-list {
+    clear: both;
+    padding: 13px;
+}
+
+.fonte-geradora-list .fonte_geradora, 
+.epis-list .epi {
+    display: inline-block;
+    height: 50px;
+    vertical-align: top;
+    width: 30%;
+    border: solid 1px #CCC;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.fonte-geradora-list .delete_fonte_geradora, 
+.epis-list .delete_epi {
+    float: right;
+}

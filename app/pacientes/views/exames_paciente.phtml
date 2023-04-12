@@ -1,0 +1,53 @@
+<section class="content-header">
+          <h2>
+            Exames
+            <small><strong><?php print $view_paciente[0]['nome']; ?></strong> - Nascimento: <strong><?php print $view_paciente[0]['data_nascimento']; ?></strong></small>
+          </h2>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="Pacientes">Pacientes</a></li>
+            <li class="active">Lista de Pacientes</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+    <div class="box">
+        <div class="box-body">
+
+
+   <table class="table table-striped">
+      <thead>
+        <tr>
+          <td align="left"><strong>Titulo</strong></td>
+          <td><strong>Exame </strong></td>
+          <td align="center"><strong>Visualizar</strong></td>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($view_list as $exame) { 
+
+
+          $exames_geral = unserialize($exame['pdf']);
+
+          foreach($exames_geral as $ex) { 
+
+            //print_r($ex); die;
+
+        ?>
+            <tr>
+              <td><?php print $exame['exame']?></td>
+              <td><?php print @$ex['name']?></td>
+              <td align="center"><a href="themes/files/uploads/<?php print @$ex['file']; ?>" target="_blank"><img src="themes/admin/img/pdf_icon.png"></a></td>
+            </tr>
+        <?php }} ?>
+      </tbody>
+    </table>
+
+        
+        </div>
+    </div>
+    
+    <?php $this->pagination->paginate()?>
+    
+</section>

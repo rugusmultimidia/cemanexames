@@ -1,0 +1,43 @@
+<?php 
+
+if(!isset($view_current_value[1])) $view_current_value[1] = '';
+if(!isset($view_current_value[2])) $view_current_value[2] = '';
+
+?>
+
+<label>Controller</label>
+
+<select name="entity" id="field_type_entity" class="form-control" data-name="<?php print $view_name; ?>" >
+
+<option value="">Selecione</option>                 
+	<?php foreach( $this->init->xcodeModel->getAll() as $_menu ) { ?>
+			
+		   <option value="<?php print $_menu['id_controller']; ?>" <?php if($view_current_value[2] == $_menu['id_controller']) print 'selected' ?>><?php print $_menu['controller']; ?></option>                 
+		
+	<?php  }  ?>
+</select>
+
+<label>Campo de referencia</label>
+
+<select name="entity" id="field_type_entity_value" class="form-control value_options" data-name="<?php print $view_name; ?>" >
+			
+            <?php if(!empty($view_current_value[2])){ ?>            
+            
+				<?php $fields = $this->getControllerFields($view_current_value[2]);?>
+                
+                <?php foreach($fields['field'] as $field) { ?>
+                
+                    <option data-controller="<?php print $view_current_value[0]; ?>" value="<?php print $field['field_machine_name'] ?>" <?php if($view_current_value[1] == $field['field_machine_name']) print 'selected' ?>>
+						<?php print $field['field_name']; ?>
+                    </option>
+                
+                <?php  }  ?>
+            
+            <?php  }  ?>
+
+</select>
+
+<div>
+	<input name="multiple" type="checkbox" id="multiple" value="true" <?php if($view_field_multiple_values == 'true') print 'checked="checked"'; ?> >
+	<label for="multiple" checked>Multiple values</label>
+</div>

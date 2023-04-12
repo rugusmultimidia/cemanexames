@@ -1,0 +1,168 @@
+<section class="content-header">
+          <h1>
+            <i class="fa fa-user"></i> Editar Usuário
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="users">users</a></li>
+            <li class="active">Edit user</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+<div class="box">
+<div class="box-body">
+      
+	  
+<?php if($this->_post()) $this->message->getMsg(); ?>
+	  
+<form action="" class="form-group" method="post" enctype="multipart/form-data" name="form">
+  
+  <fieldset> 
+          <legend> Pápel de usuário </legend>
+  	
+    <div class="row">
+        <div class="col-md-6">
+          	<label> Pápel de usuário</label>
+            <input name="name" type="text" placeholder="field name" value="<?php print $view_role['user_type'] ?>" class="form-control" required="required" id="name" />
+        </div>
+    </div>
+    
+    <fieldset> 
+          <legend> Permissões </legend>
+    
+    <div class="row">
+    	<div class="col-md-6"> 	
+                    
+            <table class="table table-bordered table-striped">
+              <tr>
+                <td><strong>Módulo</strong></td>
+                <td align="center"><strong>Visualizar</strong></td>
+                <td align="center"><strong>Adicionar</strong></td>
+                <td align="center"><strong>Editar</strong></td>
+                <td align="center"><strong>Excluir</strong></td>
+              </tr>
+              
+              <tr>
+                <td><input type="checkbox" class="select_line" /> Usuários</td>
+                <td align="center">
+                    <input name="permissao[users][index_action]" type="checkbox" id="checkbox" value="true" 
+                    <?php if(isset($view_permission['users']['index_action'])) print 'checked="checked"'; ?> />					
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[users][add]" id="checkbox2"
+                    <?php if(isset($view_permission['users']['add'])) print 'checked="checked"'; ?> />
+                 </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[users][edit]" id="checkbox3"
+                    <?php if(isset($view_permission['users']['edit'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[users][del]" id="checkbox4"
+                    <?php if(isset($view_permission['users']['del'])) print 'checked="checked"'; ?> />
+                 </td>
+              </tr>
+			  
+			  <tr>
+                <td><input type="checkbox" class="select_line" /> Papéis de Usuários</td>
+                <td align="center">
+                    <input name="permissao[users][roles]" type="checkbox" id="checkbox" value="true" 
+                    <?php if(isset($view_permission['users']['roles'])) print 'checked="checked"'; ?> />					
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[users][roles_add]" id="checkbox2"
+                    <?php if(isset($view_permission['users']['roles_add'])) print 'checked="checked"'; ?> />
+                 </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[users][roles_edit]" id="checkbox3"
+                    <?php if(isset($view_permission['users']['roles_edit'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[users][roles_del]" id="checkbox4"
+                    <?php if(isset($view_permission['users']['roles_del'])) print 'checked="checked"'; ?> />
+                 </td>
+              </tr>
+              
+              <tr>
+                <td><input type="checkbox" class="select_line" /> Taxonomias</td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[taxonomia][index_action]" id="checkbox"
+                    <?php if(isset($view_permission['taxonomia']['index_action'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[taxonomia][add]" id="checkbox2"
+                    <?php if(isset($view_permission['taxonomia']['add'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[taxonomia][edit]" id="checkbox3"
+                    <?php if(isset($view_permission['taxonomia']['edit'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[taxonomia][del]" id="checkbox4"
+                    <?php if(isset($view_permission['taxonomia']['del'])) print 'checked="checked"'; ?> />
+                </td>
+              </tr>
+			  
+			  <tr>
+                <td><input type="checkbox" class="select_line" /> Xcode</td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[xcode][index_action]" id="checkbox"
+                    <?php if(isset($view_permission['xcode']['index_action'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[xcode][add]" id="checkbox2"
+                    <?php if(isset($view_permission['xcode']['add'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[xcode][edit]" id="checkbox3"
+                    <?php if(isset($view_permission['xcode']['edit'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                	<input type="checkbox" value="true" name="permissao[xcode][del]" id="checkbox4"
+                    <?php if(isset($view_permission['xcode']['del'])) print 'checked="checked"'; ?> />
+                </td>
+              </tr>
+              
+               <?php foreach( $this->init->xcodeModel->getAll() as $_menu ) { ?>
+              
+              <tr>
+                <td><input type="checkbox" class="select_line" /> <?php print $_menu['controller'] ?></td>
+                <td align="center">
+                	<input type="checkbox" value="true" id="permissao_view"
+                    name="permissao[<?php print strtolower(functions::removeSpecialChars($_menu['controller'])); ?>][index_action]"
+                    <?php if(isset($view_permission[strtolower(functions::removeSpecialChars($_menu['controller']))]['index_action'])) print 'checked="checked"'; ?> />
+                 </td>
+                <td align="center">
+                    <input type="checkbox" value="true" 
+                    name="permissao[<?php print strtolower(functions::removeSpecialChars($_menu['controller'])); ?>][add]" id="permissao_add"
+                    <?php if(isset($view_permission[strtolower(functions::removeSpecialChars($_menu['controller']))]['add'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                    <input type="checkbox" value="true" 
+                    name="permissao[<?php print strtolower(functions::removeSpecialChars($_menu['controller'])); ?>][edit]" id="permissao_edit"
+                    <?php if(isset($view_permission[strtolower(functions::removeSpecialChars($_menu['controller']))]['edit'])) print 'checked="checked"'; ?> />
+                </td>
+                <td align="center">
+                    <input type="checkbox" value="true" 
+                    name="permissao[<?php print strtolower(functions::removeSpecialChars($_menu['controller'])); ?>][del]" id="permissao_del"
+                    <?php if(isset($view_permission[strtolower(functions::removeSpecialChars($_menu['controller']))]['del'])) print 'checked="checked"'; ?> />
+                </td>
+              </tr>
+              
+              <?php } ?>
+              
+            </table>
+
+     </div>
+    </div>
+ </fieldset>  
+     
+
+<input type="submit" class="btn btn-default" value="Editar Pápel" />
+
+</form>
+
+</div>
+</div>
+</section>

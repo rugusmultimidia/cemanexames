@@ -1,0 +1,85 @@
+<section class="content-header">
+		  <h1>
+			Lista de Exames 
+			<small></small>
+		  </h1>
+		  <ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="Exames">Exames</a></li>
+			<li class="active">Lista de Exames</li>
+		  </ol>
+</section>       
+
+<section class="content"> 
+	<div class="box">
+		<div class="box-body">   
+
+	<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+	  <tr style="font-weight:bold">
+		<td width="49">ID</td>
+		<td>Exame</td>
+		<td>Paciente</td>
+		<td>Código Paciente</td>
+		<td>Data Nascimento</td>
+		<td width="138">Ações</td>
+	  </tr>
+
+	<?php  foreach($view_list as $dados ) { ?>		
+
+	   <tr class="line">
+
+		<td><?php print $dados['id_exames']; ?></td>
+		<td><?php print html_entity_decode($dados["exame"]); ?></td>
+		<td><?php print $dados["paciente"]; ?></td>
+		<td><?php print $dados["codigo_paciente"]; ?></td>
+		<td><?php print ($dados["data_nascimento"]); ?></td>
+
+
+
+		<td class="actions">
+
+			<a href="admin/index/cartao/id/<?php print $dados['id_exames'] ?>" target="_blank">
+				<i class="fa fa-eye"></i>
+			</a> 
+
+			<a href="admin/exames/doc/id/<?php print $dados['id_exames'] ?>">
+				<i class="fa fa-files-o"></i>
+			</a>  
+
+			<a href="admin/exames/edit/id/<?php print $dados['id_exames'] ?>">
+				<i class="fa fa-edit"></i>
+			</a>   
+
+			<a href="javascript:void(0)" class="del" data-controller="admin/exames/del" title="Apagar registro" data-id="<?php print $dados['id_exames']; ?>">
+				<i class="fa fa-ban"></i>
+			</a>
+
+		</td>
+
+	
+
+	  </tr>
+
+		
+
+	<?php  }  ?>
+
+	
+
+	</table>
+
+
+
+		
+
+		</div>
+
+	</div>
+
+	
+
+	<?php $this->pagination->paginate()?>
+
+	
+
+</section>

@@ -1,0 +1,241 @@
+<section class="content-header">
+
+          <h1>
+
+            <i class="fa fa-user"></i> Adicionar Usuário
+
+          </h1>
+
+          <ol class="breadcrumb">
+
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+
+            <li><a href="users">users</a></li>
+
+            <li class="active">Add new user</li>
+
+          </ol>
+
+</section>
+
+        
+
+<section class="content"> 
+
+
+
+    <div class="box">
+
+        <div class="box-body">
+
+      
+
+	  
+
+<?php if($this->_post()) $this->message->getMsg(); ?>
+
+
+
+
+
+	  
+
+<form action="" class="form-group" method="post" enctype="multipart/form-data" name="form">
+
+
+
+
+
+    <div class="col-xs-8">
+
+		<div class="form-group fields">
+
+          	<label> Nome do usuário</label>
+
+            <input name="name" type="text" placeholder="field name" class="form-control" required="required" id="name" />
+
+        </div>
+
+	</div>
+
+
+
+
+    <div class="col-xs-4">
+
+		<div class="form-group fields">
+
+          	<label> Login</label>
+
+            <input name="login" type="text" placeholder="field name" class="form-control" required="required" id="login" />
+
+        </div>
+
+	</div>
+
+
+
+   <div class="col-xs-4">
+
+    <div class="form-group fields">
+
+            <label>Senha</label>
+
+            <input name="pass" type="password" placeholder="password" class="form-control" required="required" />
+
+        </div>
+
+   </div>
+
+
+
+
+
+    <div class="col-xs-4">
+
+		<div class="form-group fields">
+
+          	<label> Email</label>
+
+            <input name="email" type="text" placeholder="field email" class="form-control" required="required" id="email" />
+
+        </div>
+
+	</div>	
+
+
+ 
+
+
+
+
+    <div class="col-xs-4" style="display: none">
+
+	<div class="form-group fields">
+
+          	<label for="user_type"> Tipo de usuário </label>
+
+            <select name="user_type" id="user_type" class="form-control" required="required">
+
+			<?php foreach($view_roles as $role) { ?>
+
+				<option value="<?php print $role['id_user_type']; ?>"><?php print $role['user_type']; ?></option>
+
+			<?php } ?>             
+
+            </select>
+
+	</div>	
+
+    </div>
+
+
+
+     <div class="col-xs-12">
+
+
+
+	<input type="submit" class="btn btn-default" value="Adicionar usuário" />
+
+	</div>
+
+
+
+</form>
+
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<script>
+
+$(function(){
+
+  
+
+
+
+  //, #, #nome_contratado
+
+  $('#funcao').autocomplete({
+
+            source: function( request, response ) {
+
+          
+
+              $.ajax({
+
+                url : 'pessoa_fisica/getFuncoes',
+
+                dataType: "json",
+
+            type: "POST",
+
+            data: {
+
+               value: request.term,
+
+               field: 'funcao'
+
+            },
+
+             success: function( data ) {
+
+               response( $.map( data, function( item ) {
+
+
+
+                return {
+
+                  label: item.funcao,
+
+                  value: item.funcao,              
+
+                }
+
+                
+
+                
+
+              }));
+
+              
+
+            }
+
+              });
+
+            },
+
+            autoFocus: true,
+
+            minLength: 3 ,
+
+        select: function( event, ui ) {
+
+          
+
+         
+
+
+
+          },      
+
+  });
+
+
+
+  
+
+})
+
+</script>
+

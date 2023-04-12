@@ -1,0 +1,191 @@
+<section class="content-header">
+
+          <h1>
+
+            Cadastrar Exames
+
+            <small></small>
+
+          </h1>
+
+          <ol class="breadcrumb">
+
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+
+            <li><a href="#">Exames</a></li>
+
+            <li class="active">Adicionar novo Exames</li>
+
+          </ol>
+
+</section>
+
+        
+
+<section class="content"> 
+
+
+
+    <div class="box">
+
+        <div class="box-body">
+
+     
+
+            
+
+            <?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?> 
+
+            
+
+            <form action="" method="post" enctype="multipart/form-data" name="exame_add" id="exame_add" >
+
+
+
+                
+
+                    <div class="col-xs-12 name-exame type-textfield">
+
+								<div class="form-group fields">
+
+									<label for="exame">Exame</label>
+
+									<input name="exame" type="textfield" value="" class="form-control" id="exame">
+
+								</div>
+
+							</div>
+
+					<div class="col-xs-12 name-paciente type-textfield">
+						<div class="form-group fields">
+							<label for="paciente">Paciente</label>
+							<input name="paciente" type="textfield" value="" class="form-control" id="paciente">
+							<input type="hidden" value="" name="id_paciente" id="id_paciente">
+						</div>
+					</div>
+
+					<div class="col-xs-6 name-codigo_paciente type-textfield">
+						<div class="form-group fields">
+							<label for="codigo_paciente">Código Paciente</label>
+							<input name="codigo_paciente" type="number" value="" class="form-control" id="codigo_paciente" required>
+						</div>
+					</div>
+
+<div class="col-xs-6 name-email type-textfield">
+
+								<div class="form-group fields">
+
+									<label for="email">Email</label>
+
+									<input name="email" type="textfield" value="" class="form-control" id="email">
+
+								</div>
+
+							</div>
+
+							<div class="col-xs-6 name-data_nascimento type-textfield">
+
+								<div class="form-group fields">
+
+									<label for="data_nascimento">Data Nascimento</label>
+
+									<input name="data_nascimento" type="textfield" value="" class="form-control" id="data_de_nascimento">
+
+								</div>
+
+							</div> 
+
+
+							
+
+						<div class="col-xs-6 name-pdf type-textarea">
+							<div class="form-group fields">
+								<label for="dados">PDF</label>
+								<input type="file" name="pdf[]" id="pdf" class="form-control" multiple="multiple" />
+							</div>
+						</div>  
+
+						<div class="col-xs-6 name-imagem type-textarea imagem">
+							<div class="form-group fields">
+								<label for="imagem">Imagens</label>
+								<input type="file" name="imagem[]" id="imagem" class="form-control" multiple="multiple" />
+							</div>
+						</div>                  
+
+						<div class="col-xs-6 name-senha type-textarea senha" style="display: none">
+							<div class="form-group fields">
+								<label for="senha">Senha</label>
+								<input name="senha" type="textfield" value="" class="form-control" id="senha" readonly>
+							</div>
+						</div>    
+                   
+
+
+              		<div class="col-xs-12">  
+
+						<button type="submit" class="btn btn-default">Cadastrar</button>
+
+					</div>
+
+            
+
+            </form>
+
+
+
+        
+
+        </div>
+
+    </div>
+
+</section>
+
+<script type="text/javascript">
+	
+/*
+$(function(){
+
+	$( "#paciente" ).autocomplete({
+
+		source: function (request, response)
+	    {
+	        $.ajax(
+	        {
+	            url: 'admin/pacientes/getPacienteAjax/',
+	            dataType: "json",
+	            type : 'POST',
+	            data:
+	            {
+	                term: request.term,
+	            },
+	            success: function (data)
+	            {
+	                response( $.map( data, function( item ) {
+
+					    return {
+					        label: item.nome,
+					        value: item.nome,
+					        data : item
+					    }
+					}));
+	            }
+	        });
+	    },
+	    minLength: 3,
+	    select: function (event, ui)
+	    {	//console.log(ui.item.data.data_nascimento);
+	    	//console.log(ui.item.data);
+	        $('#email').val(ui.item.data.email);
+	        $('#codigo_paciente').val(ui.item.data.codigo_paciente);
+	        $('#data_de_nascimento').val(ui.item.data.data_nascimento);
+	    }
+	});
+
+
+
+
+});
+*/
+
+</script>

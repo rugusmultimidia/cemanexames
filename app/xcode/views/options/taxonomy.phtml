@@ -1,0 +1,7 @@
+<select name="taxonomia" id="field_type_vocabulary" class="form-control value_options" data-name="<?php print $view_name; ?>" >
+	<?php  foreach($view_data as $dados ) { ?>
+			
+		   <option value="<?php print $dados['id_taxonomy']; ?>"><?php print $dados['taxonomy']; ?></option>                 
+		
+	<?php  }  ?>
+</select>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <base href="<?php print PATH; ?>"  />
+    <title>admin</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    
+    <?php print $this->get_head(); ?>
+    <script src="themes/admin/js/bootstrap.min.js"></script>
+    <link href="themes/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="themes/default/assets/css/font-awesome.css" rel="stylesheet"  />
+
+<style type="text/css">
+
+.middle-box {
+  max-width: 400px;
+  z-index: 100;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.loginscreen.middle-box {
+  width: 400px;
+    border: solid 1px #CCC;
+    padding: 15px 15px;
+    margin-top: 80px;
+    display: table;
+}
+
+</style>
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div>
+        	<img src="themes/files/logo.png" width="220" />
+            <p style="color:#75B982;  margin: 20px 0;"><i class="fa fa-lock fa-lg" ></i> Entre com os dados para acessar o sistema.</p>
+            <form class="m-t">
+                <div class="form-group">
+                    <input type="text" name="user" class="form-control user" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="pass" class="form-control pass" placeholder="Password" required="required">
+                </div>
+                <div class="spinner" style="float:left">
+					<div class="bounce1"></div>
+					<div class="bounce2"></div>
+					<div class="bounce3"></div>
+				</div>
+				
+				<div class="message" style="display:none;"> 
+				
+				</div>
+
+				<a class="btn btn-success btn-sm bounceIn animation-delay5 login-link-admin pull-right" href="javascript:void(0)" style="    background-color: #75B982;    border: none;    padding: 7px 40px;">
+                        	<i class="fa fa-sign-in"></i> Login
+                        </a>
+   			</form>
+            
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

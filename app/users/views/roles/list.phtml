@@ -1,0 +1,52 @@
+<section class="content-header">
+          <h1>
+            Lista de Pápeis
+            <small>Gerenciar funções</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Users</a></li>
+			<li><a href="#">User Roles</a></li>
+            <li class="active">Add new role</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+<div class="box">
+<div class="box-body">
+      
+	<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+      
+    <thead>  
+      <tr style="font-weight:bold">
+        <td width="49">ID</td>
+        <td width="49">Tipo</td>
+        <td width="138">Ações</td>
+      </tr>
+    </thead>
+    <tbody>
+    <?php  foreach($view_list as $dados ) { ?>
+        
+       <tr class="line">
+        <td><?php print $dados['id_user_type']; ?></td>
+        <td><?php print $dados['user_type']; ?></td>
+        <td class="actions">
+            <a href="<?php print ih_current_path; ?>_edit/id/<?php print $dados['id_user_type'] ?>">
+				<i class="fa fa-edit"></i>
+			</a>  
+            <a href="javascript:void(0)" class="del" data-controller="<?php print ih_current_path; ?>_del/" title="Apagar registro" data-id="<?php print $dados['id_user_type']; ?>">
+                <i class="fa fa-ban"></i>
+            </a>
+        </td>
+    
+      </tr>
+        
+    <?php  }  ?>
+    </tbody>
+    </table>
+
+
+</div>
+</div>
+</section>

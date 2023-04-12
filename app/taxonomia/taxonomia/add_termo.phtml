@@ -1,0 +1,18 @@
+<div id="title"> Cadastrar Termo </div>
+
+
+<form id="form1" name="form1" method="post" action="taxonomia/add_termo/vocabulario/<?php print $view_id_vocabulario; ?>">
+<table width="1016" border="0" cellpadding="5" cellspacing="0" class="table table-striped">
+  <tr>
+    <td width="130" align="right">Termo</td>
+    <td width="866"><input name="nome" type="text" id="nome" size="50" /></td>
+    </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td><input type="submit" name="button" id="button" value="Salvar" class="save btn btn-default"/></td>
+  </tr>
+  </table>
+
+<div class="node_msg">  </div>
+<img src="assets/icons/ajax-loader.gif" width="24" height="24" class="ajax-loader" />
+</form>

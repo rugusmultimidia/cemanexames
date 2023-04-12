@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cartao de paciente</title>
+	<meta charset="UTF-8">
+
+
+<style type="text/css">
+
+body {
+    font-size: 20px;
+    font-family: helvetica;
+    line-height: 60px;
+}
+
+.login {
+    width: 250px;
+    height: 130px;
+    background-color: #e7e7e7;
+    padding: 20px;
+    line-height: 40px;
+    text-align: center;
+    border: 2px solid #b3b0b0;
+}
+
+</style>
+
+<script type="text/javascript">
+	
+</script>
+
+
+</head>
+<body>
+
+
+<div> 
+
+<h2>Olá, &nbsp;<?php print $view_data[0]['nome']; ?></h2>
+
+<p>A <strong>Ceman</strong> disponibiliza um serviço especial para sua comodidade. Agora, para aumentar a velociadade dos nossos exames, basta acessar o nosso site em Resultado de Exames e digitar o seu login e senha.</p>
+
+<div class="login">
+<p><strong>Login: </strong><?php print $view_data[0]['codigo_paciente']; ?><br><strong>Senha: </strong><?php print $view_data[0]['senha']; ?></p>
+</div>
+<p>Agradecemos a sua atenção.</p>
+<p>Qualquer dúdida ligar para o telefone:<strong> 11 3374 1620</strong></p>
+</div>
+
+
+</body>
+</html>
