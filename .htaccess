@@ -1,0 +1,19 @@
+RewriteEngine On
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?page=$1 [QSA]
+#RewriteRule ^(.*)$ index.php?page=admin/$1 [QSA]
+
+#RewriteBase   /admin
+
+
+
+
+
+<FilesMatch "\.(?:ini)$">
+
+Order allow,deny
+
+Deny from all
+
+</FilesMatch>
