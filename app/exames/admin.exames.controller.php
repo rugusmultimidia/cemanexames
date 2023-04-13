@@ -205,7 +205,7 @@ class exames extends Controller {
 
 		if($this->_post()) {
 
-			//print_r($_FILES); die;
+			// print_r($_FILES); die;
 
 			
 
@@ -456,7 +456,8 @@ class exames extends Controller {
 		if($this->_post()) {
 			
 			//print_r($_POST); die;
-			include_once 'helpers/mpdf_v6/mpdf.php';
+			// include_once 'helpers/mpdf_v6/mpdf.php';
+			include_once 'helpers/vendor/mpdf/mpdf/mpdf.php';
 
 			$mpdf = new mPDF(); 
 			//print_r($_POST['data'][$this->folder]); die;
@@ -470,8 +471,8 @@ class exames extends Controller {
 				//salva img no podf
 				//$html= $mpdf->AddPage();
 
-				if(file_exists("themes/files/resultados/".$this->folder."/exame-".$i.".jpg")) {
-					$mpdf->WriteHTML("<div><img src='themes/files/resultados/".$this->folder."/exame-".$i.".jpg'></div>");
+				if(file_exists("themes/files/resultados/".$this->folder."/exame-".$i.".png")) {
+					$mpdf->WriteHTML("<div><img src='themes/files/resultados/".$this->folder."/exame-".$i.".png'></div>");
 					//print "themes/files/resultados/".$this->folder."/exame-".$i.".jpg";
 					$i++;
 				}
@@ -486,7 +487,7 @@ class exames extends Controller {
 			}
 			//print_r($_POST['data']);
 			//print_r($dataOld);
-			$result = array_merge($_POST['data'], $dataOld);
+			$result = array_merge($dataOld, $_POST['data']);
 			//print_r($result); die;
 			//print_r($result);
 
@@ -618,7 +619,7 @@ class exames extends Controller {
 			//imagecopymerge($dest, $src, posicao x, posicao y, 0, 0, largura_assinatura, altura_assinatura, 100);
 			//header('Content-Type: image/png');
 
-			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.jpg');
+			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.png');
 			imagedestroy($dest);
 			//imagedestroy($src);
 
@@ -631,7 +632,7 @@ class exames extends Controller {
 
 			imagealphablending($dest, false);
 			imagesavealpha($dest, true);
-			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.jpg');
+			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.png');
 			imagedestroy($dest);
 			/*$url="http://www.google.co.in/intl/en_com/images/srpr/logo1w.png";
 			$contents=file_get_contents($url);
@@ -729,6 +730,7 @@ class exames extends Controller {
 
 	public function ConvertPDF() {
 
+		var_dump(@$_POST);
 
 		$fotos = json_decode(@$_POST['fotos']);
 		
@@ -743,9 +745,28 @@ class exames extends Controller {
 		    $folder = explode('.pdf', $pdf);
 		    $folder = $folder[0];   
 
+			$filename = $location."uploads/".$pdf;
+
+			if (is_readable($filename)) {
+				echo 'O arquivo pode ser lido.';
+			} else {
+				echo 'O arquivo não pode ser lido.';
+			}
+			
+			if (is_writable($filename)) {
+				echo 'O arquivo pode ser escrito.';
+			} else {
+				echo 'O arquivo não pode ser escrito.';
+			}
+
 		    if(!file_exists($location.'exames/'.$folder)) {
-		    	mkdir($location.'exames/'.$folder, 0777);
+		    	mkdir($location.'exames/'.$folder, 0775);
 		    }
+
+			// die();
+
+			// var_dump($fotos);
+			// $this->printar($fotos);
 
 
 
@@ -763,7 +784,8 @@ class exames extends Controller {
 		    }
 
 
-
+			//https://stackoverflow.com/questions/58623596/failed-to-get-imagick-load-for-php7-4 para ajustar a biblioteca
+			//https://stackoverflow.com/questions/37599727/php-imagickexception-not-authorized solucao para o pdf gravar
 		    
 		    $imagick = new Imagick();
 

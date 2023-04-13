@@ -142,6 +142,18 @@
 			return $str;
 		} 
 
+		public function printar($data=false)
+		{
+			if($data){
+				echo "<pre>";
+				print_r($data);
+				die();
+			}else{
+				echo 'Sem parametro para printar';
+				die();
+			}
+		}
+
 		
 		
 	}

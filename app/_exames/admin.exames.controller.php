@@ -216,7 +216,7 @@ class exames extends Controller {
 			// Output and free from memory
 						
 			//header('Content-Type: image/png');
-			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.jpg');
+			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.png');
 			imagedestroy($dest);
 			imagedestroy($src);
 
@@ -224,7 +224,7 @@ class exames extends Controller {
 
 
 			$dest  = $this->imageCreateFromAny(getcwd().'/themes/files/exames/'.$id.'/'.$data['img']);
-			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.jpg');
+			imagepng($dest, getcwd().'/themes/files/resultados/'.$id.'/exame-'.$data['pagina'].'.png');
 			imagedestroy($dest);
 			/*$url="http://www.google.co.in/intl/en_com/images/srpr/logo1w.png";
 			$contents=file_get_contents($url);
