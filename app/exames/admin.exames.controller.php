@@ -747,17 +747,10 @@ class exames extends Controller {
 
 			$filename = $location."uploads/".$pdf;
 
-			if (is_readable($filename)) {
-				echo 'O arquivo pode ser lido.';
-			} else {
-				echo 'O arquivo não pode ser lido.';
-			}
-			
-			if (is_writable($filename)) {
-				echo 'O arquivo pode ser escrito.';
-			} else {
-				echo 'O arquivo não pode ser escrito.';
-			}
+			// faz uma copia do arquivo original para a pasta /original do SERVIdor
+			if(!file_exists($location.'original/'.$pdf)) {
+				$copia_arquivo = copy($filename, $location.'original/'.$pdf);
+		    }
 
 		    if(!file_exists($location.'exames/'.$folder)) {
 		    	mkdir($location.'exames/'.$folder, 0775);
@@ -791,7 +784,7 @@ class exames extends Controller {
 
 			$imagick->setResolution(150, 150);
 
-		    $imagick->readImage($location."uploads/".$pdf);
+		    $imagick->readImage($filename);
 		    $imagick->resizeImage(1240,1724,Imagick::FILTER_POINT,1);
 			// Writes an image or image sequence Example- converted-0.jpg, converted-1.jpg
 			$imagick->writeImages($location."exames/".$folder."/exame.png", false);

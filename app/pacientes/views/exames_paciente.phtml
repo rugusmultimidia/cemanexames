@@ -38,7 +38,21 @@
             <tr>
               <td><?php print $exame['exame']?></td>
               <td><?php print @$ex['name']?></td>
-              <td align="center"><a href="themes/files/uploads/<?php print @$ex['file']; ?>" target="_blank"><img src="themes/admin/img/pdf_icon.png"></a></td>
+
+              <?php 
+
+                  $file_pdf = @$ex['file'];
+                  $file_path = 'themes/files/uploads/' . $file_pdf;
+
+                  if (file_exists($file_path)) {
+                      $file = 'themes/files/uploads/' . $file_pdf;
+                  } else {
+                      $file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
+                  }
+                  
+              
+              ?>
+              <td align="center"><a class="gourl" href="<?=$file?>" target="_blanck"><img src="themes/admin/img/pdf_icon.png"></a></td>
             </tr>
         <?php }} ?>
       </tbody>
@@ -51,3 +65,6 @@
     <?php $this->pagination->paginate()?>
     
 </section>
+
+
+

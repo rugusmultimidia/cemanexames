@@ -46,7 +46,7 @@ class Upload {
 		
 		$this->fileName = md5($this->fileName.time()).'.'.$this->extension ;	
 		
-		//print $this->fileTmpName .$_SERVER['DOCUMENT_ROOT'] . $this->path . $this->fileName;
+		//print $this->zfileTmpName .$_SERVER['DOCUMENT_ROOT'] . $this->path . $this->fileName;
 		
         if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName))
             

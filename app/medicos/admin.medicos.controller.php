@@ -84,6 +84,10 @@ class medicos extends Controller {
 					// *** Save resized image as a PNG
 					$magicianObj -> saveImage('themes/files/uploads/'.$dataSave["assinatura"]);
 
+					if(!file_exists('themes/files/assinaturas/'.$dataSave["assinatura"])) {
+						$copia_arquivo = copy('themes/files/uploads/'.$dataSave["assinatura"], 'themes/files/assinaturas/'.$dataSave["assinatura"]);
+					}
+
 				}
 				
 
@@ -170,8 +174,10 @@ class medicos extends Controller {
 
 					// *** Save resized image as a PNG
 					$magicianObj -> saveImage('themes/files/uploads/'.$dataSave["assinatura"]);
-								
 
+					if(!file_exists('themes/files/assinaturas/'.$dataSave["assinatura"])) {
+						$copia_arquivo = copy('themes/files/uploads/'.$dataSave["assinatura"], 'themes/files/assinaturas/'.$dataSave["assinatura"]);
+					}
 			}			
 
 			$this->medicos_model->edit($dataSave, 'id_medicos = '.$id);				

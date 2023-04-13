@@ -192,16 +192,37 @@
 											</td>
 										</tr>
 										<?php } ?>	
+											<?php 
+
+												$file_pdf = $pdf['file'];
+												$file_path = 'themes/files/uploads/' . $file_pdf;
+
+												if (file_exists($file_path)) {
+													$file = 'themes/files/uploads/' . $file_pdf;
+													$edit = true;
+												} else {
+													$file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
+													$edit = false;
+												}
+												
+											
+											?>
 										<tr>
-											<td><input type="text" class="form-control" name="active_file[<?php print $i; ?>][name]" value="<?php print @$pdf['name']; ?>"></td>
+											<td>
+												<?php if($edit):?>
+													<input type="text" class="form-control" name="active_file[<?php print $i; ?>][name]" value="<?php print @$pdf['name']; ?>"></td>
+												<?php else:?>
+													<input type="text" class="form-control"  value="<?php print @$pdf['name']; ?>" disabled></td>
+													<input type="hidden" class="form-control" name="active_file[<?php print $i; ?>][name]" value="<?php print @$pdf['name']; ?>"></td>
+												<?php endif;?>
 											<td>
 												<input type="hidden" name="active_file[<?php print $i; ?>][file]" 
 														value="<?php print $pdf['file']; ?>">
-													<a href="themes/files/uploads/<?php print $pdf['file']; ?>" target="_blank">
+													<a href="<?=$file?>" target="_blank">
 														<?php print $pdf['file']; ?>
 													</a>
 											</td>
-											
+											<?php if($edit):?>
 											<td>
 												<?php 
 
@@ -227,6 +248,7 @@
 											</td>
 											<td>
 												<a href="javascript:void(0)" class="del_file" data-file="<?php print $pdf['file']; ?>">apagar</a></td>
+											<?php endif;?>
 										</tr>	
 
 										<?php $i++; } ?>
