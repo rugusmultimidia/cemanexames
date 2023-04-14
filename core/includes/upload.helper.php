@@ -52,6 +52,7 @@ class Upload {
             
                 return $this->fileName;
         else
+            die(error_get_last());
                 return false ;
      
         
