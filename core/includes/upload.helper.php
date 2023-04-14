@@ -52,7 +52,9 @@ class Upload {
             
                 return $this->fileName;
         else
-            die(error_get_last());
+            echo "<pre>";
+            print_r(error_get_last());
+            die();
                 return false ;
      
         
