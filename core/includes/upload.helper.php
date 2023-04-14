@@ -48,32 +48,32 @@ class Upload {
 		
 		//print $this->fileTmpName .$_SERVER['DOCUMENT_ROOT'] . $this->path . $this->fileName; die();
 
-        echo "<pre>";
-        var_dump("Diretorio: ".is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/'));
-        var_dump("Gravacao: ".is_writable('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/'));
+        // echo "<pre>";
+        // var_dump("Diretorio: ".is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/'));
+        // var_dump("Gravacao: ".is_writable('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/'));
 
-        if (is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/')) {
-            die('O diretório de destino não existe');
-            if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName)) {
-              die('O arquivo foi movido com sucesso!');
-            } else {
-              die('Houve um erro ao mover o arquivo.');
-            }
-          } elseif (is_writable('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/')) {
-            die('não tem permissão de gravação.');
-        }else {
-              die('não tem permissão de gravação.');
+        // if (is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/')) {
+        //     die('O diretório de destino não existe');
+        //     if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName)) {
+        //       die('O arquivo foi movido com sucesso!');
+        //     } else {
+        //       die('Houve um erro ao mover o arquivo.');
+        //     }
+        //   } elseif (is_writable('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/')) {
+        //     die('não tem permissão de gravação.');
+        // }else {
+        //       die('não tem permissão de gravação.');
 
-          }
+        //   }
 		
-        // if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName))
+        if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName))
             
-        //         return $this->fileName;
-        // else
-        //     // echo "<pre>";
-        //     // print_r(error_get_last());
-        //     // die();
-        //         return false ;
+                return $this->fileName;
+        else
+            // echo "<pre>";
+            // print_r(error_get_last());
+            // die();
+                return false ;
      
         
     }
