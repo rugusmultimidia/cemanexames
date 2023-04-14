@@ -334,8 +334,11 @@ class exames extends Controller {
 			$i = 0;
 			foreach ($filesPDF as $pdf) {
 				
-				$this->uploder->setFile($pdf);	
+				$this->uploder->setFile($pdf);
 				$filesNames[$i]['file'] = $this->uploder->upload();
+				if (!$filesNames[$i]['file']){
+					die("Arquivo não foi gravado.");
+				}
 				//$filesNames[$i]['images'] = 
 				$i++;
 			}
