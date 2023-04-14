@@ -47,15 +47,25 @@ class Upload {
 		$this->fileName = md5($this->fileName.time()).'.'.$this->extension ;	
 		
 		//print $this->fileTmpName .$_SERVER['DOCUMENT_ROOT'] . $this->path . $this->fileName; die();
+
+        if (is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/') && is_writable('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/')) {
+            if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName)) {
+              die('O arquivo foi movido com sucesso!');
+            } else {
+              die('Houve um erro ao mover o arquivo.');
+            }
+          } else {
+            die('O diretório de destino não existe ou não tem permissão de gravação.');
+          }
 		
-        if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName))
+        // if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName))
             
-                return $this->fileName;
-        else
-            // echo "<pre>";
-            // print_r(error_get_last());
-            // die();
-                return false ;
+        //         return $this->fileName;
+        // else
+        //     // echo "<pre>";
+        //     // print_r(error_get_last());
+        //     // die();
+        //         return false ;
      
         
     }
