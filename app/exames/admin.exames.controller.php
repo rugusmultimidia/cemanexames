@@ -108,7 +108,7 @@ class exames extends Controller {
 				foreach ($filesPDF as $pdf) {
 					
 					$this->uploder->setFile($pdf);	
-					$filesNames[$i]['file'] = $this->uploder->upload();
+					$filesNames[$i]['file'] = $this->uploder->_upload();
 					$i++;
 				}
 
@@ -118,7 +118,7 @@ class exames extends Controller {
 				foreach ($filesImg as $img) {
 					
 					$this->uploder->setFile($img);	
-					$ImageNames[0]['imagem'][] = $this->uploder->upload();
+					$ImageNames[0]['imagem'][] = $this->uploder->_upload();
 				}
 
 				
@@ -271,7 +271,7 @@ class exames extends Controller {
 
 				foreach ($img as $value) {
 					$this->uploder->setFile($value);
-					$ImageNames[$key]['imagem'][] = $this->uploder->upload();
+					$ImageNames[$key]['imagem'][] = $this->uploder->_upload();
 					
 				}
 			}
@@ -335,7 +335,7 @@ class exames extends Controller {
 			foreach ($filesPDF as $pdf) {
 				
 				$this->uploder->setFile($pdf);
-				$filesNames[$i]['file'] = $this->uploder->upload();
+				$filesNames[$i]['file'] = $this->uploder->_upload();
 				if (!$filesNames[$i]['file']){
 					die("Arquivo não foi gravado.");
 				}
@@ -654,7 +654,7 @@ class exames extends Controller {
 
 			$this->uploder->setFile($_FILES[0]);									
 
-			$filename = $this->uploder->upload();
+			$filename = $this->uploder->_upload();
 
 			$data = array('success' => 'success', 'filename' => $filename);
 
