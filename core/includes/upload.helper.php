@@ -48,6 +48,10 @@ class Upload {
 		
 		//print $this->fileTmpName .$_SERVER['DOCUMENT_ROOT'] . $this->path . $this->fileName; die();
 
+        echo "<pre>";
+        var_dump("Diretorio: ".is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/'));
+        var_dump("Gravacao: ".is_writable('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/'));
+
         if (is_dir('/var/www/exames2cemanmogi/public_html/cemanexames/themes/files/uploads/')) {
             die('O diretório de destino não existe');
             if (move_uploaded_file($this->fileTmpName, getcwd() . $this->path . $this->fileName)) {
