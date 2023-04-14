@@ -40,7 +40,7 @@ class Upload {
     }
     
     
-    public function upload($fileName = null){		
+    public function _upload($fileName = null){		
 		
 		if($fileName) {$this->fileName = $fileName;}
 		
