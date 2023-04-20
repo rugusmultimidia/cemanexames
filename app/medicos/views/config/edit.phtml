@@ -1,0 +1,119 @@
+<section class="content-header">
+
+          <h1>
+
+            Editar Médicos 
+
+            <small></small>
+
+          </h1>
+
+          <ol class="breadcrumb">
+
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+
+            <li><a href="Médicos">Médicos</a></li>
+
+            <li class="active">Lista de Médicos</li>
+
+          </ol>
+
+</section>
+
+        
+
+<section class="content"> 
+
+
+
+    <div class="box">
+
+        <div class="box-body">
+
+        
+
+
+
+ <?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?> 
+
+
+
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+
+
+
+    
+
+  		<div class="col-xs-12 name-nome type-textfield">
+
+								<div class="form-group fields">
+
+									<label for="nome">Médico</label>
+
+									<input name="nome" type="textfield" value="<?php print $view_data[0]["nome"];  ?>" class="form-control" id="nome">
+
+								</div>
+
+							</div>
+
+<div class="col-xs-6 name-crm type-textfield">
+
+								<div class="form-group fields">
+
+									<label for="crm">CRM</label>
+
+									<input name="crm" type="textfield" value="<?php print $view_data[0]["crm"];  ?>" class="form-control" id="crm">
+
+								</div>
+
+							</div>
+
+<div class="col-xs-6 name-especialidade type-textfield">
+
+								<div class="form-group fields">
+
+									<label for="especialidade">especialidade</label>
+
+									<input name="especialidade" type="textfield" value="<?php print $view_data[0]["especialidade"];  ?>" class="form-control" id="especialidade">
+
+								</div>
+
+							</div>
+
+<div class="col-xs-6 name-assinatura type-image">
+
+								<div class="form-group fields">
+
+									<label for="assinatura">assinatura</label>
+
+									<input type="file" name="assinatura" id="assinatura" class="form-control" /><div><img src="themes/files/assinaturas/<?php print $view_data[0]["assinatura"]; ?>" alt="" width="500" class="img-thumbnail" /></div>
+
+								</div>
+
+							</div>
+
+
+
+  		<div class="col-xs-12">  
+
+			<button type="submit" class="btn btn-default">Editar</button>
+
+		</div>
+
+
+
+
+
+</form>
+
+
+
+
+
+        
+
+        </div>
+
+    </div>
+
+</section>

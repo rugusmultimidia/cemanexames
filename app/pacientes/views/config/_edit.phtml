@@ -1,0 +1,88 @@
+<section class="content-header">
+          <h1>
+            Editar Pacientes 
+            <small></small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="Pacientes">Pacientes</a></li>
+            <li class="active">Lista de Pacientes</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+    <div class="box">
+        <div class="box-body">
+        
+
+ <?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?> 
+
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+
+    
+  		<div class="col-xs-12 name-nome type-textfield">
+								<div class="form-group fields">
+									<label for="nome">Nome</label>
+									<input name="nome" type="textfield" value="<?php print $view_data[0]["nome"];  ?>" class="form-control" id="nome">
+								</div>
+							</div>
+<div class="col-xs-3 name-codigo_paciente type-textfield">
+								<div class="form-group fields">
+									<label for="codigo_paciente">Código Paciente</label>
+									<input name="codigo_paciente" type="textfield" value="<?php print $view_data[0]["codigo_paciente"];  ?>" class="form-control" id="codigo_paciente">
+								</div>
+							</div>
+							<div class="col-xs-3 name-senha type-textfield">
+								<div class="form-group fields">
+									<label for="senha">Senha</label>
+									<input name="senha" type="textfield" value="<?php print $view_data[0]["senha"];  ?>" class="form-control" id="senha">
+								</div>
+							</div>
+
+<div class="col-xs-3 name-data_nascimento type-textfield">
+								<div class="form-group fields">
+									<label for="data_nascimento">Data Nascimento</label>
+									<input name="data_nascimento" type="textfield" value="<?php print $view_data[0]["data_nascimento"];  ?>" class="form-control" id="data_nascimento">
+								</div>
+							</div>
+<div class="col-xs-6 name-email type-textfield">
+								<div class="form-group fields">
+									<label for="email">Email</label>
+									<input name="email" type="textfield" value="<?php print $view_data[0]["email"];  ?>" class="form-control" id="email">
+								</div>
+							</div>
+<div class="col-xs-6 name-telefone type-textfield">
+								<div class="form-group fields">
+									<label for="telefone">Telefone</label>
+									<input name="telefone" type="textfield" value="<?php print $view_data[0]["telefone"];  ?>" class="form-control" id="telefone">
+								</div>
+							</div>
+<div class="col-xs-6 name-celular type-textfield">
+								<div class="form-group fields">
+									<label for="celular">Celular</label>
+									<input name="celular" type="textfield" value="<?php print $view_data[0]["celular"];  ?>" class="form-control" id="celular">
+								</div>
+							</div>
+
+  		<div class="col-xs-12">  
+			<button type="submit" class="btn btn-default">Salvar</button>
+		</div>
+
+
+</form>
+
+
+        
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript">
+	$(function(){
+
+			$('#data_nascimento').mask('99/99/9999');
+
+	});
+</script>

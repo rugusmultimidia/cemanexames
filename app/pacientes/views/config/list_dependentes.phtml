@@ -1,0 +1,122 @@
+<section class="content-header">
+          <h1>
+            Dependentes 
+            <small></small>
+          </h1>
+          <a href="admin/pacientes/add/paciente/<?php print $this->_get('paciente')?>" class="btn btn-primary" style="margin-bottom: 10px;"><i class="fa fa-plus"></i> Novo Dependente </a>
+
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="Pacientes">Dependentes</a></li>
+            <li class="active">Lista de Dependentes</li>
+          </ol>
+</section>
+        
+<section class="content"> 
+
+    <div class="box">
+        <div class="box-body">
+
+
+       
+        <div>
+          <h4>Responsável: <b><?php print $view_responsavel[0]['nome'] ?></b> </h4>
+        </div>
+
+    <table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+      <tr style="font-weight:bold">
+        <td width="49">ID</td>
+        <td>Nome</td>
+        <td>Data Nascimento</td>
+        <td>Email</td>
+        <td>Data de Cadastro</td>
+        <td>Consultas</td>
+        <td width="138">Ações</td>
+      </tr>
+    
+    <?php  foreach($view_list as $dados ) { ?>
+        
+       <tr class="line">
+        <td><?php print $dados['id_pacientes']; ?></td>
+        <td><?php print $dados["nome"]; ?></td>
+        <td><?php print $dados["data_nascimento"]; ?></td>
+        <td><?php print $dados["email"]; ?></td>
+       
+        
+        <td>
+
+        <?php 
+
+            $d = explode(" ", $dados["date_created"]);
+            print $this->toDate("-",$d[0]); 
+        ?>
+          
+        </td>
+
+        <td><a href="admin/consultas/lista/paciente/<?php print $dados['id_pacientes']; ?>" class="consultas" title="consultas">
+                <i class="fa fa-calendar"></i>
+            </a></td>
+
+
+        <td class="actions">
+
+        
+
+        <?php if($dados['codigo_paciente']) { ?>
+        
+        <a href="admin/pacientes/list_exames/id/<?php print $dados['codigo_paciente'] ?>" >
+         <i class="fa fa-heartbeat" aria-hidden="true"></i>
+        </a> 
+
+        <a target="_blank" href="admin/index/cartao/id/<?php print $dados['codigo_paciente'] ?>" >
+          <i class="fa fa-eye"></i>
+        </a> 
+        <?php }?>  
+        
+        
+
+            <a href="admin/pacientes/edit/id/<?php print $dados['id_pacientes'] ?>">
+				<i class="fa fa-edit"></i>
+			</a>   
+            <a href="javascript:void(0)" class="del" data-controller="admin/pacientes/del" title="Apagar registro" data-id="<?php print $dados['id_pacientes']; ?>">
+                <i class="fa fa-ban"></i>
+            </a>
+        </td>
+    
+      </tr>
+        
+    <?php  }  ?>
+    
+    </table>
+
+        
+        </div>
+    </div>
+    
+    <?php //$this->pagination->paginate()?>
+    
+</section>
+
+
+
+<script type="text/javascript">
+  
+  $(function(){
+
+    $('#btn_busca').click(function(){
+
+      var q = $('#q').val();
+
+      window.location.href = "admin/pacientes?q="+encodeURI(q);
+    });
+
+
+    $('#btn_limpar').click(function(){
+
+      window.location.href = "admin/pacientes";
+    });
+    
+
+  });
+
+</script>
