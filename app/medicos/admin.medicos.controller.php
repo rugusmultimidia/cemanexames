@@ -67,7 +67,7 @@ class medicos extends Controller {
 
 					$this->uploder->setFile($_FILES["assinatura"]);									
 
-					$dataSave["assinatura"] = $this->uploder->upload();//$fileName ;//$this->uploder->upload();
+					$dataSave["assinatura"] = $this->uploder->_upload();//$fileName ;//$this->uploder->upload();
 
 
 					
