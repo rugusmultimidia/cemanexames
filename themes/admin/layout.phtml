@@ -140,16 +140,17 @@ define('DIR', 'themes/admin/');
 				</li>
 
 				<!-- Menu -->
+				<?php if($this->clinica() == 'ceman'):?>
+					<li class="<?php if($this->controller == 'medicos') print 'active'; ?>">
+						
+						<a href="javascript:void(0)"><i class="fa  fa-user-md"></i> <span class="nav-label">Médicos</span></a>
 
-				<li class="<?php if($this->controller == 'medicos') print 'active'; ?>">
-					
-					<a href="javascript:void(0)"><i class="fa  fa-user-md"></i> <span class="nav-label">Médicos</span></a>
-
-					<ul class="nav nav-second-level collapse">
-						<li><a href="admin/medicos/add">Cadastrar</a></li>
-						<li><a href="admin/medicos">Listar</a></li>							
-					</ul>
-				</li>
+						<ul class="nav nav-second-level collapse">
+							<li><a href="admin/medicos/add">Cadastrar</a></li>
+							<li><a href="admin/medicos">Listar</a></li>							
+						</ul>
+					</li>
+				<?php endif;?>
 
 				<!-- Menu -->
 
@@ -178,12 +179,15 @@ define('DIR', 'themes/admin/');
 
 				<!-- Menu -->
 
-				<li class="<?php if($this->controller == 'index') print 'active'; ?>">
+				<!-- <li class="<?php if($this->controller == 'index') print 'active'; ?>">
 					
 					<a href="admin/index/interacao_medicamentosa"><i class="fa fa-stethoscope"></i> <span class="nav-label">Interação medicamentosa</span></a>
-				</li>
+				</li> -->
 
 				<!-- Menu -->
+
+				
+				<?php if($this->clinica() == 'ceman'):?>
 
 				<li class="<?php if($this->controller == 'users') print 'active'; ?>">
 					
@@ -194,6 +198,8 @@ define('DIR', 'themes/admin/');
 						<li><a href="admin/users">Listar</a></li>							
 					</ul>
 				</li>
+
+				<?php endif;?>
 
 
 

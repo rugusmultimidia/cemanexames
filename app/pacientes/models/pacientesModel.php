@@ -57,10 +57,14 @@ class pacientesModel extends Model {
 
     public function getSearch($n = '', $l = "", $id_dependente = null) {
 
+        // die($_SESSION['@userApp']['clinica']);
+
+        $clinica = $_SESSION['@userApp']['clinica'];
+
         if(is_null($id_dependente))
-            return $this->read("nome LIKE '%".$n."%'  ", 'nome ASC', $l);
+            return $this->read("nome LIKE '%".$n."%' and clinica = '$clinica' ", 'nome ASC', $l);
         else
-            return $this->read("nome LIKE '%".$n."%'  and id_responsavel = ".$id_dependente." ", 'nome ASC', $l);
+            return $this->read("nome LIKE '%".$n."%'  and id_responsavel = ".$id_dependente." and clinica = '$clinica'", 'nome ASC', $l);
 
 
 

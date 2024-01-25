@@ -26,6 +26,7 @@ class users extends Controller {
 					'name' => $this->_post('name'),	
 					'email' => $this->_post('email'),
 					'login' => $this->_post('login'),
+					'clinica' => $this->_post('clinica'),
 					'password' => md5($this->_post('pass')),
 					'user_type' => $this->_post('user_type'),
 					'data_created' => date('Y-m-d H:i'),
@@ -53,7 +54,7 @@ class users extends Controller {
 					'name' => $this->_post('name'),
 					'email' => $this->_post('email'),
 					'login' => $this->_post('login'),
-					
+					'clinica' => $this->_post('clinica'),
 					'user_type' => $this->_post('user_type'),	
 					'data_created' => date('Y-m-d H:i')	
 				);	

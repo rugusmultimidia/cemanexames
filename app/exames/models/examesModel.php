@@ -53,7 +53,9 @@ class examesModel extends Model {
 
     }
 
-     public function getAllByPacienteName($paciente, $n = null) {        
+     public function getAllByPacienteName($paciente, $n = null) {    
+        
+        $clinica = $_SESSION['@userApp']['clinica'];
         
         if($n) {
             $limit = 'Limit '.$n.'';
@@ -62,7 +64,9 @@ class examesModel extends Model {
         }
 
         if($paciente) {
-            $where = "where P.nome like '%".$paciente."%'";
+            $where = "where P.nome like '%".$paciente."%' and P.clinica = '$clinica' ";
+        }else{
+            $where = "where P.clinica = '$clinica' ";
         }
 
         $sql =    "SELECT * from tb_exames E

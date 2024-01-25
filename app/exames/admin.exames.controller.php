@@ -144,6 +144,7 @@ class exames extends Controller {
 					"dados" => $this->_post("dados"),
 					"pdf" 	=> serialize($filesNames),
 					"imagem" 	=> serialize($ImageNames),
+					"clinica" => $this->clinica(),
 					"assinatura" => $assinatura,
 					'id_user' => $this->init->user['id_user'],
 					'date_created' => date('Y-m-d H:i'),
@@ -174,6 +175,7 @@ class exames extends Controller {
 						"senha" => rand(100000,999999),
 						"data_nascimento" => $this->_post("data_nascimento"),
 						"email" => $this->_post("email"),
+						"clinica" => $this->clinica(),
 						'id_user' => $this->init->user['id_user'],
 						'date_created' => date('Y-m-d H:i'),
 						'date_update' => date('Y-m-d H:i')

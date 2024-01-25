@@ -89,6 +89,7 @@ class pacientes extends Controller {
 					"email" => $this->_post("email"),
 					"telefone" => $this->_post("telefone"),	
 					"celular" => $this->_post("celular"),
+					"clinica" => $this->clinica(),
 					'id_user' => $this->init->user['id_user'],
 					'date_created' => date('Y-m-d H:i'),
 					'date_update' => date('Y-m-d H:i')

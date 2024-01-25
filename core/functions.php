@@ -154,6 +154,12 @@
 			}
 		}
 
+		public function clinica() {
+			
+			return $_SESSION['@userApp']['clinica'];
+
+		}
+
 		
 		
 	}

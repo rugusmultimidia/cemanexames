@@ -95,12 +95,23 @@
             <input name="pass_confirm" type="password" placeholder="password" class="form-control" required="required" />
 
         </div>
-
+        
+        <div class="col-xs-4">
+          <div class="form-group fields">
+            <label for="user_type">Clínica</label>
+            <select name="clinica" id="user_type" class="form-control" required="required">
+                <option value="">...</option>
+                <option value="ceman" <?=$view_users['clinica'] == 'ceman'?"selected":""?>>Ceman</option>
+                <option value="imason" <?=$view_users['clinica'] == 'imason'?"selected":""?>>Imason</option>
+            </select>
+          </div>	
+        </div>
     </div>
 
 
 
-    <div class="row" style="display: none">
+
+    <div class="row">
 
         <div class="col-md-3">
 
