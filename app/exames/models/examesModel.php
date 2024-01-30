@@ -64,12 +64,10 @@ class examesModel extends Model {
         }
 
         if($paciente) {
-            $where = "where P.nome like '%".$paciente."%' and P.clinica = '$clinica' ";
-        }else{
-            $where = "where P.clinica = '$clinica' ";
+            $where = "where P.nome like '%".$paciente."%'";
         }
 
-        $sql =    "SELECT * from tb_exames E
+        $sql =    "SELECT P.*, E.*, E.clinica as clinica_exame from tb_exames E
              INNER JOIN tb_pacientes P
              ON P.codigo_paciente = E.codigo_paciente
              ".$where."
@@ -80,9 +78,15 @@ class examesModel extends Model {
         
     } 
 
-    public function getAllExamesPaciente($codigo, $n = null) {        
+    public function getAllExamesPacienteAdmin($codigo, $n = null) {  
         
-        return $this->read("codigo_paciente = '".$codigo."'", $this->_id.' DESC', $n);        
+        return $this->read("codigo_paciente = '$codigo' ", $this->_id.' DESC', $n);        
+        
+    }  
+
+    public function getAllExamesPaciente($codigo, $n = null) {  
+        
+        return $this->read("codigo_paciente = '$codigo'and clinica='ceman'", $this->_id.' DESC', $n);        
         
     }    
       

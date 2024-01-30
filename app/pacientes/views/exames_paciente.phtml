@@ -19,6 +19,7 @@
    <table class="table table-striped">
       <thead>
         <tr>
+          <td align="center" width='100'><strong>Clínica</strong></td>
           <td align="left"><strong>Titulo</strong></td>
           <td><strong>Exame </strong></td>
           <td align="center"><strong>Visualizar</strong></td>
@@ -36,6 +37,7 @@
 
         ?>
             <tr>
+              <td align="center" ><?php print strtoupper($exame['clinica'])?></td>
               <td><?php print $exame['exame']?></td>
               <td><?php print @$ex['name']?></td>
 

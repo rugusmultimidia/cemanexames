@@ -56,17 +56,17 @@ class pacientes extends Controller {
 
 		$this->pagination = new Pagination();	
 
-		$count = $this->exames_model->getAllExamesPaciente($cod);		
+		$count = $this->exames_model->getAllExamesPacienteAdmin($cod);		
 
 		$this->pagination->link('admin/pacientes/index/page');			
 
 		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page') );		
 
-		$dados['list'] = $this->exames_model->getAllExamesPaciente($cod, $this->pagination->getLimit());		
+		$dados['list'] = $this->exames_model->getAllExamesPacienteAdmin($cod, $this->pagination->getLimit());		
 
 		$dados['paciente'] = $this->pacientes_model->getCode($cod);
 
-		
+		// die('exames');
 
 		$this->view('exames_paciente', $dados);		
 

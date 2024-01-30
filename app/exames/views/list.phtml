@@ -26,6 +26,7 @@
 	<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
 	  <tr style="font-weight:bold">
 		<td width="49">ID</td>
+		<td width="100">Clínica</td>
 		<td>Data Criação</td>
 		<td>Exame</td>
 		<td>Paciente</td>
@@ -39,6 +40,7 @@
 	   <tr class="line">
 
 		<td><?php print $dados['id_exames']; ?></td>
+		<td><?php print strtoupper($dados["clinica_exame"]); ?></td>
 		<td><?php 
 
 		$data = explode(" ", $dados['date_created']);
@@ -46,6 +48,7 @@
 		print implode('-', array_reverse(explode('-', $data[0])));
 
 		?></td>
+		
 		<td><?php print html_entity_decode($dados["exame"]); ?></td>
 		<td><?php print $dados["paciente"]; ?></td>
 		<td><?php print $dados["codigo_paciente"]; ?></td>

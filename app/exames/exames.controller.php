@@ -38,6 +38,7 @@ class exames extends Controller {
 		*/
 
 		$dados['list'] = $this->exames_model->getAllExamesPaciente($this->init->user['codigo_paciente']);	
+		// $this->printar($_SESSION);
 		
 		$this->viewNoBase('exame_paciente', $dados);	 	
 

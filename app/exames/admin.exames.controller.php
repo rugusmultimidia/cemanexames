@@ -42,6 +42,7 @@ class exames extends Controller {
 		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page') );		
 
 		$dados['list'] = $this->exames_model->getAllByPacienteName($this->q, $this->pagination->getLimit());		
+		// $this->printar($dados);
 
 		$this->view('list', $dados);		
 
@@ -175,7 +176,6 @@ class exames extends Controller {
 						"senha" => rand(100000,999999),
 						"data_nascimento" => $this->_post("data_nascimento"),
 						"email" => $this->_post("email"),
-						"clinica" => $this->clinica(),
 						'id_user' => $this->init->user['id_user'],
 						'date_created' => date('Y-m-d H:i'),
 						'date_update' => date('Y-m-d H:i')
