@@ -171,6 +171,7 @@ class Auth {
         $userType = $_SESSION['@userApp']['user_type'];
 
         if ($userType == 1 || $userType == 2) {
+            die("admin");
             return true;
         }
 
