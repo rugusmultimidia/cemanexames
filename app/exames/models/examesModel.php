@@ -88,8 +88,7 @@ class examesModel extends Model {
         $sql =    "SELECT P.*, E.*, E.clinica as clinica_exame , P.cpf as cpf_user, E.data_nascimento as data_nascimento_exame
             from tb_exames E
              INNER JOIN tb_pacientes P
-             ON P.codigo_paciente = E.codigo_paciente
-             #ON P.id_pacientes = E.id_pacientes
+             ON P.id_pacientes = E.id_pacientes
              WHERE E.clinica='$clinica' AND E.ativo='ativo'
              ".$where."
              order by E.date_update DESC ".$limit."
