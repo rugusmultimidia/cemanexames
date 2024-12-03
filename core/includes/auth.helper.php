@@ -202,7 +202,7 @@ class Auth {
 
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
-            die(var_dump($input));
+            // die(var_dump($input));
 
             // die(json_encode(var_dump($input)));
 
@@ -210,6 +210,10 @@ class Auth {
                 $login = $input['login'];
                 $senha = $input['senha'];
                 $clinica = $input['clinica'];
+
+                $cpf = mb_convert_encoding($input['login'], 'UTF-8', 'auto');
+                $senha = mb_convert_encoding($input['senha'], 'UTF-8', 'auto');
+                $clinica = mb_convert_encoding($input['clinica'], 'UTF-8', 'auto');
 
                 $db = new Model();	
 
@@ -223,11 +227,11 @@ class Auth {
                 LIMIT 1
                 ";
 
-                // die(json_encode($q));
+                die(json_encode($q));
 
                 $sql = $db->executeSql($q);
 
-                die(json_encode($sql[0]));
+                die(json_encode($sql));
                 
                 if (count($sql) > 0) {
                     
