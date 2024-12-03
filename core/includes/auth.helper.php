@@ -229,8 +229,7 @@ class Auth {
                 SELECT u.*
                 FROM tb_pacientes u
                 WHERE 
-                    (u.cpf = '$login' OR u.codigo_paciente = '$login')
-                    AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
+                    (u.data_nascimento = '$senha' OR u.senha = '$senha')
                     
                 LIMIT 1
                 ";
