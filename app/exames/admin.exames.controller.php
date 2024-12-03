@@ -1226,14 +1226,14 @@ class exames extends Controller {
 	public function convertDateFormats() {
 
 		
-		for ($i = 0; $i < 3; $i++) {
+		for ($i = 0; $i < 10; $i++) {
 
 			echo "loop $i<br>";
 
 			// die("Iniciando...");
 			
 			$exames = $this->exames_model->getAllNull();
-			$this->printar($exames);
+			// $this->printar($exames);
 			
 			foreach ($exames as $exame) {
 	
@@ -1256,7 +1256,7 @@ class exames extends Controller {
 					
 					if(!empty($paciente)) {
 						
-						$this->printar($paciente);
+						// $this->printar($paciente);
 						
 						if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
 							
