@@ -206,6 +206,8 @@ class Auth {
 
             // die(json_encode(var_dump($input)));
 
+            die(mb_detect_encoding($input['senha']));
+
             if (isset($input['login']) && isset($input['senha'])) {
                 $login = $input['login'];
                 $senha = $input['senha'];
