@@ -92,7 +92,7 @@ class examesModel extends Model {
              ON P.id_pacientes = E.id_pacientes
              WHERE E.clinica='$clinica' AND E.ativo='ativo'
              ".$where."
-             order by E.id_exames DESC ".$limit."
+             order by E.date_update DESC ".$limit."
              " ;
 
         // echo "<pre>";
