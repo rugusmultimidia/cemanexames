@@ -97,10 +97,15 @@ class Auth {
                     LEFT JOIN ih_users_type p on p.id_user_type = u.user_type
                     WHERE '.$where;
 
+            // die($q);
+
             $sql = $db->executeSql( $q );
 
-            $permissions = unserialize($sql[0]['permissions']);
-            $sql[0]['permissions'] = $permissions;
+            if(count($sql) > 0) {
+                $permissions = unserialize($sql[0]['permissions']);
+                $sql[0]['permissions'] = $permissions;
+            }
+
 
         } else {	
 
@@ -165,7 +170,7 @@ class Auth {
         // echo "<pre>";
         // print_r($userData['user_type']);
         // var_dump($userData['user_type'] == 1 || $userData['user_type'] == 2);
-        // print_r($_SESSION['@userApp']['user_type']);
+        // print_r($_SESSION);
         // die;
 
         $userType = $_SESSION['@userApp']['user_type'];
