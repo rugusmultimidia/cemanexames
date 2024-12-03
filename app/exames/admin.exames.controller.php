@@ -1249,7 +1249,7 @@ class exames extends Controller {
 				
 				if(!empty($paciente)) {
 					
-					$this->printar($paciente);
+					// $this->printar($paciente);
 					
 					if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
 						
@@ -1257,7 +1257,7 @@ class exames extends Controller {
 						
 						echo $exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
 			
-						$this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
+						// $this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
 					}
 				}
 			}
