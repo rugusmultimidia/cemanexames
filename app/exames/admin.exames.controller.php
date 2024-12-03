@@ -1239,7 +1239,7 @@ class exames extends Controller {
 	
 				$data_nascimento = $exame['data_nascimento'];
 	
-				// $this->printar($exame);
+				$this->printar($exame);
 	
 				if ($this->isDateBR($data_nascimento)) {
 					$data_nascimento = $this->convertDateToUSA($data_nascimento);
