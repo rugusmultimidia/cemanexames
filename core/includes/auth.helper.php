@@ -211,6 +211,11 @@ class Auth {
                 $login = $input['login'];
                 $senha = $input['senha'];
                 $clinica = $input['clinica'];
+
+                // Sanitização
+                $cpf = mysqli_real_escape_string($conn, $cpf);
+                $senha = mysqli_real_escape_string($conn, $senha);
+                $clinica = mysqli_real_escape_string($conn, $clinica);
                 
                 $cpf = mb_convert_encoding($input['login'], 'UTF-8', 'auto');
                 $senha = mb_convert_encoding($input['senha'], 'UTF-8', 'auto');
