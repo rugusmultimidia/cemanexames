@@ -212,7 +212,7 @@ class Auth {
                 $senha = trim($input['senha']);
                 $clinica = trim($input['clinica']);
                 
-                die(mb_detect_encoding($senha));
+                // die(mb_detect_encoding($senha));
 
                 $db = new Model();	
 
@@ -230,11 +230,11 @@ class Auth {
 
                 $sql = $db->executeSql($q);
 
-                die(json_encode($sql));
+                // die(json_encode($sql));
                 
                 if (count($sql) > 0) {
                     
-                    die(json_encode($sql[0]));
+                    // die(json_encode($sql[0]));
                     $this->sessionHelper->createSession("@paciente", $sql[0]);
                     return true;
 
