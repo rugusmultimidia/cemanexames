@@ -202,7 +202,7 @@ class Auth {
 
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
-            die(print_r($input));
+            die(var_dump($input));
 
             // die(json_encode(var_dump($input)));
 
