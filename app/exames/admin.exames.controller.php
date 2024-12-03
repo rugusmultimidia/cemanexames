@@ -67,7 +67,7 @@ class exames extends Controller {
 
 		$count = $this->exames_model->getAllByPacienteName($this->q);	
 
-		$this->pagination->link('admin/exames/index/page');			
+		$this->pagination->link('admin/exames/exames_new/page');			
 
 		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page') );		
 
