@@ -22,13 +22,13 @@ class examesModel extends Model {
     
     public function getAll($n = null) {        
         
-        return $this->read(null, $this->_id.' DESC', 1000);        
+        return $this->read(null, $this->_id.' DESC');        
         
     }  
 
-    public function getAllNull($n = null) {        
+    public function getAllNull($n = null) {   
         
-        return $this->read("id_pacientes is null", 'date_update DESC', $n);        
+        return $this->read("id_pacientes is null", 'date_update DESC', 20);        
         
     }  
 

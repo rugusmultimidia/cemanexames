@@ -30,7 +30,7 @@ class pacientesModel extends Model {
 
     if($id && $name){
         // die("nome like '%$name%' OR codigo_paciente = $id ");
-        return $this->read( "(nome like '%$name%' OR codigo_paciente = $id)");
+        return $this->read( "(nome like '%$name%' OR codigo_paciente = $id)", null, "1");
     }else{
         return null; 
 
