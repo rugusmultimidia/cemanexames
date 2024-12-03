@@ -222,6 +222,8 @@ class Auth {
                 LIMIT 1
                 ";
 
+                die(json_encode($q));
+
                 $sql = $db->executeSql( $q );
 
                 // die(json_encode($sql));
