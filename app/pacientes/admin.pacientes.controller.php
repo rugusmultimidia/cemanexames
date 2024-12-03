@@ -21,9 +21,10 @@ class pacientes extends Controller {
 		$this->pagination = new Pagination();
 		$this->pagination->defineQryString("?q=" . $this->q);
 
-		$count = $this->pacientes_model->getSearch($this->q);
+		$count = $this->pacientes_model->getSearch($this->q, null, null, true)[0]['total'];
+		// $this->printar($count);
 		$this->pagination->link('admin/pacientes/index/page');
-		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page'));
+		$this->pagination->setpaginate($count, ih_ItemsPerPage, ih_visibleItems, $this->_get('page'));
 
 		$id_responsavel = $this->_get('paciente');
 		

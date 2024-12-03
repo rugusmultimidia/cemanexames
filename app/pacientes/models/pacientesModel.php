@@ -70,7 +70,7 @@ class pacientesModel extends Model {
         }
     }
 
-    public function getSearch($n = '', $l = "", $id_dependente = null) {
+    public function getSearch($n = '', $l = "", $id_dependente = null, $count = false) {
 
         // die($_SESSION['@userApp']['clinica']);
 
@@ -78,23 +78,53 @@ class pacientesModel extends Model {
 
         $cpf = $this->validateCPF($n);  
 
-        if(is_null($id_dependente)){
+        if($l){
+            $l = "limit ".$l;
+        }else{
+            $l = "";
+        }
 
-            $query = "
-                id_pacientes is not null
-                and (
-                    nome LIKE '%".$n."%'
+        if (is_numeric($cpf)) {
+            $query_number = "
                     OR cpf = '".$cpf."'
                     OR codigo_paciente = '".$cpf."'
                     OR id_pacientes = '".$cpf."'
+                ";
+        } 
+
+        if(is_null($id_dependente)){
+
+            $where = "
+                id_pacientes is not null
+                and (
+                    nome LIKE '%".$n."%'
+                    $query_number
                     OR email = '%".$n."%'
                 ) 
-                and status = 'ativo' 
-                #and clinica = '$clinica'";
+                and status = 'ativo' ";
 
-                // die($query);
+            if($count){
+                $select = "count(*) as total";
+            }else{
+                $select = "*";
+            }
 
-            return $this->read($query,'nome ASC', $l);
+                $query = "
+                    SELECT $select 
+                    from tb_pacientes 
+                    where ".$where." 
+                    order by nome ASC 
+                    ".$l." 
+                    " ;
+    
+                
+                    // if(!$count){
+                    //     echo "<pre>";
+                    //     die($query);
+                    // }
+                
+                return $this->executeSql($query); 
+
         }else{
             return $this->read("nome LIKE '%".$n."%' and status = 'ativo'  and id_responsavel = ".$id_dependente, 'nome ASC', $l);
 
