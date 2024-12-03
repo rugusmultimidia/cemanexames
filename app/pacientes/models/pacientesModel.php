@@ -26,13 +26,15 @@ class pacientesModel extends Model {
 
 
 
-   public function getCode($id) {
+   public function getCode($id=null, $name=null) {
 
-
+    if($id && $name){
 
         return $this->read( 'codigo_paciente = "'.$id.'" ');
+    }else{
+        return null; 
 
-        
+    }  
 
     } 
 
