@@ -204,9 +204,7 @@ class Auth {
             $senha = trim($_POST['senha']);
             $clinica = trim($_POST['clinica']);
 
-            error_log("Login recebido: $cpf");
-            error_log("Senha recebida: $senha");
-            error_log("Clinica recebida: $clinica");
+            die(json_encode($_POST));
 
             error_log("Login recebido: $login");
             error_log("Senha recebida: $senha");
