@@ -200,20 +200,9 @@ class Auth {
         // Validate  tokenthe (this is just an example, implement your own validation logic)
         if ($token === 'G423JHG46GJH546F7F3763UI356KJ356') {
 
-            $cpf = trim($_POST['login']);
-            $senha = trim($_POST['senha']);
-            $clinica = trim($_POST['clinica']);
-
-            die(json_encode($_POST));
-
-            error_log("Login recebido: $login");
-            error_log("Senha recebida: $senha");
-            error_log("Clinica recebida: $clinica");
-            die(json_encode(array('status' => 'success', 'message' => 'Usuário logado com sucesso.')));
-            
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
-            // die(print_r($input));
+            die(print_r($input));
 
             // die(json_encode(var_dump($input)));
 
