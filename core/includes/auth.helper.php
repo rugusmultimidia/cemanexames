@@ -161,12 +161,14 @@ class Auth {
     public function checkLogin($user, $type, $action, $ignorePermission = false) { 
 
         // die($action);
-        $userData = $this->userData($user);
-        echo "<pre>";
-        print_r($userData);
-        die;
+        // $userData = $this->userData($user);
+        // echo "<pre>";
+        // print_r($userData['user_type']);
+        // var_dump($userData['user_type'] == 1 || $userData['user_type'] == 2);
+        // die;
 
         if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
+            // die("administrador");
             return true;
         }
 
