@@ -228,8 +228,7 @@ class Auth {
                 $q = "
                 SELECT u.*
                 FROM tb_pacientes u
-                WHERE 
-                    (u.data_nascimento = '$senha' OR u.senha = '$senha')
+
                     
                 LIMIT 1
                 ";
