@@ -1226,7 +1226,7 @@ class exames extends Controller {
 	public function convertDateFormats() {
 
 		
-		for ($i = 0; $i < 50; $i++) {
+		for ($i = 0; $i < 100; $i++) {
 
 			echo "loop $i<br>";
 
