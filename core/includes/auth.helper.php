@@ -199,6 +199,11 @@ class Auth {
         $token = $headers['Authorization'];
         // Validate  tokenthe (this is just an example, implement your own validation logic)
         if ($token === 'G423JHG46GJH546F7F3763UI356KJ356') {
+
+            header("Access-Control-Allow-Origin: *"); // Permitir todas as origens (ou especifique o domínio, ex.: 'https://meudominio.com')
+            header("Access-Control-Allow-Methods: POST, GET, OPTIONS"); // Permitir métodos específicos
+            header("Access-Control-Allow-Headers: Content-Type, Authorization, Cookie");
+            header("Access-Control-Allow-Credentials: true"); 
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
             // die(print_r($input));
