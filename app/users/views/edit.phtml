@@ -60,8 +60,8 @@
               <label for="user_type"> Tipo de usuário <?=$this->getUserType()?> </label>
               <select name="user_type" id="user_type" class="form-control" required="required">
                 <?php foreach($view_roles as $role) { ?>
+                  <option value="<?php print $role['id_user_type']; ?>" <?php if($role['id_user_type'] == $view_users['user_type'])print 'selected="selected"';?>><?php print $role['user_type']; ?></option>
                     <?php if ($this->getUserType() == 1 && ($role['id_user_type'] == 1 || $role['id_user_type'] == 2)) { ?>
-                      <option value="<?php print $role['id_user_type']; ?>" <?php if($role['id_user_type'] == $view_users['user_type'])print 'selected="selected"';?>><?php print $role['user_type']; ?></option>
                     <?php } ?>
                     <?php if ($role['id_user_type'] != 1 && $role['id_user_type'] != 2) { ?>
                       <option value="<?php print $role['id_user_type']; ?>" <?php if($role['id_user_type'] == $view_users['user_type'])print 'selected="selected"';?>><?php print $role['user_type']; ?></option>
