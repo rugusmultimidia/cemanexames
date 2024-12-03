@@ -1256,7 +1256,7 @@ class exames extends Controller {
 					
 					if(!empty($paciente)) {
 						
-						// $this->printar($paciente);
+						$this->printar($paciente);
 						
 						if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
 							
