@@ -33,9 +33,9 @@ body {
     <p style=""><strong>Usuário: </strong><?php print $view_data[0]['cpf']; ?><strong> - Senha: </strong><?php print $this->formatDateTimeToBR($view_data[0]['data_nascimento']); ?></p>
 <?php endif; ?>
 <p style="font-size: 10px;">Acesse pela aba de exames, ou pelo endereço: 
-<?php if ($view_data[0]['clinica'] == 'ceman'): ?>
+<?php if ($this->clinica() == 'ceman'): ?>
 https://exames.cemanmogi.com.br/
-<?php elseif ($view_data[0]['clinica'] == 'imason'): ?>
+<?php elseif ($this->clinica() == 'imason'): ?>
 https://exames.imason.com.br/
 <?php endif; ?>
 </p>
