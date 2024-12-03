@@ -28,7 +28,7 @@ class examesModel extends Model {
 
     public function getAllNull($n = null) {        
         
-        return $this->read("id_pacientes is null", 'date_created DESC', $n);        
+        return $this->read("id_pacientes is null", 'date_update DESC', $n);        
         
     }  
 
