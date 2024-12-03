@@ -1224,6 +1224,8 @@ class exames extends Controller {
 	}
 
 	public function convertDateFormats() {
+
+		die("Iniciando...");
 		
 		$exames = $this->exames_model->getAllNull();
 		$this->printar($exames);
