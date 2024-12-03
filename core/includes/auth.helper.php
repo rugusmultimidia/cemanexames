@@ -171,9 +171,11 @@ class Auth {
         $userType = $_SESSION['@userApp']['user_type'];
 
         if ($userType == 1 || $userType == 2) {
-            die("admin");
-            return true;
+            // die("admin");
+            return false;
         }
+
+        die("paciente");
 
         if ($this->redirectorHelper->getCurrentController() == "users" 
             && ($this->redirectorHelper->getCurrentAction() == "login" || $this->redirectorHelper->getCurrentAction() == "logout")) {
