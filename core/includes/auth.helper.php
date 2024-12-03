@@ -211,25 +211,18 @@ class Auth {
                 $login = trim($input['login']);
                 $senha = trim($input['senha']);
                 $clinica = trim($input['clinica']);
-
-                // Sanitização
-                $cpf = mysqli_real_escape_string($conn, $cpf);
-                $senha = mysqli_real_escape_string($conn, $senha);
-                $clinica = mysqli_real_escape_string($conn, $clinica);
                 
-                $cpf = mb_convert_encoding($input['login'], 'UTF-8', 'auto');
-                $senha = mb_convert_encoding($input['senha'], 'UTF-8', 'auto');
-                $clinica = mb_convert_encoding($input['clinica'], 'UTF-8', 'auto');
-                
-                // die(mb_detect_encoding($senha));
+                die(mb_detect_encoding($senha));
 
                 $db = new Model();	
 
                 $q = "
                 SELECT u.*
                 FROM tb_pacientes u
-
-                    
+                WHERE 
+                    (u.cpf = '$login' OR u.codigo_paciente = '$login')
+                    AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
+                    AND u.clinica = '$clinica'
                 LIMIT 1
                 ";
 
