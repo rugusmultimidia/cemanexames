@@ -9,6 +9,11 @@
 			<li><a href="#">User Roles</a></li>
             <li class="active">Add new role</li>
           </ol>
+          <div class="pull-right">
+            <a href="<?=PATH?>admin/users/roles_add" class="btn btn-primary">
+              <i class="fa fa-plus"></i> Add Role
+            </a>
+          </div>
 </section>
         
 <section class="content"> 
@@ -32,7 +37,7 @@
         <td><?php print $dados['id_user_type']; ?></td>
         <td><?php print $dados['user_type']; ?></td>
         <td class="actions">
-            <a href="<?php print ih_current_path; ?>_edit/id/<?php print $dados['id_user_type'] ?>">
+            <a href="<?=PATH?>admin/users/rolesEdit/id/<?php print $dados['id_user_type'] ?>">
 				<i class="fa fa-edit"></i>
 			</a>  
             <a href="javascript:void(0)" class="del" data-controller="<?php print ih_current_path; ?>_del/" title="Apagar registro" data-id="<?php print $dados['id_user_type']; ?>">

@@ -1,99 +1,90 @@
 <section class="content-header">
-          <h1>
-            Cadastrar <?php if($this->_get('paciente')) { print 'Dependente'; } else { print 'Pacientes'; } ?> 
-            <small></small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Pacientes</a></li>
-            <li class="active">Adicionar novo Pacientes</li>
-          </ol>
+	<h1>
+		Cadastrar <?php if($this->_get('paciente')) { print 'Dependente'; } else { print 'Pacientes'; } ?> 
+		<small></small>
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li><a href="#">Pacientes</a></li>
+		<li class="active">Adicionar novo Pacientes</li>
+	</ol>
 </section>
-        
+
 <section class="content"> 
+	<div class="box">
+		<div class="box-body">
+			<?php if($_POST) { ?>
+				<div class="alert alert-info" role="alert"> 
+					<?php $this->message->getMsg(); ?> 
+				</div> 
+			<?php } ?> 
 
-    <div class="box">
-        <div class="box-body">
-     
-            
-            <?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?> 
-            
-            <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1" >
-
-                	<?php if(isset($view_responsavel)) { ?>
-
-                		
-            		<div class="col-xs-12 name-nome type-textfield">
-						<div class="form-group fields">
-							<label for="responsavel">Responsável</label>
-							<input name="responsavel" type="textfield" value="<?php print $view_responsavel[0]['nome'] ?>" class="form-control" id="responsavel" readonly="readonly">
-						</div>
+			<form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
+				<?php if(isset($view_responsavel)) { ?>
+					<div class="form-group">
+						<label for="responsavel">Responsável</label>
+						<input name="responsavel" type="text" value="<?php print $view_responsavel[0]['nome'] ?>" class="form-control" id="responsavel" readonly="readonly">
 					</div>
+				<?php } ?> 
 
-					<?php } ?> 
-
-                    <div class="col-xs-12 name-nome type-textfield">
-								<div class="form-group fields">
-									<label for="nome">Nome</label>
-									<input name="nome" type="textfield" value="" class="form-control" id="nome">
-								</div>
-							</div>
-<div class="col-xs-3 name-codigo_paciente type-textfield">
-								<div class="form-group fields">
-									<label for="codigo_paciente">Código Paciente</label>
-									<input name="codigo_paciente" type="textfield" value="" class="form-control" id="codigo_paciente">
-								</div>
-							</div>
-<div class="col-xs-3 name-data_nascimento type-textfield">
-								<div class="form-group fields">
-									<label for="data_nascimento">Data Nascimento</label>
-									<input name="data_nascimento" type="textfield" value="" class="form-control" id="data_nascimento">
-								</div>
-							</div>
-<div class="col-xs-6 name-email type-textfield">
-								<div class="form-group fields">
-									<label for="email">Email</label>
-									<input name="email" type="textfield" value="" class="form-control" id="email">
-								</div>
-							</div>
-<div class="col-xs-6 name-telefone type-textfield">
-								<div class="form-group fields">
-									<label for="telefone">Telefone</label>
-									<input name="telefone" type="textfield" value="" class="form-control" id="telefone">
-								</div>
-							</div>
-<div class="col-xs-6 name-celular type-textfield">
-								<div class="form-group fields">
-									<label for="celular">Celular</label>
-									<input name="celular" type="textfield" value="" class="form-control" id="celular">
-								</div>
-							</div>
-
-              		<div class="col-xs-12">  
-						<button type="submit" class="btn btn-default">Cadastrar</button>
+				<div class="form-group">
+					<label for="nome">Nome</label>
+					<input name="id_pacientes" type="hidden" value="" id="id_pacientes">
+					<input name="nome" type="text" value="" class="form-control" id="paciente_novo" required>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="codigo_paciente">Código Paciente</label>
+						<input name="codigo_paciente" type="text" value="" class="form-control" id="codigo_paciente">
 					</div>
-            
-            </form>
+					<div class="form-group col-md-4">
+						<label for="data_nascimento">Data Nascimento</label>
+						<input name="data_nascimento" type="text" value="" class="form-control" id="data_nascimento" required>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="cpf">CPF</label>
+						<input name="cpf" type="text" value="" class="form-control" id="cpf" required >
+					</div>
+				</div>
 
-        
-        </div>
-    </div>
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label for="email">Email</label>
+						<input name="email" type="email" value="" class="form-control" id="email">
+					</div>
+					<div class="form-group col-md-4">
+						<label for="telefone">Telefone</label>
+						<input name="telefone" type="text" value="" class="form-control" id="telefone">
+					</div>
+					<div class="form-group col-md-4">
+						<label for="celular">Celular</label>
+						<input name="celular" type="text" value="" class="form-control" id="celular">
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-6 text-left">  
+						<button type="submit" id="salvar" class="btn btn-primary">Cadastrar</button>
+					</div>
+					<div class="col-xs-6 text-right">
+						<a href="/admin/pacientes" class="btn btn-secondary">Voltar</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </section>
 
 <div>
-	
 	<?php if(isset($view_responsavel)) { ?>
-
-		<a href="admin/pacientes/index/paciente/<?php print $this->_get('paciente'); ?>" class="btn btn-primary" style="margin-top: 15px;" >voltar para lista de dependentes</a>
-
+		<a href="admin/pacientes/index/paciente/<?php print $this->_get('paciente'); ?>" class="btn btn-primary" style="margin-top: 15px;" >Voltar para lista de dependentes</a>
 	<?php } ?> 	
 </div>
-
-
+<script src="app/pacientes/assets/pacientes.js"></script>
 <script type="text/javascript">
 	$(function(){
-
-			$('#data_nascimento').mask('99/99/9999');
-
+		$('#data_nascimento').mask('99/99/9999');
+		$('#cpf').mask('999.999.999-99');
 	});
 </script>

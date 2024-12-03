@@ -134,7 +134,7 @@ $(function(){
 
 	});
 
-	$( "#paciente" ).autocomplete({
+	$( "#paciente_" ).autocomplete({
 
 		source: function (request, response)
 	    {

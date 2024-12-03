@@ -14,6 +14,7 @@ class users extends Controller {
 	public function index_action(){		
 
 		$dados['list'] = $this->usersModel->getAll();
+		$dados['roles'] = $this->rolesModel->getAll();
 		$this->view('list', $dados);
 
 	}
@@ -93,41 +94,71 @@ class users extends Controller {
 
 	public function roles(){
 
+		if ($this->getUserType() != 1) {
+			header('Location: /');
+			exit();
+		}
+
+		// $this->printar($_SESSION);
+
 		$dados['list'] = $this->rolesModel->getAll();
 		$this->view('roles/list', $dados);
 	}	
 
 	public function roles_add(){	
 
+		if ($this->getUserType() != 1) {
+			header('Location: /');
+			exit();
+		}
+
 		if($this->_post()) {		
 
 				$save = array(
+					'funcao' => 0,	
 					'user_type' => $this->_post('name'),	
-					'permissions' => serialize($_POST['permissao'])
+					'permissions' => serialize($_POST['permissions'])
 				);				
 
 				$this->rolesModel->save($save);				
 
-				$this->message->setMsg('success','Papel criado com sucesso.');			
+				$this->message->setMsg('success','Papel criado com sucesso.');	
+				
+				header('Location: /admin/users/roles');
+				exit();
 
-		}		
+		}	
+		
+		$controllers = glob('app/*/*controller.php');
+		$controllers = array_filter($controllers, function($controller) {
+			return preg_match('/^app\/.*\/admin\..*controller\.php$/', $controller);
+		});
 
-		$this->view('roles/add');	
+		$dados['modulos'] = $this->updatePermissionsArray($controllers);
+
+		$this->view('roles/add', $dados);	
 
 	}
 
 	
 
-	public function roles_edit(){		
+	public function rolesEdit(){	
+		
+		if ($this->getUserType() != 1) {
+			header('Location: /');
+			exit();
+		}
 
 		$id = $this->_get('id');		
 
-		if($this->_post()) {			
+		if($this->_post()) {	
+			
+			// $this->printar($_POST);
 
 				$save = array(
 
 					'user_type' => $this->_post('name'),
-					'permissions' => serialize($_POST['permissao'])
+					'permissions' => serialize($_POST['permissions'])
 				);			
 
 				$this->rolesModel->edit($save, 'id_user_type = '.$id);
@@ -140,10 +171,71 @@ class users extends Controller {
 
 		$dados['permission'] = unserialize($dados['role']['permissions']);	
 
+		// $this->printar($dados['permission']);
+
+		$controllers = glob('app/*/*controller.php');
+		$controllers = array_filter($controllers, function($controller) {
+			return preg_match('/^app\/.*\/admin\..*controller\.php$/', $controller);
+		});
+
+		$dados['modulos'] = $this->updatePermissionsArray($controllers);
+
+		// $this->printar($dados['modulos']);
+
 		$this->view('roles/edit', $dados);
 
 	}
 
+	private function updatePermissionsArray($caminhosControllers) {
+
+		$classes = [];
+
+		foreach ($caminhosControllers as $controller) {
+			preg_match('/^app\/(.*?)\/admin\..*controller\.php$/', $controller, $matches);
+			if (isset($matches[1])) {
+				$classes[] = ['path' => $controller,
+						'class' => $matches[1]
+					];
+			}
+		}
+
+		// $this->printar($classes);
+
+		$class = [];
+		
+		foreach ($classes as &$class) {
+			$permission[]=[
+				"modulo" => $class['class'],
+				"funcoes" => $this->getPublicMethodsFromController($class['path'], $class['class'])
+			];
+		}
+
+		// $this->printar($class);
+		return $permission;
+    
+	}
+	
+	private function getPublicMethodsFromController($filePath, $className) {
+        require_once $filePath;
+        $publicMethods = [];
+
+		// echo $className.'<br>';
+		// echo $filePath.'<br>';
+
+        if (class_exists($className)) {
+            $reflectionClass = new ReflectionClass($className);
+            foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
+                if ($method->class == $className && !$method->isConstructor()) {
+                    $publicMethods[] = $method->name;
+                }
+            }
+        }
+
+		// echo '<pre>';
+		// print_r($publicMethods);	
+
+        return $publicMethods;
+    }
 	
 
 	public function roles_del(){		

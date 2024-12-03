@@ -128,6 +128,54 @@
 			return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
 
 		}
+
+
+		public function getUserType() {
+			return $_SESSION['@userApp']['user_type'];
+		}
+
+		public function getUserName() {
+			return $_SESSION['@userApp']['name'];
+		}
+
+		public function getFirstName() {
+			$fullName = $this->getUserName();
+			$nameParts = explode(' ', $fullName);
+			return $nameParts[0];
+		}
+
+		public function getUserTypeName() {
+			return $_SESSION['@userApp']['name_role'];
+		}
+
+		public function getUserPermissions($controler=false, $action=false) {
+
+
+			if ($this->getUserType() == 1 || $this->getUserType() == 2) {
+				return true;
+				die();
+			}
+
+			if($controler && $action) {
+				$permissions = $_SESSION['@userApp']['permissions'];
+				if(in_array($action, $permissions[$controler])) {
+					return true;
+				}
+				return false;
+			}
+
+			if($controler && !$action) {
+				$permissions = $_SESSION['@userApp']['permissions'];
+				if(isset($permissions[$controler])) {
+					return true;
+				}
+				return false;
+			}
+
+			return $_SESSION['@userApp']['permissions'];
+			
+		}
+		
 		
 		public static function removeSpecialChars($str) {
 			$str = preg_replace('/[áàãâä]/ui', 'a', $str);
@@ -141,6 +189,15 @@
 			$str = preg_replace('/_+/', '_', $str); // ideia do Bacco :)
 			return $str;
 		} 
+
+		public static function cleanCPF($cpf) {
+			return preg_replace('/\D/', '', $cpf);
+		}
+
+		public static function formatCPF($cpf) {
+			$cpf = self::cleanCPF($cpf);
+			return preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "$1.$2.$3-$4", $cpf);
+		}
 
 		public function printar($data=false)
 		{
@@ -158,6 +215,27 @@
 			
 			return $_SESSION['@userApp']['clinica'];
 
+		}
+
+		public function formatDateTimeToBR($dateTime) {
+			return date('d/m/Y', strtotime($dateTime));
+		}
+
+
+		public function validateAndFormatDate($date) {
+			$dateTime = DateTime::createFromFormat('d/m/Y', $date);
+			if ($dateTime && $dateTime->format('d/m/Y') === $date) {
+				return $dateTime->format('Y-m-d');
+			}
+			return false;
+		}
+
+		public function formatDateToBR($date) {
+			$dateTime = DateTime::createFromFormat('Y-m-d', $date);
+			if ($dateTime && $dateTime->format('Y-m-d') === $date) {
+				return $dateTime->format('d/m/Y');
+			}
+			return false;
 		}
 
 		

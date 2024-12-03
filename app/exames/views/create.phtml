@@ -1,0 +1,117 @@
+<section class="content-header">
+    <h1>
+        Cadastrar Exame
+        <small></small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Exames</a></li>
+        <li class="active">Adicionar novo Exame</li>
+    </ol>
+</section>
+
+<section class="content"> 
+    <div class="box">
+        <div class="box-body">
+            <?php if($_POST) { ?>
+                    <?php $this->message->getMsg(); ?> 
+            <?php } ?> 
+
+            <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                <div class="form-group">
+                    <label for="nome">Nome do Paciente</label>
+                    <div class="form-control" id="nome"><?php echo $view_paciente['nome']; ?></div>
+                    <input type="hidden" name="cria_exame" value="1">
+                <input type="hidden" name="exame" value="<?php echo $view_paciente['exame']; ?>">
+                <input type="hidden" name="paciente" value="<?php echo $view_paciente['nome']; ?>">
+                <input type="hidden" name="cpf" value="<?php echo $view_paciente['cpf']; ?>">
+                <input type="hidden" name="codigo_paciente" value="<?php echo $view_paciente['codigo_paciente']; ?>">
+                <input type="hidden" name="email" value="<?php echo $view_paciente['email']; ?>">
+                <input type="hidden" name="data_nascimento" value="<?php echo $view_paciente['data_nascimento']; ?>">
+                <input type="hidden" name="id_pacientes" value="<?php echo $view_paciente['id_pacientes']; ?>">
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 name-data_nascimento type-textfield">
+                        <div class="form-group fields">
+                            <label for="data_nascimento">Data de Nascimento</label>
+                            <div class="form-control" id="data_de_nascimento"><?php echo $this->formatDateTimeToBR($view_paciente['data_nascimento']); ?></div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 name-cpf type-textfield">
+                        <div class="form-group fields">
+                            <label for="cpf">CPF</label>
+                            <div class="form-control" id="cpf"><?php echo $view_paciente['cpf']; ?></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 name-email type-textfield">
+                        <div class="form-group fields">
+                            <label for="email">Email</label>
+                            <div class="form-control" id="email"><?php echo $view_paciente['email']; ?></div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 name-telefone type-textfield">
+                        <div class="form-group fields">
+                            <label for="telefone">Telefone</label>
+                            <div class="form-control" id="telefone"><?php echo $view_paciente['telefone']; ?></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 name-celular type-textfield">
+                        <div class="form-group fields">
+                            <label for="celular">Celular</label>
+                            <div class="form-control" id="celular"><?php echo $view_paciente['celular']; ?></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-xs-6 name-exame type-textfield">
+                        <div class="form-group fields">
+                            <label for="exame">Nome do Exame</label>
+                            <input type="text" name="exame_nome" id="exame_nome" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 name-pdf type-textarea">
+                        <div class="form-group fields">
+                            <label for="dados">PDF</label>
+                            <input type="file" name="pdf[]" id="pdf" class="form-control" multiple="multiple" />
+                        </div>
+                    </div>  
+
+                    <div class="col-xs-6 name-imagem type-textarea imagem">
+                        <div class="form-group fields">
+                            <label for="imagem">Imagens</label>
+                            <input type="file" name="imagem[]" id="imagem" class="form-control" multiple="multiple" />
+                        </div>
+                    </div>                  
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 text-left">  
+                        <button type="submit" class="btn btn-primary">Cadastrar Exame</button>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <a href="/admin/exames" class="btn btn-secondary">Voltar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</section>
+
+<script type="text/javascript">
+    $(function(){
+        $('#data_nascimento').mask('99/99/9999');
+        $('#cpf').mask('999.999.999-99');
+    });
+</script>

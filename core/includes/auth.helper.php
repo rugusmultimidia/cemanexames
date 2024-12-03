@@ -88,17 +88,23 @@ class Auth {
 
         $db->table = $this->tableName;        
 
-        $where = $this->userColumn . "='" . $this->user . "' and " . $this->passColumn . "='" . $this->pass . "'";	
+        $where = "u.".$this->userColumn . "='" . $this->user . "' and u." . $this->passColumn . "='" . $this->pass . "'";	
 
         if(!empty($this->tableName)) {
- 
-            $sql = $db->executeSql('
-                    SELECT * FROM '.$this->tableName.' where '.$where .'
-            ');
+
+            $q = 'SELECT u.*, p.user_type as name_role, p.permissions
+                    FROM ih_users u
+                    LEFT JOIN ih_users_type p on p.id_user_type = u.user_type
+                    WHERE '.$where;
+
+            $sql = $db->executeSql( $q );
+
+            $permissions = unserialize($sql[0]['permissions']);
+            $sql[0]['permissions'] = $permissions;
 
         } else {	
 
-            $sql = $db->executeSql('
+            $q = '
     				SELECT * FROM ih_users
     				INNER JOIN ih_users_type
     				ON ih_users.user_type = ih_users_type.id_user_type
@@ -106,7 +112,11 @@ class Auth {
     				ih_users.'.$this->userColumn.' = "'.$this->user.'"
     				and
     				ih_users.'.$this->passColumn.' = "'.$this->pass.'"
-    		');
+    		';
+
+            die($q);
+
+            $sql = $db->executeSql( $q );
 
            
 
@@ -148,125 +158,131 @@ class Auth {
 
     
 
-    public function checkLogin( $user, $type, $action, $ignorePermisson = false ) { 
+    public function checkLogin($user, $type, $action, $ignorePermission = false) { 
 
-		if  ($this->redirectorHelper->getCurrentController() == "users" 
+        // die($action);
+        // $userData = $this->userData($user);
+        // echo "<pre>";
+        // print_r($userData);
+        // die;
 
-		and ($this->redirectorHelper->getCurrentAction() == "login" || $this->redirectorHelper->getCurrentAction() == "logout" ) ) {
+        if ($this->redirectorHelper->getCurrentController() == "users" 
+            && ($this->redirectorHelper->getCurrentAction() == "login" || $this->redirectorHelper->getCurrentAction() == "logout")) {
+            return false;
+        }
 
-			return false;
+        if ($this->sessionHelper->checkSession($user)) {
+            $userData = $this->userData($user);
+            if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
+                return true;
+            }
+        }
 
-		}
+    $headers = apache_request_headers();
+    
+    if (isset($headers['Authorization'])) {
+        $token = $headers['Authorization'];
+        // Validate  tokenthe (this is just an example, implement your own validation logic)
+        if ($token === 'G423JHG46GJH546F7F3763UI356KJ356') {
+            // Get the JSON input
+            $input = json_decode(file_get_contents('php://input'), true);
+            // die(print_r($input));
 
-        if ($this->sessionHelper->checkSession($user) and $ignorePermisson == true) {
-            return;
-        } 	
+            if (isset($input['login']) && isset($input['senha'])) {
+                $login = $input['login'];
+                $senha = $input['senha'];
+                $clinica = $input['clinica'];
 
-		$dataAction = array('edit', 'del', 'details', 'index_action');		
+                $db = new Model();	
+
+                $q = "
+                SELECT u.*
+                FROM tb_pacientes u
+                WHERE 
+                    (u.cpf = '$login' OR u.codigo_paciente = '$login')
+                    AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
+                    AND u.clinica = '$clinica'
+                LIMIT 1
+                ";
+
+                $sql = $db->executeSql( $q );
+
+                // die(json_encode($sql));
+                
+                if (count($sql) > 0) {
+                    
+                    $this->sessionHelper->createSession("@paciente", $sql[0]);
+                    return true;
+
+                } else {
+                    header('Content-Type: application/json');
+                    http_response_code(200);
+                    die(json_encode(array('status' => 'error', 'message' => 'Usuário ou senha inválidos.')));
+
+                }
+            } else {
+                $_SESSION['msg_erro'] = 'Dados de login não encontrados.';
+                $this->redirectorHelper->goToAction('/login');
+                die;
+            }
+        } else {
+            $_SESSION['msg_erro'] = 'Token inválido.';
+            $this->redirectorHelper->goToAction('/login');
+            die;
+        }
+    } 
+
 
         if (!$action) {                 
+            if ($this->sessionHelper->checkSession($user)) {                
+                return true;                
+            } else {                    
+                return false;                
+            }                
+        } else {     
+            if (!$this->sessionHelper->checkSession($user)) {
+                // User not logged in
+                $this->redirectorHelper->goToAction($action);                         
+            } else {                    
+                // User logged in, check permissions
+                $userData = $this->userData($user);
+                $permissions = $userData['permissions'];   
+                // echo "<pre>";die(var_dump($permissions)); 
+                
+                // User type 0 is Developer user, don't need to check permission.
+                if ($userData['user_type'] == 1) {
+                    return;
+                }
+                // echo "<pre>";die(var_dump($this->redirectorHelper->getCurrentController()));     
+                
+                // Check if user has access to the current controller
+                if (isset($permissions[$this->redirectorHelper->getCurrentController()])) {   
+                    
+                    // echo "<pre>";die(print_r($permissions[$this->redirectorHelper->getCurrentController()]));                                        
+                    // echo "<pre>";die(var_dump($this->redirectorHelper->getCurrentAction())); 
+                    // echo "<pre>";die(var_dump($dataAction)); 
+                    // echo "<pre>";die(var_dump(in_array($this->redirectorHelper->getCurrentAction(), $permissions[$this->redirectorHelper->getCurrentController()]))); 
 
-                if ($this->sessionHelper->checkSession($user)) {				
-
-                    return true;                
-
-                } else {                    
-
-                    return false;                
-
-				}				
-
-        } else {          		
-
-                if (!$this->sessionHelper->checkSession($user)) {
-
-					//user not logged		   
-
-                    $this->redirectorHelper->goToAction($action);                         
-
-                } else {					
-
-					//user logged, but we need check permissions
-
-
-					$userData = $this->userData($user);
-
-
-					$permission = unserialize($userData['permissions']);					
-
-					//user type 0 is Developer user, don't need to check permission.
-
-					if($userData['user_type'] == 0 || $userData['user_type'] == 1){
-
-						return;
-
-					}
-
-					//check if have access in controller
-
-					if(isset($permission[$this->redirectorHelper->getCurrentController()])){						
-
-						
-
-						if(in_array($this->redirectorHelper->getCurrentAction(), $dataAction)) {
-
-							if($this->redirectorHelper->getCurrentAction())
-
-							//if has access in controller, check if has access in action
-
-							if(isset($permission[$this->redirectorHelper->getCurrentController()][$this->redirectorHelper->getCurrentAction()]) 
-
-								and  $permission[$this->redirectorHelper->getCurrentController()][$this->redirectorHelper->getCurrentAction()]){
-
-							
-
-								return;
-
-								
-
-							} else {							
-
-								$this->redirectorHelper->goToAction($action);							
-
-							}
-
-							
-
-						} else {
-
-							return;
-
-						}
-
-						
-
-					} else {
-
-
-
-						if($this->redirectorHelper->getCurrentController() == 'index') {
-
-							return;
-
-						} else {						
-
-							$this->redirectorHelper->goToAction($action);
-
-						}							
-
-					}
-
-					
-
-					die;
-
-				
-
-				}
-
+                    if (in_array($this->redirectorHelper->getCurrentAction(), $permissions[$this->redirectorHelper->getCurrentController()])) {
+                        return;
+                    } else {
+                        $this->redirectorHelper->goToAction('/admin/index');
+                        $_SESSION['msg_erro'] = 'Você não tem permissão para acessar essa página.';                            
+                        die;
+                    }
+                } else {
+                    if ($this->redirectorHelper->getCurrentController() == 'index') {
+                        return;
+                    } else {
+                        $this->redirectorHelper->goToAction('index');
+                        $_SESSION['msg_erro'] = 'Você não tem permissão para acessar essa página.';
+                        // $this->redirectorHelper->goToAction($action);
+                    }                            
+                }
+                die;
+            }
         }        
-
-    }    
+    } 
 
     
 

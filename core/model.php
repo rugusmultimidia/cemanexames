@@ -6,7 +6,7 @@ class model {
     
     public $table, $message;
     
-    public function __construct() {
+    public function __construct_old() {
         
         $this->message = new Message();
         
@@ -14,6 +14,27 @@ class model {
         
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
+    }
+
+    public function __construct() {
+        $this->message = new Message();
+
+        // Configurar a conexão PDO para usar UTF-8
+        $this->db = new PDO(
+            'mysql:host='.HOST.';dbname='.DBNAME.'',
+            USER,
+            PASS,
+            array(
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            )
+        );
+
+        // Garantir que a conexão use UTF-8
+        $this->db->exec("SET NAMES 'utf8'");
+        $this->db->exec("SET CHARACTER SET utf8");
+        $this->db->exec("SET COLLATION_CONNECTION = 'utf8_general_ci'");
     }
     
     

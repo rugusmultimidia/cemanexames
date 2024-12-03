@@ -60,31 +60,74 @@
 
         
 
-       <tr class="line">
+      <?php if ($dados['user_type'] == 1 && $this->getUserType() == 1) { ?>
+        <tr class="line">
 
-        <td><?php print $dados['id_user']; ?></td>
+         <td><?php print $dados['id_user']; ?></td>
 
-        <td><?php print $dados['name']; ?></td>
+         <td><?php print $dados['name']; ?></td>
 
-        <td><?php print $dados['login']; ?></td>
+         <td><?php print $dados['login']; ?></td>
 
-        <td><?php print $dados['user_type']; ?></td>
+        <?php
+          $roleName = '';
+          foreach ($view_roles as $role) {
+            if ($role['id_user_type'] == $dados['user_type']) {
+              $roleName = $role['user_type'];
+              break;
+            }
+          }
+        ?>
+        <td><?php print $roleName; ?></td>
 
-        <td class="actions">
+         <td class="actions">
 
-            <a href="admin/users/edit/id/<?php print $dados['id_user'] ?>"><i class="fa fa-edit"></i></a>  
+             <a href="admin/users/edit/id/<?php print $dados['id_user'] ?>"><i class="fa fa-edit"></i></a>  
 
-            <a href="javascript:void(0)" class="del" data-controller="admin/users/del/" title="Apagar registro" data-id="<?php print $dados['id_user']; ?>">
+             <a href="javascript:void(0)" class="del" data-controller="admin/users/del/" title="Apagar registro" data-id="<?php print $dados['id_user']; ?>">
 
-                <i class="fa fa-ban"></i>
+            <i class="fa fa-ban"></i>
 
-            </a>
+             </a>
 
-        </td>
+         </td>
 
-    
+            </tr>
+      <?php } ?>
+      <?php if ($dados['user_type'] != 1) { ?>
+        <tr class="line">
 
-      </tr>
+         <td><?php print $dados['id_user']; ?></td>
+
+         <td><?php print $dados['name']; ?></td>
+
+         <td><?php print $dados['login']; ?></td>
+
+         <?php
+          $roleName = '';
+          foreach ($view_roles as $role) {
+            if ($role['id_user_type'] == $dados['user_type']) {
+              $roleName = $role['user_type'];
+              break;
+            }
+          }
+        ?>
+        <td><?php print $roleName; ?></td>
+
+         <td class="actions">
+
+             <a href="admin/users/edit/id/<?php print $dados['id_user'] ?>" class="btn btn-success mr-1"><i class="fa fa-edit"></i></a>  
+
+             <a href="javascript:void(0)" class="del btn btn-success" data-controller="admin/users/del/" title="Apagar registro" data-id="<?php print $dados['id_user']; ?>">
+
+            <i class="fa fa-ban"></i>
+
+             </a>
+
+         </td>
+
+            </tr>
+      <?php } ?>
 
         
 

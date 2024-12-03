@@ -1,153 +1,77 @@
 <section class="content-header">
-
-          <h1>
-
-            <i class="fa fa-user"></i> Editar Usuário
-
-          </h1>
-
-          <ol class="breadcrumb">
-
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-
-            <li><a href="users">users</a></li>
-
-            <li class="active">Edit user</li>
-
-          </ol>
-
+  <h1>
+    <i class="fa fa-user"></i> Editar Usuário
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="users">users</a></li>
+    <li class="active">Edit user</li>
+  </ol>
 </section>
 
-        
+<section class="content">
+  <div class="box">
+    <div class="box-body">
+      <?php if($this->_post()) $this->message->getMsg(); ?>
 
-<section class="content"> 
-
-
-
-<div class="box">
-
-<div class="box-body">
-
-      
-
-	  
-
-<?php if($this->_post()) $this->message->getMsg(); ?>
-
-	  
-
-<form action="" class="form-group" method="post" enctype="multipart/form-data" name="form">
-
-  
-
-  <fieldset> 
-
+      <form action="" class="form-group" method="post" enctype="multipart/form-data" name="form">
+        <fieldset>
           <legend> Dados do usuário </legend>
-
-  	
-
-    <div class="row">
-
-        <div class="col-md-6">
-
-          	<label> Nome do usuário</label>
-
-            <input name="name" type="text" placeholder="field name" value="<?php print $view_users['name'] ?>" class="form-control" required="required" id="name" />
-
-        </div>
-
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label> Nome do usuário</label>
+              <input name="name" type="text" placeholder="field name" value="<?php print $view_users['name'] ?>" class="form-control" required="required" id="name" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label> Login</label>
+              <input name="login" type="text" placeholder="field name" value="<?php print $view_users['login'] ?>" class="form-control" required="required" id="login" />
+            </div>
+            <div class="col-md-3">
+              <label> Email</label>
+              <input name="email" type="text" placeholder="field name" value="<?php print $view_users['email'] ?>" class="form-control" required="required" id="email" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label>Senha</label>
+              <input name="pass" type="password" placeholder="Deixe em branco para manter a mesma senha" value="" class="form-control" />
+            </div>
+            <div class="col-md-3">
+              <label>Repetir Senha</label>
+              <input name="pass_confirm" type="password" placeholder="password" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-xs-4">
+              <div class="form-group fields">
+                <label for="user_type">Clínica</label>
+                <select name="clinica" id="user_type" class="form-control" required="required">
+                  <option value="">...</option>
+                  <option value="ceman" <?=$view_users['clinica'] == 'ceman'?"selected":""?>>Ceman</option>
+                  <option value="imason" <?=$view_users['clinica'] == 'imason'?"selected":""?>>Imason</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label for="user_type"> Tipo de usuário </label>
+              <select name="user_type" id="user_type" class="form-control" required="required">
+                <?php foreach($view_roles as $role) { ?>
+                  <option value="<?php print $role['id_user_type']; ?>" <?php if($role['id_user_type'] == $view_users['user_type'])print 'selected="selected"';?>><?php print $role['user_type']; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+          </div>
+            <div class="row mt-4" style="margin-top: 20px;">
+            <div class="col-md-3">
+              <input type="submit" class="btn btn-default" value="Editar usuário" />
+            </div>
+          </div>
+        </fieldset>
+      </form>
     </div>
-
-    <div class="row">
-
-        <div class="col-md-3">
-
-          	<label> Login</label>
-
-            <input name="login" type="text" placeholder="field name" value="<?php print $view_users['login'] ?>" class="form-control" required="required" id="login" />
-
-        </div>
-
-        <div class="col-md-3">
-
-          	<label> Email</label>
-
-            <input name="email" type="text" placeholder="field name" value="<?php print $view_users['email'] ?>" class="form-control" required="required" id="email" />
-
-        </div>
-
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-3">
-
-          	<label>Senha</label>
-
-            <input name="pass" type="password" placeholder="Deixe em branco para manter a mesma senha" value="" class="form-control" required="required" />
-
-        </div>
-
-        <div class="col-md-3">
-
-          	<label>Repetir Senha</label>
-
-            <input name="pass_confirm" type="password" placeholder="password" class="form-control" required="required" />
-
-        </div>
-        
-        <div class="col-xs-4">
-          <div class="form-group fields">
-            <label for="user_type">Clínica</label>
-            <select name="clinica" id="user_type" class="form-control" required="required">
-                <option value="">...</option>
-                <option value="ceman" <?=$view_users['clinica'] == 'ceman'?"selected":""?>>Ceman</option>
-                <option value="imason" <?=$view_users['clinica'] == 'imason'?"selected":""?>>Imason</option>
-            </select>
-          </div>	
-        </div>
-    </div>
-
-
-
-
-    <div class="row">
-
-        <div class="col-md-3">
-
-          	<label for="user_type"> Tipo de usuário </label>
-
-			<select name="user_type" id="user_type" class="form-control" required="required">
-
-			<?php foreach($view_roles as $role) { ?>
-
-				<option value="<?php print $role['id_user_type']; ?>" <?php if($role['id_user_type'] == $view_users['user_type'])print 'selected="selected"';?>><?php print $role['user_type']; ?></option>
-
-			<?php } ?>             
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-
-     
-
-
-
-<input type="submit" class="btn btn-default" value="Editar usuário" />
-
-
-
-</form>
-
-
-
-</div>
-
-</div>
-
+  </div>
 </section>
-

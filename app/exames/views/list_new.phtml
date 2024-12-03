@@ -25,38 +25,43 @@
 
 	<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
 	  <tr style="font-weight:bold">
-		<td width="49">ID</td>
 		<td width="100">Clínica</td>
 		<td>Data Criação</td>
 		<td>Exame</td>
 		<td>Paciente</td>
-		<td>Código Paciente</td>
-		<td>Data Nascimento</td>
-		<td>CPF</td>
-		<td width="138">Ações</td>
+        <td style="text-align: center;">Código Paciente</td>
+        <td style="text-align: center;">Data Nascimento</td>
+        <td style="text-align: center;">CPF</td>
+		<td width="138"></td>
 	  </tr>
 
 	<?php  foreach($view_list as $dados ) { ?>		
 
 	   <tr class="line">
-
-		<td><?php print $dados['id_exames']; ?></td>
 		<td><?php print strtoupper($dados["clinica_exame"]); ?></td>
-		<td><?php 
+        <td><?php 
 
-		$data = explode(" ", $dados['date_created']);
+        $data = explode(" ", $dados['date_created']);
 
-		print implode('-', array_reverse(explode('-', $data[0])));
+        print date('d/m/Y', strtotime($data[0]));
 
-		?></td>
+        ?> </td>
 		
 		<td><?php print html_entity_decode($dados["exame"]); ?></td>
-		<td><?php print $dados["paciente"]; ?></td>
-		<td><?php print $dados["codigo_paciente"]; ?></td>
-		<td><?php print ($dados["data_nascimento"]); ?></td>
-		<td><?php print ($dados["cpf"]); ?></td>
+		<td><?php print $dados["nome"]; ?></td>
+        <td style="text-align: center;"><?php print $dados["codigo_paciente"]; ?></td>
+        <td style="text-align: center;"><?php print date('d/m/Y', strtotime($dados["data_nascimento_exame"])); ?></td>
+		<td style="text-align: center;">
+			<?php 
+			if (empty($dados["cpf_user"])) {
+				print "Problemas no cadastro do Paciente";
+			} else {
+				print $this->formatCPF($dados["cpf_user"]);
+			}
+			?>
+		</td>
 
-		<td class="actions">
+        <td class="actions" width="200" style="text-align: right;">
 
 			<?php 
 
@@ -72,26 +77,27 @@
 
 			?>
 
-			<div style="display: none;" id="toCopy_<?php print $dados['id_exames']; ?>">
-				<?php print $toCopy; ?>
-			</div>
+            <div style="display: none;" id="toCopy_<?php print $dados['id_exames']; ?>">
+                <?php print $toCopy; ?>
+            </div>
 
-			<a href="javascript:void(0)" onclick="copyToClipboard('#toCopy_<?php print $dados['id_exames']; ?>')">
-				<i class="fa fa-copy"></i>
-				
-			</a>
+            <!-- <a href="javascript:void(0)" onclick="copyToClipboard('#toCopy_<?php print $dados['id_exames']; ?>')" class="btn btn-primary btn-sm">
+                <i class="fa fa-copy"></i>
+            </a> -->
 
-			<a href="admin/index/cartao/id/<?php print $dados['codigo_paciente'] ?>" target="_blank">
-				<i class="fa fa-eye"></i>
-			</a> 
+            <!-- <a href="admin/index/cartao/id/<?php print $dados['codigo_paciente'] ?>" target="_blank" class="btn btn-primary btn-sm">
+                <i class="fa fa-eye"></i>
+            </a>  -->
 
-			<a href="admin/exames/edit/id/<?php print $dados['id_exames'] ?>">
-				<i class="fa fa-edit"></i>
-			</a>   
+            <?php if ($this->testaDias($dados['date_created'], 3)) { ?>
+                <a href="admin/exames/edit_new/id/<?php print $dados['id_exames'] ?>" class="btn btn-primary btn-sm">
+                    <i class="fa fa-edit"></i>
+                </a>
+            <?php } ?>  
 
-			<a href="javascript:void(0)" class="del btn btn-success" data-controller="admin/exames/del" title="Apagar registro" data-id="<?php print $dados['id_exames']; ?>">
-				<i class="fa fa-ban"></i>
-			</a>
+            <a href="javascript:void(0)" class="del btn btn-danger btn-sm" data-controller="admin/exames/del" title="Apagar registro" data-id="<?php print $dados['id_exames']; ?>">
+                <i class="fa fa-ban"></i>
+            </a>
 
 		</td>
 
@@ -118,7 +124,7 @@
 
 			var paciente = $('#paciente').val();
 
-			window.location.href = "admin/exames?q="+encodeURI(paciente);
+			window.location.href = "admin/exames/exames_new?q="+encodeURI(paciente);
 		});
 
 		$('#btn_limpar').click(function(){

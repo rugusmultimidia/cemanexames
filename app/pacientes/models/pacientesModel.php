@@ -51,9 +51,24 @@ class pacientesModel extends Model {
 
     public function getAll($n = null) {
 
-        return $this->read(null, $this->_id.' DESC', $n);
+        return $this->read("status='ativo'", $this->_id.' DESC', $n);
 
     }    
+
+    public function cleanCPF($cpf) {
+        // Remove any non-numeric characters
+        return preg_replace('/\D/', '', $cpf);
+
+    }
+
+    public function validateCPF($cpf) {
+        $cleanedCPF = $this->cleanCPF($cpf);
+        if (ctype_digit($cleanedCPF)) {
+            return $cleanedCPF;
+        } else {
+            return $cpf;
+        }
+    }
 
     public function getSearch($n = '', $l = "", $id_dependente = null) {
 
@@ -61,14 +76,34 @@ class pacientesModel extends Model {
 
         $clinica = $_SESSION['@userApp']['clinica'];
 
-        if(is_null($id_dependente))
-            return $this->read("nome LIKE '%".$n."%'  ", 'nome ASC', $l);
-        else
-            return $this->read("nome LIKE '%".$n."%'  and id_responsavel = ".$id_dependente, 'nome ASC', $l);
+        $cpf = $this->validateCPF($n);  
 
+        if(is_null($id_dependente)){
 
+            $query = "
+                id_pacientes is not null
+                and (
+                    nome LIKE '%".$n."%'
+                    OR cpf = '".$cpf."'
+                    OR email = '%".$n."%'
+                ) 
+                and status = 'ativo' 
+                and clinica = '$clinica'";
+
+                // die($query);
+
+            return $this->read($query,'nome ASC', $l);
+        }else{
+            return $this->read("nome LIKE '%".$n."%' and status = 'ativo'  and id_responsavel = ".$id_dependente, 'nome ASC', $l);
+
+        }
 
     }  
+    
+    public function checkCPF($cpf) {
+        $result = $this->read('cpf = "'.$cpf.'"');
+        return !empty($result);
+    }
     
 
     public function save(array $dados) {

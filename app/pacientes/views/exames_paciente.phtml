@@ -1,7 +1,7 @@
 <section class="content-header">
           <h2>
-            Exames
-            <small><strong><?php print $view_paciente[0]['nome']; ?></strong> - Nascimento: <strong><?php print $view_paciente[0]['data_nascimento']; ?></strong></small>
+            Exames de 
+            <small><strong><?php print $view_paciente[0]['nome']; ?></strong> - Nascimento: <strong><?php print date('d/m/Y', strtotime($view_paciente[0]['data_nascimento'])); ?></strong></small>
           </h2>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,6 +22,7 @@
           <td align="center" width='100'><strong>Clínica</strong></td>
           <td align="left"><strong>Titulo</strong></td>
           <td><strong>Exame </strong></td>
+          <td><strong>Cadastro do exame</strong></td>
           <td align="center"><strong>Visualizar</strong></td>
         </tr>
       </thead>
@@ -30,6 +31,7 @@
 
 
           $exames_geral = unserialize($exame['pdf']);
+          $dateCadastro = date('d/m/Y', strtotime($exame['date_created']));
 
           foreach($exames_geral as $ex) { 
 
@@ -40,6 +42,7 @@
               <td align="center" ><?php print strtoupper($exame['clinica'])?></td>
               <td><?php print $exame['exame']?></td>
               <td><?php print @$ex['name']?></td>
+              <td><?php print $dateCadastro?></td>
 
               <?php 
 

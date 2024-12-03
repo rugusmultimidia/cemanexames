@@ -48,7 +48,162 @@ class exames extends Controller {
 
 	}
 
+
+	public function exames_new(){		
+
+		$dados = array();	
+
+
+		$this->add_js('app/exames/assets/js/clipboard.min.js');
+
+
+		$this->pagination = new Pagination();		
+
+		if(isset($_GET['q'])) {
+			$this->q = $_GET['q'];
+		} else {
+			$this->q ="";
+		}
+
+		$count = $this->exames_model->getAllByPacienteName($this->q);	
+
+		$this->pagination->link('admin/exames/index/page');			
+
+		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page') );		
+
+		$dados['list'] = $this->exames_model->getAllByPacienteName($this->q, $this->pagination->getLimit());		
+		// $this->printar($dados);
+
+		$this->view('list_new', $dados);		
+
+	}
+
 	
+
+	public function create(){	
+
+			if($this->_post("novo_exame")) {
+				
+				$dados = array();			
+
+				$dados['paciente'] = $this->pacientes_model->get($this->_post("id_paciente"))[0];	
+
+				$this->view('create', $dados);
+
+			} elseif ($this->_post("cria_exame")){
+
+				// $this->printar($_POST);
+
+				$filesPDF = array();
+
+				if(isset($_FILES['pdf'])) {
+
+					$size = count($_FILES['pdf']['size']);
+
+					for ($i=0; $i < $size; $i++) { 
+							
+
+						if($_FILES['pdf']['error'][$i] == 0){
+
+							///$this->uploder->setFile($_FILES[0]);	
+							$filesPDF[$i]['name'] 		= $_FILES['pdf']['name'][$i];
+							$filesPDF[$i]['type'] 		= $_FILES['pdf']['type'][$i];
+							$filesPDF[$i]['tmp_name'] 	= $_FILES['pdf']['tmp_name'][$i];
+							$filesPDF[$i]['error'] 		= $_FILES['pdf']['error'][$i];
+							// $this->uploder->upload();
+						}
+
+					}
+
+				}
+
+
+				//print_r($_FILES);die;
+				if(isset($_FILES['imagem'])) {
+
+					$size = count($_FILES['imagem']['size']);
+
+					for ($i=0; $i < $size; $i++) { 
+							
+
+						if($_FILES['imagem']['error'][$i] == 0){
+
+							///$this->uploder->setFile($_FILES[0]);	
+							$filesImg[$i]['name'] 		= $_FILES['imagem']['name'][$i];
+							$filesImg[$i]['type'] 		= $_FILES['imagem']['type'][$i];
+							$filesImg[$i]['tmp_name'] 	= $_FILES['imagem']['tmp_name'][$i];
+							$filesImg[$i]['error'] 		= $_FILES['imagem']['error'][$i];
+							// $this->uploder->upload();
+						}
+
+					}
+
+				}
+
+				$filesNames = array();
+
+				$i = 0;
+				foreach ($filesPDF as $pdf) {
+					
+					$this->uploder->setFile($pdf);	
+					$filesNames[$i]['file'] = $this->uploder->_upload();
+					$i++;
+				}
+
+				$ImageNames = array();
+
+				$i = 0;
+				foreach ($filesImg as $img) {
+					
+					$this->uploder->setFile($img);	
+					$ImageNames[0]['imagem'][] = $this->uploder->_upload();
+				}
+
+				
+
+				if(isset($_POST['assinatura'])) {
+					$assinatura = $this->_post("assinatura");
+				} else {
+					$assinatura = 0;
+				}
+
+
+				/*----------------------------------------
+					Cadastra o exame
+				----------------------------------------*/
+
+				$dataSave = array(
+					"exame" => html_entity_decode($this->_post("exame"), ENT_QUOTES, 'UTF-8'),
+					"paciente" => html_entity_decode($this->_post("paciente"), ENT_QUOTES, 'UTF-8'),
+					"codigo_paciente" => html_entity_decode($this->_post("codigo_paciente"), ENT_QUOTES, 'UTF-8'),
+					"email" => html_entity_decode($this->_post("email"), ENT_QUOTES, 'UTF-8'),
+					"data_nascimento" => html_entity_decode($this->_post("data_nascimento"), ENT_QUOTES, 'UTF-8'),
+					"dados" => html_entity_decode($this->_post("dados"), ENT_QUOTES, 'UTF-8'),
+					"cpf" => $this->cleanCPF(html_entity_decode($this->_post("cpf"), ENT_QUOTES, 'UTF-8')),
+					"id_pacientes" => html_entity_decode($this->_post("id_pacientes"), ENT_QUOTES, 'UTF-8'),
+					"pdf" => serialize($filesNames),
+					"imagem" => serialize($ImageNames),
+					"clinica" => html_entity_decode($this->clinica(), ENT_QUOTES, 'UTF-8'),
+					"assinatura" => $assinatura,
+					'id_user' => $this->init->user['id_user'],
+					'date_created' => date('Y-m-d H:i'),
+					'date_update' => date('Y-m-d H:i')
+				);
+
+				if (empty($dataSave['codigo_paciente'])) {
+					$dataSave['codigo_paciente'] = 0;
+				}
+
+				$this->exames_model->save($dataSave);	
+				$this->message->setMsg('success','Salvo com sucesso.');	
+			}
+
+			header('Location: /admin/exames/exames_new?q='.$this->_post("cpf"));
+
+	}
+
+
+
 
 	public function add(){	
 
@@ -197,6 +352,151 @@ class exames extends Controller {
 	
 
 	}
+
+	public function edit_new() {
+		$id = $this->_get('id');
+
+		
+	
+		if ($this->_post()) {
+
+			// $this->printar($_POST);
+			// POST das imagens
+			$filesImg = array();
+			$old_image = array();
+	
+			if (isset($_POST['active_image'])) {
+				$old_image = $_POST['active_image'];
+			}
+	
+			$filesImages = array();
+	
+			if (isset($_FILES['imagem'])) {
+				foreach ($_FILES['imagem'] as $imgkey => $imgvalue) {
+					$i = 0;
+					foreach ($imgvalue as $pdf => $value) {
+						foreach ($value as $key => $value) {
+							$filesImages[$pdf][$key][$imgkey] = $value;
+						}
+					}
+					$i++;
+				}
+	
+				// Unset errors
+				$size = count($filesImages);
+				for ($i = 0; $i < $size; $i++) {
+					$size_inside = count($filesImages[$i]);
+					for ($j = 0; $j < $size_inside; $j++) {
+						if ($filesImages[$i][$j]['error'] != 0) {
+							unset($filesImages[$i]);
+						}
+					}
+				}
+			}
+	
+			$ImageNames = array();
+			foreach ($filesImages as $key => $img) {
+				foreach ($img as $value) {
+					$this->uploder->setFile($value);
+					$ImageNames[$key]['imagem'][] = $this->uploder->_upload();
+				}
+			}
+	
+			// Merge imagens antigas com as novas
+			$result2 = array();
+			foreach ($old_image as $k => $v) {
+				foreach ($v['imagem'] as $key => $value) {
+					$result2[$k]['imagem'][$key] = $value;
+				}
+			}
+			foreach ($ImageNames as $k => $v) {
+				foreach ($v['imagem'] as $key => $value) {
+					$result2[$k]['imagem'][] = $value;
+				}
+			}
+	
+			// POST dos PDFS
+			$old_pdf = array();
+			if (isset($_POST['active_file'])) {
+				$old_pdf = $_POST['active_file'];
+			}
+	
+			$filesPDF = array();
+			if (isset($_FILES['pdf'])) {
+				$size = count($_FILES['pdf']['size']);
+				for ($i = 0; $i < $size; $i++) {
+					if ($_FILES['pdf']['error'][$i] == 0) {
+						$filesPDF[$i]['name'] = $_FILES['pdf']['name'][$i];
+						$filesPDF[$i]['type'] = $_FILES['pdf']['type'][$i];
+						$filesPDF[$i]['tmp_name'] = $_FILES['pdf']['tmp_name'][$i];
+						$filesPDF[$i]['error'] = $_FILES['pdf']['error'][$i];
+					}
+				}
+			}
+	
+			$filesNames = array();
+			$i = 0;
+			foreach ($filesPDF as $pdf) {
+				$this->uploder->setFile($pdf);
+				$filesNames[$i]['file'] = $this->uploder->_upload();
+				if (!$filesNames[$i]['file']) {
+					die("Arquivo não foi gravado.");
+				}
+				$i++;
+			}
+	
+			$result1 = array_merge($filesNames, $old_pdf);
+	
+			if ($id == 30548) {
+				// Debugging code
+			}
+	
+			if (isset($_POST['assinatura'])) {
+				$assinatura = $this->_post("assinatura");
+			} else {
+				$assinatura = 0;
+			}
+	
+			$dataSave = array(
+				"exame" => $this->_post("exame"),
+				"pdf" => serialize($result1),
+				"imagem" => serialize($result2),
+				"assinatura" => $assinatura,
+				'id_user' => $this->init->user['id_user'],
+				'date_update' => date('Y-m-d H:i')
+			);
+	
+			$this->exames_model->edit($dataSave, 'id_exames = ' . $id);
+			$this->message->setMsg('success', 'Editado com sucesso.');
+		}
+	
+		$dados = array();
+		$dados['data'] = $this->exames_model->get($id);
+		$dados['paciente'] = $this->exames_model->getPacienteByCode($dados['data'][0]['cpf'], $dados['data'][0]['codigo_paciente'])[0];
+		
+		
+		$dados['pdfs'] = unserialize($dados['data'][0]['pdf']);
+	
+		if (count($dados['pdfs']) == 0) {
+			$dados['pdfs'] = array();
+		}
+	
+		$dados['images'] = unserialize($dados['data'][0]['imagem']);
+	
+		if (!is_array($dados['images']) || count($dados['images']) == 0) {
+			$dados['images'] = array();
+		}
+	
+		if (@$_GET['debug']) {
+			print_r($dados);
+			die;
+		}
+
+		// $this->printar($dados);
+	
+		$this->view('edit_new', $dados);
+	}
+
 
 	public function edit(){
 
@@ -417,7 +717,7 @@ class exames extends Controller {
 
 	
 
-	public function del(){		
+	public function del_(){		
 
 
 		if($this->_post('id')){			
@@ -446,9 +746,25 @@ class exames extends Controller {
 
 	}
 
+	public function del(){		
+
+		if($this->_post('id')){			
+
+			$id = $this->_post('id');		
+
+			$dataSave = array(
+				"ativo" => "apagado"
+			);
+
+			$this->exames_model->edit($dataSave, 'id_exames = '.$id);
+
+		}	
+
+	}
+
 	public function doc(){
 
-		//phpinfo();die;
+		// phpinfo();die;
 
 		$id = $this->_get('id');
 		$file = $this->_get('file');
@@ -456,16 +772,16 @@ class exames extends Controller {
 		$folder = explode('.pdf', $file);
 		$this->folder = $folder[0];
 
-		//print_r($this->folder); die;
+		// print_r($this->folder); die;
 
 		if($this->_post()) {
 			
-			//print_r($_POST); die;
+			// print_r($_POST); die;
 			// include_once 'helpers/mpdf_v6/mpdf.php';
 			include_once 'helpers/vendor/mpdf/mpdf/mpdf.php';
 
 			$mpdf = new mPDF(); 
-			//print_r($_POST['data'][$this->folder]); die;
+			// print_r($_POST['data'][$this->folder]); die;
 			$i = 0;
 			foreach ($_POST['data'][$this->folder] as $value) {
 
@@ -478,7 +794,7 @@ class exames extends Controller {
 
 				if(file_exists("themes/files/resultados/".$this->folder."/exame-".$i.".png")) {
 					$mpdf->WriteHTML("<div><img src='themes/files/resultados/".$this->folder."/exame-".$i.".png'></div>");
-					//print "themes/files/resultados/".$this->folder."/exame-".$i.".jpg";
+					// print "themes/files/resultados/".$this->folder."/exame-".$i.".jpg";
 					$i++;
 				}
 				
@@ -546,6 +862,9 @@ class exames extends Controller {
 
 		$dados['medicos'] = $this->medicos_model->getAll();
 
+		$dados['pdf'] = $data[0]['pdf'];
+		$dados['pdf'] = unserialize($dados['data'][0]['pdf']);
+		// $this->printar($dados);
 		
 
 		$this->view('exame_detalhes', $dados);
@@ -878,6 +1197,64 @@ class exames extends Controller {
 
 
 	}
+
+	public function testaDias($date_created, $dias) {
+
+		$date = new DateTime($date_created);
+		$date->add(new DateInterval('P' . $dias . 'D'));
+		
+		$now = new DateTime();
+		if ($date > $now) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+
+	private function isDateBR($date) {
+		$d = DateTime::createFromFormat('d/m/Y', $date);
+		return $d && $d->format('d/m/Y') === $date;
+	}
+
+	private function convertDateToUSA($date) {
+		$d = DateTime::createFromFormat('d/m/Y', $date);
+		return $d->format('Y-m-d');
+	}
+
+	public function convertDateFormats() {
+		$exames = $this->exames_model->getAll();
+
+		foreach ($exames as $exame) {
+
+			$data_nascimento = $exame['data_nascimento'];
+
+			if ($this->isDateBR($data_nascimento)) {
+				$data_nascimento = $this->convertDateToUSA($data_nascimento);
+			}
+
+			$dataSave = array(
+				"data_nascimento" => $data_nascimento,
+				'date_update' => date('Y-m-d H:i')
+			);
+			
+			if(empty($exame['id_pacientes'])) {
+				$paciente = $this->pacientes_model->getCode($exame['codigo_paciente'])[0];
+				
+				if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
+					$dataSave['id_pacientes'] = (int)$paciente['id_pacientes'];
+				}
+			}
+			
+			echo $exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
+
+			$this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
+		}
+
+		die("Fim");
+	}
+
 
 }
 

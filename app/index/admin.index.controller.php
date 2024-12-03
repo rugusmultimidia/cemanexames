@@ -36,7 +36,9 @@ class index extends Controller {
 		$this->viewNoBase('login');
 	}
 
-		
+	public function forbidden() {
+		$this->viewNoBase('acesso_negado');
+	}
 
 	public function logout() {
 
@@ -52,7 +54,9 @@ class index extends Controller {
 
 		$id = $this->_get('id');
 
-		$dados['data'] = $this->pacientesModel->getCode($id);	 
+		$dados['data'] = $this->pacientesModel->get($id);	 
+
+		// $this->printar($dados);
 
 		$this->viewNoBase('cartao', $dados);
 

@@ -1,0 +1,230 @@
+<style type="text/css">
+.foto {
+    display: inline-block;
+    vertical-align: top;
+    border: solid 1px #CCC;
+    padding: 10px;
+    margin: 20px;
+    height: 150px;
+    width: 150px;
+}
+.name-image-files a {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    display: block;
+}
+.name-image-files a img {
+    height: 100%;
+}
+</style>
+
+<section class="content-header">
+    <h1>Editar Exames <small></small></h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="Exames">Exames</a></li>
+        <li class="active">Lista de Exames</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box">
+        <div class="box-body">
+            <?php if($_POST) { ?><div style="padding:10px;"> <?php $this->message->getMsg(); ?> </div> <?php } ?>
+            <form name="exame_add" id="exame_add" method="post" enctype="multipart/form-data" action="">
+                <div class="col-xs-12 name-exame type-textfield">
+                    <div class="form-group fields">
+                        <label for="exame">Exame</label>
+                        <input name="exame" type="textfield" value="<?php print html_entity_decode($view_data[0]["exame"]); ?>" class="form-control" id="exame">
+                    </div>
+                </div>
+                <div class="col-xs-6 name-paciente type-textfield">
+                    <div class="form-group fields">
+                        <label for="paciente">Paciente</label>
+                        <input name="paciente" type="textfield" value="<?php print $view_paciente["paciente"]; ?>" class="form-control" id="paciente" readonly>
+                    </div>
+                </div>
+                <div class="col-xs-6 name-cpf_user type-textfield">
+                    <div class="form-group fields">
+                        <label for="cpf_user">CPF</label>
+                        <input name="cpf_user" type="textfield" value="<?php print $view_paciente["cpf_user"]; ?>" class="form-control" id="cpf" readonly>
+                    </div>
+                </div>
+                <div class="col-xs-6 name-codigo_paciente type-textfield">
+                    <div class="form-group fields">
+                        <label for="codigo_paciente">Código Paciente</label>
+                        <input name="codigo_paciente" type="number" value="<?php print $view_paciente["codigo_paciente"]; ?>" class="form-control" id="codigo_paciente" readonly>
+                    </div>
+                </div>
+                <div class="col-xs-6 name-email type-textfield">
+                    <div class="form-group fields">
+                        <label for="email">Email</label>
+                        <input name="email" type="textfield" value="<?php print $view_paciente["email"]; ?>" class="form-control" id="email" readonly>
+                    </div>
+                </div>
+                <div class="col-xs-6 name-data_nascimento type-textfield">
+                    <div class="form-group fields">
+                        <label for="data_nascimento">Data Nascimento</label>
+                        <input name="data_nascimento" type="textfield" value="<?php print date('d/m/Y', strtotime($view_paciente["data_nascimento"])); ?>" class="form-control" id="data_de_nascimento" readonly>
+                    </div>
+                </div>
+                <div class="col-xs-6 name-pdf type-file">
+                    <label for="dados">PDF</label>
+                    <input type="file" name="pdf[]" id="pdf" class="form-control" multiple="multiple" />
+                </div>
+                <div class="col-xs-12 name-pdf-files type-textfield">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <td>Nome</td>
+                                <td>Arquivo</td>
+                                <td>Converter PDF</td>
+                                <td></td>
+                                <td>Assinatura</td>
+                                <td>Apagar</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 0; foreach($view_pdfs as $pdf) {
+                                $folder = explode(".",$pdf['file']);
+                            ?>
+                            <?php if(!file_exists(getcwd().'/themes/files/exames/'.$folder[0])){ ?>
+                            <tr class="fotos_merge">
+                                <td colspan="6">
+                                    <div>
+                                        <label for="imagem">Imagens</label>
+                                        <input type="file" name="imagem[<?php print $i; ?>][]" id="imagem" class="form-control" multiple="multiple" />
+                                        <input type="hidden" name="index_imagem[<?php print $i; ?>]" value="<?php print $i; ?>">
+                                    </div>
+                                    <div class="col-xs-12 name-image-files type-textfield">
+                                        <?php $j =0; foreach( $view_images[$i]['imagem'] as $imagem) { ?>
+                                        <div class="foto">
+                                            <input type="hidden" name="active_image[<?php print $i; ?>][imagem][<?php print $j; ?>]" value="<?php print $imagem; ?>">
+                                            <a href="themes/files/uploads/<?php print $imagem; ?>" target="_blank">
+                                                <img src="themes/files/uploads/<?php print $imagem; ?>">
+                                            </a>
+                                            <a href="javascript:void(0)" class="delete"><i class="fa fa-ban"></i></a>
+                                        </div>
+                                        <?php $j++; } ?>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            <?php
+                                $file_pdf = $pdf['file'];
+                                $file_path = 'themes/files/uploads/' . $file_pdf;
+                                if (file_exists($file_path)) {
+                                    $file = 'themes/files/uploads/' . $file_pdf;
+                                    $edit = true;
+                                } else {
+                                    $file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
+                                    $edit = false;
+                                }
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php if($edit):?>
+                                    <input type="text" class="form-control" name="active_file[<?php print $i; ?>][name]" value="<?php print @$pdf['name']; ?>"></td>
+                                    <?php else:?>
+                                    <input type="text" class="form-control" value="<?php print @$pdf['name']; ?>" disabled></td>
+                                    <input type="hidden" class="form-control" name="active_file[<?php print $i; ?>][name]" value="<?php print @$pdf['name']; ?>"></td>
+                                    <?php endif;?>
+                                <td>
+                                    <input type="hidden" name="active_file[<?php print $i; ?>][file]" value="<?php print $pdf['file']; ?>">
+                                    <a href="<?=$file?>" target="_blank">
+                                        <?php print $pdf['file']; ?>
+                                    </a>
+                                </td>
+                                <?php if($edit):?>
+                                <td>
+                                    <?php if(!file_exists(getcwd().'/themes/files/exames/'.$folder[0])){ ?>
+                                    <a href="javascript:void(0)" class="convert" data-imgs='<?php print json_encode($view_images[$i]['imagem']); ?>' data-pdf="<?php print $pdf['file']; ?>">
+                                        <i class="fa fa-files-o"></i> Converter
+                                    </a>
+                                    <?php } else {
+                                        print 'PDF convertido.';
+                                    } ?>
+                                </td>
+                                <td>
+                                    <div class="__msg"></div>
+                                </td>
+                                <td>
+                                    <a href="admin/exames/doc/id/<?php print $view_data[0]['id_exames']; ?>/file/<?php print $pdf['file']; ?>">
+                                        <i class="fa fa-files-o"></i>
+                                    </a>
+                                </td>
+                                <?php endif;?>
+                                <td>
+                                    <a href="javascript:void(0)" class="del_file" data-file="<?php print $pdf['file']; ?>">apagar</a></td>
+                            </tr>
+                            <?php $i++; } ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="load" style="display:none;">
+                    <div class="spinner" style="float:left">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                    </div>
+                    <div style="float:left;" class="msg-status"> Aguarde... </div>
+                </div>
+                <div class="col-xs-6">
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            <div class="col-xs-6 text-right">
+                <a href="javascript:history.back()" class="btn btn-primary">Voltar</a>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+$(function(){
+    $('.del_file').click(function(){
+        $(this).closest('tr').remove();
+        var file = $(this).attr('data-file');
+        $('body').append('<input type="hidden" name="deleted_files[]" value="'+file+'">')
+    });
+    $('.foto .delete').click(function(){
+        $(this).closest('.foto').remove();
+    });
+    $('.convert').click(function(){
+        var file = $(this).attr('data-pdf');
+        $(this).closest('tr').find('.__msg').text('Convertendo');
+        var fotos = $(this).attr('data-imgs');
+        $.ajax({
+            url: 'admin/exames/ConvertPDF',
+            type: 'POST',
+            data: {pdf:file, fotos:fotos},
+            success: function(data, textStatus, jqXHR){
+                alert('PDF convertido com sucesso');
+                $('.__msg').text('');
+                console.log(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    });
+    $('.convert_image').click(function(){
+        var id = <?php print $this->_get('id'); ?>;
+        $.ajax({
+            url: 'admin/exames/ConvertImage',
+            type: 'POST',
+            data: {pdf:file},
+            success: function(data, textStatus, jqXHR){
+                alert('PDF convertido com sucesso');
+                $('.__msg').text('');
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+            }
+        });
+    });
+});
+</script>

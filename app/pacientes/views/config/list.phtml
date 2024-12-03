@@ -1,141 +1,110 @@
 <section class="content-header">
-          <h1>
-            Lista de Pacientes 
-            <small></small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="Pacientes">Pacientes</a></li>
-            <li class="active">Lista de Pacientes</li>
-          </ol>
+  <h1>
+    Lista de Pacientes
+    <small></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="Pacientes">Pacientes</a></li>
+    <li class="active">Lista de Pacientes</li>
+  </ol>
 </section>
-        
-<section class="content"> 
 
-    <div class="box">
-        <div class="box-body">
+<section class="content">
 
+  <div class="box">
+    <div class="box-body">
 
-        <div style="margin: 15px 0; display:block;">
+      <div style="margin: 15px 0; display:block;">
 
-          <div style="display:inline-block;width: 50%;">
-            <label style="display: block;">Paciente ou código</label>
-            <input type="text" class="form-control" name="q" id="q" value="<?php print $this->q; ?>" style="width: 100%; display:inline-block">
-          </div>
-          <div style="display:inline-block;">
-            <button id="btn_busca" class="btn btn-default" style="margin-top: 0;">Buscar</button>
-            <button id="btn_limpar" class="btn btn-default" style="margin-top: 0;">Remover Filtro</button>
-          </div>
+        <div style="display:inline-block;width: 50%;">
+          <label style="display: block;">Paciente ou código</label>
+          <input type="text" class="form-control" name="q" id="q" value="<?php print $this->q; ?>" style="width: 100%; display:inline-block">
         </div>
-        
-
-    <table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
-      <tr style="font-weight:bold">
-        <td width="49">ID</td>
-        <td>Nome</td>
-        <td>Data Nascimento</td>
-        <td>Email</td>
-        <td>Data de Cadastro</td>
-        <td style="text-align: center">Consultas</td>
-        <td style="text-align: center">Dependentes</td>
-        <td width="138">Ações</td>
-      </tr>
-    
-    <?php  foreach($view_list as $dados ) { ?>
-        
-       <tr class="line">
-        <td><?php print $dados['id_pacientes']; ?></td>
-        <td><?php print $dados["nome"]; ?></td>
-        <td><?php print $dados["data_nascimento"]; ?></td>
-        <td><?php print $dados["email"]; ?></td>
-       
-        
-        <td>
-
-        <?php 
-
-            $d = explode(" ", $dados["date_created"]);
-            print $this->toDate("-",$d[0]); 
-        ?>
-          
-        </td>
-
-        <td style="text-align: center">
-            <a href="admin/consultas/lista/paciente/<?php print $dados['id_pacientes']; ?>" class="consultas" title="consultas">
-                <i class="fa fa-calendar" style="font-size: 16px"></i>
-            </a></td>
-
-        <td style="text-align: center">
-          <?php if(is_null($dados['id_responsavel'])) { ?>
-            <a href="admin/pacientes/index/paciente/<?php print $dados['id_pacientes']; ?>" class="dependentes" title="Dependentes">
-             <i class="fa fa-user" style="font-size: 16px"></i>
-            </a>
-          <?php } else {  ?>
-
-            Dependente
-
-          <?php } ?>
-        </td>
-
-        <td class="actions">
-
-        
-
-        <?php if($dados['codigo_paciente']) { ?>
-        
-        <a href="admin/pacientes/list_exames/id/<?php print $dados['codigo_paciente'] ?>" >
-         <i class="fa fa-heartbeat" aria-hidden="true"></i>
-        </a> 
-
-        <a target="_blank" href="admin/index/cartao/id/<?php print $dados['codigo_paciente'] ?>" >
-          <i class="fa fa-eye"></i>
-        </a> 
-        <?php }?>  
-        
-        
-
-            <a href="admin/pacientes/edit/id/<?php print $dados['id_pacientes'] ?>">
-				<i class="fa fa-edit"></i>
-			</a>   
-            <a href="javascript:void(0)" class="del" data-controller="admin/pacientes/del" title="Apagar registro" data-id="<?php print $dados['id_pacientes']; ?>">
-                <i class="fa fa-ban"></i>
-            </a>
-        </td>
-    
-      </tr>
-        
-    <?php  }  ?>
-    
-    </table>
-
-        
+        <div style="display:inline-block;">
+          <button id="btn_busca" class="btn btn-default" style="margin-top: 0;">Buscar</button>
+          <button id="btn_limpar" class="btn btn-default" style="margin-top: 0;">Remover Filtro</button>
         </div>
+      </div>
+
+      <table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
+        <tr style="font-weight:bold">
+          <td>Clínica</td>
+          <td>Nome</td>
+            <td class="text-center">CPF</td>
+            <td class="text-center">Data Nascimento</td>
+            <td class="text-center">Email</td>
+            <td class="text-center">Data de Cadastro</td>
+            <td></td>
+            <td width="300" class="text-right"></td>
+        </tr>
+
+        <?php foreach ($view_list as $dados) { ?>
+
+            <tr class="line" style="vertical-align: middle;">
+            <td><?php print ucfirst($dados["clinica"]); ?> </td>
+            <td><?php print $dados["nome"]; ?> </td>
+            <td class="text-center"><?php print $this->formatCPF($dados["cpf"]); ?></td>
+            <td class="text-center"><?php print $this->formatDateToBR($dados["data_nascimento"]); ?></td>
+            <td class="text-center"><?php print $dados["email"]; ?></td>
+            <td class="text-center">
+             <?php print $this->formatDateTimeToBR($dados["date_created"]); ?>
+            </td>
+
+            <td class="text-center" style="width: 50px;">
+              <?php if (!empty($dados['cpf'])) { ?>
+                <form action="admin/exames/create" method="post" style="display:inline;">
+                <input type="hidden" name="id_paciente" value="<?php print $dados['id_pacientes']; ?>">
+                <input type="hidden" name="cpf" value="<?php print $dados['cpf']; ?>">
+                <input type="hidden" name="novo_exame" value="1">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+                </form>
+              <?php } ?>
+            </td>
+
+            <td class="actions text-right" style="width: 200px;">
+              <?php if ($dados['codigo_paciente'] || $dados['cpf']) { ?>
+              <a href="admin/pacientes/list_exames/id/<?php print $dados['id_pacientes'] ?>" class="btn btn-success m-l-xs">
+                <i class="fa fa-heartbeat" aria-hidden="true"></i>
+              </a>
+
+              <a target="_blank" href="admin/index/cartao/id/<?php print $dados['id_pacientes'] ?>" class="btn btn-success m-l-xs">
+                <i class="fa fa-eye"></i>
+              </a>
+              <?php } ?>
+
+              <a href="admin/pacientes/edit/id/<?php print $dados['id_pacientes'] ?>" class="btn btn-success m-l-xs">
+              <i class="fa fa-edit"></i>
+              </a>
+              <a href="javascript:void(0)" class="del btn btn-success m-l-xs" data-controller="admin/pacientes/del" title="Apagar registro" data-id="<?php print $dados['id_pacientes']; ?>">
+              <i class="fa fa-ban"></i>
+              </a>
+            </td>
+
+            </tr>
+
+        <?php } ?>
+
+      </table>
+
     </div>
-    
-    <?php $this->pagination->paginate()?>
-    
+  </div>
+
+  <?php $this->pagination->paginate() ?>
+
 </section>
-
-
 
 <script type="text/javascript">
-  
-  $(function(){
-
-    $('#btn_busca').click(function(){
-
+  $(function () {
+    $('#btn_busca').click(function () {
       var q = $('#q').val();
-
-      window.location.href = "admin/pacientes?q="+encodeURI(q);
+      window.location.href = "admin/pacientes?q=" + encodeURI(q);
     });
 
-
-    $('#btn_limpar').click(function(){
-
+    $('#btn_limpar').click(function () {
       window.location.href = "admin/pacientes";
     });
-    
-
   });
-
 </script>
