@@ -226,7 +226,7 @@ class Auth {
 
                 $sql = $db->executeSql( $q );
 
-                die(json_encode($sql));
+                die(json_encode($sql[0]));
                 
                 if (count($sql) > 0) {
                     
