@@ -1224,8 +1224,10 @@ class exames extends Controller {
 	}
 
 	public function convertDateFormats() {
-		$exames = $this->exames_model->getAll();
-
+		
+		$exames = $this->exames_model->getAllNull();
+		$this->printar($exames);
+		
 		foreach ($exames as $exame) {
 
 			$data_nascimento = $exame['data_nascimento'];
