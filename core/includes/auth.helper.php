@@ -222,11 +222,11 @@ class Auth {
                 LIMIT 1
                 ";
 
-                die(json_encode($q));
+                // die(json_encode($q));
 
                 $sql = $db->executeSql( $q );
 
-                // die(json_encode($sql));
+                die(json_encode($sql));
                 
                 if (count($sql) > 0) {
                     
