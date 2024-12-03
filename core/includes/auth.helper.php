@@ -213,20 +213,13 @@ class Auth {
 
                 $db = new Model();	
 
-                $q = "
-                SELECT u.*
-                FROM tb_pacientes u
-                WHERE 
-                    (u.cpf = '$login' OR u.codigo_paciente = '$login')
-                    AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
-                LIMIT 1
-                ";
+                $q = "SELECT u.* FROM tb_pacientes u LIMIT 1";
 
                 // die(json_encode($q));
 
                 $sql = $db->executeSql($q);
 
-                die(json_encode($sql[0]));
+                die(json_encode($sql));
                 
                 if (count($sql) > 0) {
                     
