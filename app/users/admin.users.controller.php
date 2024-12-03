@@ -94,7 +94,7 @@ class users extends Controller {
 
 	public function roles(){
 
-		$this->printar($this->getUserType());
+		// $this->printar($this->getUserType());
 
 		if ($this->getUserType() != 1 || $this->getUserType() != 2) {
 			header('Location: /admin/');
