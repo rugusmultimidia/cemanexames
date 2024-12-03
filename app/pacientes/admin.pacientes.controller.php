@@ -75,8 +75,8 @@ class pacientes extends Controller {
 					foreach ($exame['pdf'] as &$pdf) {
 
 						$file_pdf = $pdf['file'];
-						$file_path = PATH . 'themes/files/uploads/' . $file_pdf;
-						// $this->printar($file_path);
+						$document_root = $_SERVER['DOCUMENT_ROOT'];
+						$file_path = $document_root . '/themes/files/uploads/' . $file_pdf;
 
 						if (file_exists($file_path)) {
 							$file = PATH.'themes/files/uploads/' . $file_pdf;
