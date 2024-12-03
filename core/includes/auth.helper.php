@@ -162,10 +162,10 @@ class Auth {
 
         // die($action);
         // $userData = $this->userData($user);
-        // echo "<pre>";
-        // print_r($userData);
-        // die;
-        
+        echo "<pre>";
+        print_r($userData);
+        die;
+
         if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
             return true;
         }
