@@ -165,15 +165,16 @@ class Auth {
         // echo "<pre>";
         // print_r($userData);
         // die;
+        
+        if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
+            return true;
+        }
 
         if ($this->redirectorHelper->getCurrentController() == "users" 
             && ($this->redirectorHelper->getCurrentAction() == "login" || $this->redirectorHelper->getCurrentAction() == "logout")) {
             return false;
         }
 
-        if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
-            return true;
-        }
 
         if ($this->sessionHelper->checkSession($user)) {
             $userData = $this->userData($user);
