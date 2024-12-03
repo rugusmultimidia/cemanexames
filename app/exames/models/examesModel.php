@@ -142,6 +142,16 @@ class examesModel extends Model {
         $clinica = $_SESSION['@userApp']['clinica'];
         return $this->read("id_pacientes = '$codigo' and clinica = '$clinica'", $this->_id.' DESC', $n);        
         
+    } 
+
+    public function getCodPaciente($codigo, $n = null, $name=null) {  
+
+
+        // die($codigo.' - '.$name);
+        
+        $clinica = $_SESSION['@userApp']['clinica'];
+        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name') and clinica = '$clinica'", $this->_id.' DESC', $n);        
+        
     }  
 
     public function getIdPacienteResultSite($id, $n = null) {  

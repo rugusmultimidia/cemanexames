@@ -39,16 +39,34 @@ class pacientes extends Controller {
 	}
 
 	public function list_exames() {
-		$cod = $this->_get('id');
+		$id_pacientes = $this->_get('id');
+		$name = $_GET['name'];
+		$cod = $this->_get('codigo');
+		
+		if(!empty($id_pacientes)){
+			// die('busca id');
+			$this->pagination = new Pagination();
+			$count = $this->exames_model->getIdPaciente($id_pacientes);
+			$this->pagination->link('admin/pacientes/index/page');
+			$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page'));
+	
+			$dados['list'] = $this->exames_model->getIdPaciente($id_pacientes, $this->pagination->getLimit());
+			$dados['paciente'] = $this->pacientes_model->get($id_pacientes);
+		}else if(!empty($cod)){
+			// die('busca codigo');
+			$this->pagination = new Pagination();
+			$count = $this->exames_model->getCodPaciente($cod,null,$name);
+			$this->pagination->link('admin/pacientes/index/page');
+			$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page'));
+	
+			$dados['list'] = $this->exames_model->getCodPaciente($cod, $this->pagination->getLimit(),$name);
+			$dados['paciente'] = $this->pacientes_model->get($cod);
+		}else{
+			die('Erro na busca');
+		}
+		
 		$dados = array();
 
-		$this->pagination = new Pagination();
-		$count = $this->exames_model->getIdPaciente($cod);
-		$this->pagination->link('admin/pacientes/index/page');
-		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page'));
-
-		$dados['list'] = $this->exames_model->getIdPaciente($cod, $this->pagination->getLimit());
-		$dados['paciente'] = $this->pacientes_model->get($cod);
 
 		// $this->printar($dados);
 		// die('exames');
