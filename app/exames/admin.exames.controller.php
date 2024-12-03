@@ -1233,7 +1233,7 @@ class exames extends Controller {
 			// die("Iniciando...");
 			
 			$exames = $this->exames_model->getAllNull();
-			// $this->printar($exames);
+			$this->printar($exames);
 			
 			foreach ($exames as $exame) {
 	
