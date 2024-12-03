@@ -47,7 +47,7 @@ class examesModel extends Model {
 
 
         $sql = "SELECT count(E.id_exames) as total from tb_exames E
-             INNER JOIN tb_pacientes P
+             LEFT JOIN tb_pacientes P
              ON P.codigo_paciente = E.codigo_paciente
              ".$where."
              order by E.id_exames DESC ".$limit."
@@ -93,8 +93,7 @@ class examesModel extends Model {
 
         $sql =    "SELECT P.*, E.*, E.clinica as clinica_exame , P.cpf as cpf_user, E.data_nascimento as data_nascimento_exame
             from tb_exames E
-             INNER JOIN tb_pacientes P
-             ON P.id_pacientes = E.id_pacientes
+             LEFT JOIN tb_pacientes P ON P.id_pacientes = E.id_pacientes
              WHERE E.clinica='$clinica' AND E.ativo='ativo'
              ".$where."
              order by E.date_update DESC ".$limit."
@@ -123,7 +122,7 @@ class examesModel extends Model {
     
         $sql = "SELECT P.*, E.*, E.clinica as clinica_exame, P.cpf as cpf_user
                 FROM tb_exames E
-                INNER JOIN tb_pacientes P ON P.codigo_paciente = E.codigo_paciente
+                LEFT JOIN tb_pacientes P ON P.codigo_paciente = E.codigo_paciente
                 $where
                 ORDER BY E.id_exames DESC
                 LIMIT 1";

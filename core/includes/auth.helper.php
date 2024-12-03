@@ -111,7 +111,7 @@ class Auth {
 
             $q = '
     				SELECT * FROM ih_users
-    				INNER JOIN ih_users_type
+    	            LEFT JOIN ih_users_type
     				ON ih_users.user_type = ih_users_type.id_user_type
     				WHERE 
     				ih_users.'.$this->userColumn.' = "'.$this->user.'"
