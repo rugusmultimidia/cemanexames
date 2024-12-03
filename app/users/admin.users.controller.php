@@ -93,18 +93,13 @@ class users extends Controller {
 	
 
 	public function roles(){
-
-		// $this->printar($this->getUserType());
-
-		if ($this->getUserType() != 1 || $this->getUserType() != 2) {
+		if ($this->getUserType() == 1 || $this->getUserType() == 2) {
+			$dados['list'] = $this->rolesModel->getAll();
+			$this->view('roles/list', $dados);
+		}else{
 			header('Location: /admin/');
 			exit();
 		}
-
-		// $this->printar($_SESSION);
-
-		$dados['list'] = $this->rolesModel->getAll();
-		$this->view('roles/list', $dados);
 	}	
 
 	public function roles_add(){	
