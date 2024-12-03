@@ -165,10 +165,12 @@ class Auth {
         // echo "<pre>";
         // print_r($userData['user_type']);
         // var_dump($userData['user_type'] == 1 || $userData['user_type'] == 2);
+        // print_r($_SESSION['@userApp']['user_type']);
         // die;
 
-        if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
-            // die("administrador");
+        $userType = $_SESSION['@userApp']['user_type'];
+
+        if ($userType == 1 || $userType == 2) {
             return true;
         }
 
