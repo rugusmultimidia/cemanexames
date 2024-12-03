@@ -219,7 +219,6 @@ class Auth {
                 WHERE 
                     (u.cpf = '$login' OR u.codigo_paciente = '$login')
                     AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
-                    AND u.clinica = '$clinica'
                 LIMIT 1
                 ";
 
