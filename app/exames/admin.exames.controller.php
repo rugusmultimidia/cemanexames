@@ -1225,47 +1225,51 @@ class exames extends Controller {
 
 	public function convertDateFormats() {
 
-		// die("Iniciando...");
 		
-		$exames = $this->exames_model->getAllNull();
-		// $this->printar($exames);
-		
-		foreach ($exames as $exame) {
+		for ($i = 0; $i < 3; $i++) {
 
-			$data_nascimento = $exame['data_nascimento'];
-
-			// $this->printar($exame);
-
-			if ($this->isDateBR($data_nascimento)) {
-				$data_nascimento = $this->convertDateToUSA($data_nascimento);
-			}
-
-			$dataSave = array(
-				"data_nascimento" => $data_nascimento,
-				'date_update' => date('Y-m-d H:i')
-			);
+			// die("Iniciando...");
 			
-			if(empty($exame['id_pacientes'])) {
-				// die("Paciente não encontrado: " . $exame['codigo_paciente'] . ' - ' . $exame['paciente']);
-				$paciente = $this->pacientes_model->getCode($exame['codigo_paciente'], $exame['paciente'])[0];
+			$exames = $this->exames_model->getAllNull();
+			// $this->printar($exames);
+			
+			foreach ($exames as $exame) {
+	
+				$data_nascimento = $exame['data_nascimento'];
+	
+				// $this->printar($exame);
+	
+				if ($this->isDateBR($data_nascimento)) {
+					$data_nascimento = $this->convertDateToUSA($data_nascimento);
+				}
+	
+				$dataSave = array(
+					"data_nascimento" => $data_nascimento,
+					'date_update' => date('Y-m-d H:i')
+				);
 				
-				if(!empty($paciente)) {
+				if(empty($exame['id_pacientes'])) {
+					// die("Paciente não encontrado: " . $exame['codigo_paciente'] . ' - ' . $exame['paciente']);
+					$paciente = $this->pacientes_model->getCode($exame['codigo_paciente'], $exame['paciente'])[0];
 					
-					// $this->printar($paciente);
-					
-					if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
+					if(!empty($paciente)) {
 						
-						$dataSave['id_pacientes'] = (int)$paciente['id_pacientes'];
+						// $this->printar($paciente);
 						
-						echo $exame['paciente'] ." ".$exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
-			
-						$this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
+						if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
+							
+							$dataSave['id_pacientes'] = (int)$paciente['id_pacientes'];
+							
+							echo $exame['paciente'] ." ".$exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
+				
+							$this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
+						}
 					}
 				}
+				
 			}
 			
 		}
-
 
 		die("Fim");
 	}
