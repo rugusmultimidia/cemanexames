@@ -151,8 +151,8 @@ class examesModel extends Model {
 
         // die($codigo.' - '.$name);
         
-        $clinica = $_SESSION['@userApp']['clinica'];
-        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name') and clinica = '$clinica'", $this->_id.' DESC', $n);        
+        $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
+        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name') $clinica", $this->_id.' DESC', $n);        
         
     }  
 
