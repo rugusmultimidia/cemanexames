@@ -1226,7 +1226,7 @@ class exames extends Controller {
 	public function convertDateFormats() {
 		
 		$exames = $this->exames_model->getAllNull();
-		// $this->printar($exames);
+		$this->printar($exames);
 		
 		foreach ($exames as $exame) {
 
