@@ -175,8 +175,6 @@ class Auth {
             return false;
         }
 
-        die("paciente");
-
         if ($this->redirectorHelper->getCurrentController() == "users" 
             && ($this->redirectorHelper->getCurrentAction() == "login" || $this->redirectorHelper->getCurrentAction() == "logout")) {
             return false;
