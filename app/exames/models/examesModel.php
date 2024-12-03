@@ -94,7 +94,8 @@ class examesModel extends Model {
         $sql =    "SELECT P.*, E.*, E.clinica as clinica_exame , P.cpf as cpf_user, E.data_nascimento as data_nascimento_exame
             from tb_exames E
              LEFT JOIN tb_pacientes P ON P.id_pacientes = E.id_pacientes
-             WHERE E.clinica='$clinica' AND E.ativo='ativo'
+             WHERE 
+             E.ativo='ativo'  
              ".$where."
              order by E.date_update DESC ".$limit."
              " ;
@@ -141,7 +142,7 @@ class examesModel extends Model {
 
         // die($codigo);
         
-        $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
+        // $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
         return $this->read("id_pacientes = '$codigo'", $this->_id.' DESC', $n);        
         
     } 
@@ -151,8 +152,8 @@ class examesModel extends Model {
 
         // die($codigo.' - '.$name);
         
-        $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
-        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name') $clinica", $this->_id.' DESC', $n);        
+        // $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
+        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name')", $this->_id.' DESC', $n);        
         
     }  
 
