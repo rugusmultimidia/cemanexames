@@ -142,7 +142,7 @@ class examesModel extends Model {
         // die($codigo);
         
         $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
-        return $this->read("id_pacientes = '$codigo' $clinica", $this->_id.' DESC', $n);        
+        return $this->read("id_pacientes = '$codigo'", $this->_id.' DESC', $n);        
         
     } 
 
