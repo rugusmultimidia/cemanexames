@@ -160,7 +160,7 @@ class Auth {
 
     public function checkLogin($user, $type, $action, $ignorePermission = false) { 
 
-        // die($action);
+        die($action);
         // $userData = $this->userData($user);
         echo "<pre>";
         print_r($userData);
