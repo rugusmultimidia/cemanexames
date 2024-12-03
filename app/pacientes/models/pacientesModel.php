@@ -90,7 +90,7 @@ class pacientesModel extends Model {
                     OR email = '%".$n."%'
                 ) 
                 and status = 'ativo' 
-                and clinica = '$clinica'";
+                #and clinica = '$clinica'";
 
                 // die($query);
 
