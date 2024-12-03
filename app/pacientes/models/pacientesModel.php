@@ -85,6 +85,8 @@ class pacientesModel extends Model {
                 and (
                     nome LIKE '%".$n."%'
                     OR cpf = '".$cpf."'
+                    OR codigo_paciente = '".$cpf."'
+                    OR id_pacientes = '".$cpf."'
                     OR email = '%".$n."%'
                 ) 
                 and status = 'ativo' 

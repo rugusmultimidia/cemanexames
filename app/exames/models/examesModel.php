@@ -69,6 +69,7 @@ class examesModel extends Model {
             $q_cpf = "
                 P.cpf like '%".$cpf."%' OR 
                 E.cpf like '%".$cpf."%' OR 
+                E.codigo_paciente = '".$cpf."' OR 
                 ";
         }
 
@@ -78,6 +79,7 @@ class examesModel extends Model {
                     P.nome like '%".$paciente."%' OR
                     E.paciente like '%".$paciente."%' OR
                     P.id_pacientes like '%".$paciente."%' OR
+                    E.id_pacientes like '%".$paciente."%' OR
                     P.email like '%".$paciente."%' OR 
                     $q_cpf
                     P.codigo_paciente like '%".$paciente."%' 
