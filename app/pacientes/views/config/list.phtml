@@ -31,6 +31,7 @@
         <tr style="font-weight:bold">
           <td>Clínica</td>
           <td>Nome</td>
+            <td class="text-center">Código</td>
             <td class="text-center">CPF</td>
             <td class="text-center">Data Nascimento</td>
             <td class="text-center">Email</td>
@@ -44,6 +45,7 @@
             <tr class="line" style="vertical-align: middle;">
             <td><?php print ucfirst($dados["clinica"]); ?> </td>
             <td><?php print $dados["nome"]; ?> </td>
+            <td class="text-center"><?php print $dados["codigo_paciente"]; ?> </td>
             <td class="text-center"><?php print $this->formatCPF($dados["cpf"]); ?></td>
             <td class="text-center"><?php print $this->formatDateToBR($dados["data_nascimento"]); ?></td>
             <td class="text-center"><?php print $dados["email"]; ?></td>
