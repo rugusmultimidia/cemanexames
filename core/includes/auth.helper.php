@@ -203,6 +203,8 @@ class Auth {
             $input = json_decode(file_get_contents('php://input'), true);
             // die(print_r($input));
 
+            die(json_encode($input));
+
             if (isset($input['login']) && isset($input['senha'])) {
                 $login = $input['login'];
                 $senha = $input['senha'];
