@@ -1266,6 +1266,7 @@ class exames extends Controller {
 			
 		}
 
+
 		die("Fim");
 	}
 
