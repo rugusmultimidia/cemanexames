@@ -171,6 +171,10 @@ class Auth {
             return false;
         }
 
+        if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
+            return true;
+        }
+
         if ($this->sessionHelper->checkSession($user)) {
             $userData = $this->userData($user);
             if ($userData['user_type'] == 1 || $userData['user_type'] == 2) {
