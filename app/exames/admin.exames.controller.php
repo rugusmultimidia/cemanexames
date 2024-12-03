@@ -1255,7 +1255,7 @@ class exames extends Controller {
 						
 						$dataSave['id_pacientes'] = (int)$paciente['id_pacientes'];
 						
-						echo $exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
+						echo $exame['paciente'] ." ".$exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
 			
 						// $this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
 					}
