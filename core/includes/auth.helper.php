@@ -208,6 +208,10 @@ class Auth {
             error_log("Senha recebida: $senha");
             error_log("Clinica recebida: $clinica");
 
+            error_log("Login recebido: $login");
+            error_log("Senha recebida: $senha");
+            error_log("Clinica recebida: $clinica");
+            die(json_encode(array('status' => 'success', 'message' => 'Usuário logado com sucesso.')));
             
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
