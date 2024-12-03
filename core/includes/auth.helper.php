@@ -199,6 +199,15 @@ class Auth {
         $token = $headers['Authorization'];
         // Validate  tokenthe (this is just an example, implement your own validation logic)
         if ($token === 'G423JHG46GJH546F7F3763UI356KJ356') {
+
+            $cpf = trim($_POST['login']);
+            $senha = trim($_POST['senha']);
+            $clinica = trim($_POST['clinica']);
+
+            error_log("Login recebido: $cpf");
+            error_log("Senha recebida: $senha");
+            error_log("Clinica recebida: $clinica");
+
             
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
@@ -213,13 +222,21 @@ class Auth {
 
                 $db = new Model();	
 
-                $q = "SELECT u.* FROM tb_pacientes u LIMIT 1";
+                $q = "
+                SELECT u.*
+                FROM tb_pacientes u
+                WHERE 
+                    (u.cpf = '$login' OR u.codigo_paciente = '$login')
+                    AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
+                    AND u.clinica = '$clinica'
+                LIMIT 1
+                ";
 
                 // die(json_encode($q));
 
                 $sql = $db->executeSql($q);
 
-                die(json_encode($sql));
+                die(json_encode($sql[0]));
                 
                 if (count($sql) > 0) {
                     
