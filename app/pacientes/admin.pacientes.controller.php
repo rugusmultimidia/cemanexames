@@ -42,9 +42,11 @@ class pacientes extends Controller {
 		$id_pacientes = $this->_get('id');
 		$name = $_GET['name'];
 		$cod = $this->_get('codigo');
+
+		$dados = array();
 		
 		if(!empty($id_pacientes)){
-			// die('busca id');
+			// die('busca id '.$id_pacientes);
 			$this->pagination = new Pagination();
 			$count = $this->exames_model->getIdPaciente($id_pacientes);
 			$this->pagination->link('admin/pacientes/index/page');
@@ -65,7 +67,7 @@ class pacientes extends Controller {
 			die('Erro na busca');
 		}
 		
-		$dados = array();
+		
 
 
 		// $this->printar($dados);
