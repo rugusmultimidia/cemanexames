@@ -201,7 +201,7 @@ class Auth {
         if ($token === 'G423JHG46GJH546F7F3763UI356KJ356') {
             // Get the JSON input
             $input = json_decode(file_get_contents('php://input'), true);
-            // die(print_r($input));
+            die(print_r($input));
 
             // die(json_encode(var_dump($input)));
 
