@@ -104,12 +104,8 @@ class users extends Controller {
 
 	public function roles_add(){	
 
-		if ($this->getUserType() != 1) {
-			header('Location: /');
-			exit();
-		}
-
-		if($this->_post()) {		
+		if ($this->getUserType() == 1 || $this->getUserType() == 2) {
+			if($this->_post()) {		
 
 				$save = array(
 					'funcao' => 0,	
@@ -134,6 +130,10 @@ class users extends Controller {
 		$dados['modulos'] = $this->updatePermissionsArray($controllers);
 
 		$this->view('roles/add', $dados);	
+		}else{
+			header('Location: /admin/');
+			exit();
+		}
 
 	}
 
@@ -141,12 +141,8 @@ class users extends Controller {
 
 	public function rolesEdit(){	
 		
-		if ($this->getUserType() != 1) {
-			header('Location: /');
-			exit();
-		}
-
-		$id = $this->_get('id');		
+		if ($this->getUserType() == 1 || $this->getUserType() == 2) {
+			$id = $this->_get('id');		
 
 		if($this->_post()) {	
 			
@@ -180,6 +176,12 @@ class users extends Controller {
 		// $this->printar($dados['modulos']);
 
 		$this->view('roles/edit', $dados);
+		}else{
+			header('Location: /admin/');
+			exit();
+		}
+
+		
 
 	}
 
