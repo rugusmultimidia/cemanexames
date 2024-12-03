@@ -211,6 +211,12 @@ $(function(){
 	$('.edittext').summernote();
 })
 
+$(document).on('keypress', 'input', function(event) {
+	if (event.keyCode == 13) {
+		event.preventDefault();
+	}
+});
+
 </script>
 
 </body>
