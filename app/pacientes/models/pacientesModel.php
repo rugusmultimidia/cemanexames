@@ -29,8 +29,8 @@ class pacientesModel extends Model {
    public function getCode($id=null, $name=null) {
 
     if($id && $name){
-
-        return $this->read( 'codigo_paciente = "'.$id.'" ');
+        // die("nome like '%$name%' OR codigo_paciente = $id ");
+        return $this->read( "(nome like '%$name%' OR codigo_paciente = $id)");
     }else{
         return null; 
 

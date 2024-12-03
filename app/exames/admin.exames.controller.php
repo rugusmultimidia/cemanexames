@@ -1244,17 +1244,24 @@ class exames extends Controller {
 			);
 			
 			if(empty($exame['id_pacientes'])) {
-				die("Paciente não encontrado: " . $exame['codigo_paciente'] . ' - ' . $exame['paciente']);
+				// die("Paciente não encontrado: " . $exame['codigo_paciente'] . ' - ' . $exame['paciente']);
 				$paciente = $this->pacientes_model->getCode($exame['codigo_paciente'], $exame['paciente'])[0];
-				$this->printar($paciente);
-				if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
-					$dataSave['id_pacientes'] = (int)$paciente['id_pacientes'];
+				
+				if(!empty($paciente)) {
+					
+					$this->printar($paciente);
+					
+					if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
+						
+						$dataSave['id_pacientes'] = (int)$paciente['id_pacientes'];
+						
+						echo $exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
+			
+						$this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
+					}
 				}
 			}
 			
-			echo $exame['id_exames'] . ' - ' . $exame['data_nascimento'] . ' - ' . $data_nascimento . '<br>';
-
-			// $this->exames_model->edit($dataSave, 'id_exames = ' . $exame['id_exames']);
 		}
 
 		die("Fim");
