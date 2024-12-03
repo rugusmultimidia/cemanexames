@@ -1228,6 +1228,8 @@ class exames extends Controller {
 		
 		for ($i = 0; $i < 3; $i++) {
 
+			echo "loop $i<br>";
+
 			// die("Iniciando...");
 			
 			$exames = $this->exames_model->getAllNull();
@@ -1254,7 +1256,7 @@ class exames extends Controller {
 					
 					if(!empty($paciente)) {
 						
-						// $this->printar($paciente);
+						$this->printar($paciente);
 						
 						if (!is_int($paciente['id_pacientes']) && !empty($paciente['id_pacientes'])) {
 							
