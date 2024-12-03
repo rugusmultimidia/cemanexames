@@ -206,16 +206,16 @@ class Auth {
 
             // die(json_encode(var_dump($input)));
 
-            die(mb_detect_encoding($input['senha']));
-
+            
             if (isset($input['login']) && isset($input['senha'])) {
                 $login = $input['login'];
                 $senha = $input['senha'];
                 $clinica = $input['clinica'];
-
+                
                 $cpf = mb_convert_encoding($input['login'], 'UTF-8', 'auto');
                 $senha = mb_convert_encoding($input['senha'], 'UTF-8', 'auto');
                 $clinica = mb_convert_encoding($input['clinica'], 'UTF-8', 'auto');
+                die(mb_detect_encoding($senha));
 
                 $db = new Model();	
 
