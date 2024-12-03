@@ -75,10 +75,11 @@ class pacientes extends Controller {
 					foreach ($exame['pdf'] as &$pdf) {
 
 						$file_pdf = $pdf['file'];
-						$file_path = 'themes/files/uploads/' . $file_pdf;
+						$file_path = PATH . 'themes/files/uploads/' . $file_pdf;
+						// $this->printar($file_path);
 
 						if (file_exists($file_path)) {
-							$file = 'themes/files/uploads/' . $file_pdf;
+							$file = PATH.'themes/files/uploads/' . $file_pdf;
 						} else {
 							$file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
 						}
