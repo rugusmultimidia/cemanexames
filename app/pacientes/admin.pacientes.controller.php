@@ -95,16 +95,21 @@ class pacientes extends Controller {
 					
 					foreach ($exame['pdf'] as &$pdf) {
 
-						$file_pdf = $pdf['file'];
-						$document_root = $_SERVER['DOCUMENT_ROOT'];
-						$file_path = $document_root . '/themes/files/uploads/' . $file_pdf;
-
-						if (file_exists($file_path)) {
-							$file = PATH.'themes/files/uploads/' . $file_pdf;
-						} else {
-							$file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
+						if(isset($pdf['file']) && !empty($pdf['file']) && $pdf['name'] != 'null'){
+							
+							$file_pdf = $pdf['file'];
+							$document_root = $_SERVER['DOCUMENT_ROOT'];
+							$file_path = $document_root . '/themes/files/uploads/' . $file_pdf;
+	
+							if (file_exists($file_path)) {
+								$file = PATH.'themes/files/uploads/' . $file_pdf;
+							} else {
+								$file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
+							}
+							$pdf['file'] = $file;
+							
 						}
-						$pdf['file'] = $file;
+
 					}
 
 				}

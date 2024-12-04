@@ -222,19 +222,21 @@ class Auth {
                 WHERE 
                     (u.cpf = '$login' OR u.codigo_paciente = '$login')
                     AND (u.data_nascimento = '$senha' OR u.senha = '$senha')
-                    AND u.clinica = '$clinica'
+                    #AND u.clinica = '$clinica'
                 LIMIT 1
                 ";
 
-                // die(json_encode($q));
+                // die(var_dump($q));
 
                 $sql = $db->executeSql($q);
 
-                // die(json_encode($sql));
+                // die(print_r($sql));
                 
                 if (count($sql) > 0) {
                     
-                    // die(json_encode($sql[0]));
+                    //ajusta a clinica com a requisicao
+                    $sql[0]['clinica'] = $clinica;
+                    
                     $this->sessionHelper->createSession("@paciente", $sql[0]);
                     return true;
 
