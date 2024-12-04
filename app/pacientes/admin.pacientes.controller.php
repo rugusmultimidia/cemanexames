@@ -89,7 +89,7 @@ class pacientes extends Controller {
 			$dados['exames'] = $this->exames_model->getIdPacienteResultSite($id_pacientes);
 
 			foreach ($dados['exames'] as &$exame) {
-				if (isset($exame['pdf']) && !empty($exame['pdf']) && !empty($exame['exame'])) {
+				if (!empty($exame['pdf']) && !empty($exame['exame'])) {
 					
 					$exame['pdf'] = unserialize($exame['pdf']);
 					
