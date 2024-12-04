@@ -95,10 +95,11 @@ class pacientes extends Controller {
 					
 					foreach ($exame['pdf'] as &$pdf) {
 
-						print_r($pdf['name']?"":"nao tem name");
-						continue;
-
+						
 						if(isset($pdf['file']) && !empty($pdf['file']) && $pdf['name'] != 'null'){
+							
+							print_r($pdf['name']?"":"nao tem name");
+							continue;
 							
 							$file_pdf = $pdf['file'];
 							$document_root = $_SERVER['DOCUMENT_ROOT'];
