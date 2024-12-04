@@ -89,33 +89,27 @@ class pacientes extends Controller {
 			$dados['exames'] = $this->exames_model->getIdPacienteResultSite($id_pacientes);
 
 			foreach ($dados['exames'] as &$exame) {
-				
-				if (!empty($exame['pdf']) && !empty($exame['exame']) && $exame['exame'] != '') {
+
+				if (!empty($exame['pdf']) && !empty($exame['exame'])) {
 					
 					$exame['pdf'] = unserialize($exame['pdf']);
 					
 					foreach ($exame['pdf'] as &$pdf) {
 
-						
-						if(!empty($pdf['file']) && !empty($pdf['name'])){
+						$file_pdf = $pdf['file'];
+						$document_root = $_SERVER['DOCUMENT_ROOT'];
+						$file_path = $document_root . '/themes/files/uploads/' . $file_pdf;
 
-							$file_pdf = $pdf['file'];
-							$document_root = $_SERVER['DOCUMENT_ROOT'];
-							$file_path = $document_root . '/themes/files/uploads/' . $file_pdf;
-	
-							if (file_exists($file_path)) {
-								$file = PATH.'themes/files/uploads/' . $file_pdf;
-							} else {
-								$file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
-							}
-							$pdf['file'] = $file;
-							
+						if (file_exists($file_path)) {
+							$file = PATH.'themes/files/uploads/' . $file_pdf;
+						} else {
+							$file = 'https://examesceman.s3.amazonaws.com/uploads/' . $file_pdf;
 						}
+						$pdf['file'] = $file;
+						
 
 					}
 
-				}else{
-					unset($exame);
 				}
 
 
