@@ -90,7 +90,7 @@ class pacientes extends Controller {
 
 			foreach ($dados['exames'] as &$exame) {
 
-				if (!empty($exame['pdf']) && !empty($exame['exame'])) {
+				if (!empty($exame['pdf'])) {
 					
 					$exame['pdf'] = unserialize($exame['pdf']);
 					
