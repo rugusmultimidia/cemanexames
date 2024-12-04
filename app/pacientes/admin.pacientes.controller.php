@@ -95,7 +95,8 @@ class pacientes extends Controller {
 					
 					foreach ($exame['pdf'] as &$pdf) {
 
-						print_r($pdf);
+						print_r($pdf['name']);
+						continue;
 
 						if(isset($pdf['file']) && !empty($pdf['file']) && $pdf['name'] != 'null'){
 							
