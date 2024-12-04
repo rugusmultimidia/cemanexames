@@ -89,7 +89,7 @@ class pacientes extends Controller {
 			$dados['exames'] = $this->exames_model->getIdPacienteResultSite($id_pacientes);
 
 			foreach ($dados['exames'] as &$exame) {
-				if (isset($exame['pdf']) && !empty($exame['pdf'])) {
+				if (isset($exame['pdf']) && !empty($exame['pdf']) && !empty($exame['exame'])) {
 					
 					$exame['pdf'] = unserialize($exame['pdf']);
 					
@@ -98,9 +98,6 @@ class pacientes extends Controller {
 						
 						if(!empty($pdf['file']) && !empty($pdf['name'])){
 
-							print_r($pdf['name']?"":"nao tem name, ");
-							continue;
-							
 							$file_pdf = $pdf['file'];
 							$document_root = $_SERVER['DOCUMENT_ROOT'];
 							$file_path = $document_root . '/themes/files/uploads/' . $file_pdf;
