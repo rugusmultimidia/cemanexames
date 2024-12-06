@@ -72,7 +72,7 @@
                         <?php if ($this->getUserPermissions('users', 'add')): ?>
                             <li><a href="admin/users/add">Cadastrar</a></li>
                         <?php endif; ?>
-                        <?php if ($this->getUserPermissions('users', 'index')): ?>
+                        <?php if ($this->getUserPermissions('users', 'index_action')): ?>
                             <li><a href="admin/users">Listar</a></li>
                         <?php endif; ?>
                     </ul>

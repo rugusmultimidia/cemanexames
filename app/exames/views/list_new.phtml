@@ -38,7 +38,7 @@
 	<?php  foreach($view_list as $dados ) { ?>		
 
 	   <tr class="line">
-		<td><?php print strtoupper($dados["clinica_exame"]); ?></td>
+		<td><?php print strtoupper($dados["clinica_exame"]);?></td>
         <td><?php 
 
         $data = explode(" ", $dados['date_created']);
@@ -93,7 +93,7 @@
                 <i class="fa fa-eye"></i>
             </a>  -->
 
-            <?php if ($this->testaDias($dados['date_created'], 45)) { ?>
+            <?php if ($this->testaDias($dados['date_created'], 45) || $this->getUserType() == 4 || $this->getUserType() == 2 || $this->getUserType() == 1) { ?>
                 <a href="admin/exames/edit_new/id/<?php print $dados['id_exames'] ?>" class="btn btn-primary btn-sm">
                     <i class="fa fa-edit"></i>
                 </a>
