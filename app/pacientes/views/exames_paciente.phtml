@@ -35,9 +35,11 @@
 
           foreach($exames_geral as $ex) { 
 
-            //print_r($ex); die;
+            // print_r($ex); die;
 
         ?>
+
+        <?php if($exame['exame'] && @$ex['name']):?>
             <tr>
               <td align="center" ><?php print strtoupper($exame['clinica'])?></td>
               <td><?php print $exame['exame']?></td>
@@ -59,6 +61,7 @@
               ?>
                 <td align="center"><a class="gourl" href="<?=$file?>" target="_blank"><img src="themes/admin/img/pdf_icon.png"></a></td>
             </tr>
+            <?php endif;?>
         <?php }} ?>
       </tbody>
     </table>
