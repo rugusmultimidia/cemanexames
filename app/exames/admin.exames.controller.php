@@ -472,7 +472,7 @@ class exames extends Controller {
 	
 		$dados = array();
 		$dados['data'] = $this->exames_model->get($id);
-		// $this->printar($dados['data']);
+		$this->printar($dados['data']);
 
 		$dados['paciente'] = $this->exames_model->getPacienteByNome($dados['data'][0]['paciente'], $dados['data'][0]['data_nascimento'])[0];
 		
