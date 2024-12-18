@@ -95,7 +95,7 @@ class examesModel extends Model {
             from tb_exames E
              LEFT JOIN tb_pacientes P ON P.id_pacientes = E.id_pacientes
              WHERE 
-             E.ativo='ativo'  
+             E.ativo IN ('apagado','ativo')  
              ".$where."
              order by E.date_update DESC ".$limit."
              " ;

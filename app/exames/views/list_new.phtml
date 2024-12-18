@@ -25,6 +25,7 @@
 
 	<table width="100%" border="0" cellpadding="5" cellspacing="1" style="font-size:12px;" class="table table-striped">
 	  <tr style="font-weight:bold">
+		<td width="20" style="text-align: center;">P</td>
 		<td width="100">Clínica</td>
 		<td>Data Criação</td>
 		<td>Exame</td>
@@ -38,6 +39,9 @@
 	<?php  foreach($view_list as $dados ) { ?>		
 
 	   <tr class="line">
+		<td style="text-align: center;">
+			<div style="width: 20px; height: 20px; border-radius: 50%; background-color: <?php echo $dados['ativo'] == 'ativo' ? 'green' : 'red'; ?>;"></div>
+		</td>
 		<td><?php print strtoupper($dados["clinica_exame"]);?></td>
         <td><?php 
 
