@@ -134,6 +134,10 @@
 			return $_SESSION['@userApp']['user_type'];
 		}
 
+		public function master() {
+			return $_SESSION['@userApp']['user_type'] == 1 || $_SESSION['@userApp']['user_type'] == 2 || $_SESSION['@userApp']['user_type'] == 4 ? true : false;
+		}
+
 		public function getUserName() {
 			return $_SESSION['@userApp']['name'];
 		}

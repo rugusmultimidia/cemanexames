@@ -465,6 +465,16 @@ class exames extends Controller {
 				'id_user' => $this->init->user['id_user'],
 				'date_update' => date('Y-m-d H:i')
 			);
+
+			if($this->master()){
+				$dataSave['id_pacientes'] = $this->_post("id_pacientes_admin");
+				$dataSave['codigo_paciente'] = $this->_post("codigo_paciente_admin");
+				$dataSave['data_nascimento'] = date('Y-m-d', strtotime(str_replace('/', '-', $this->_post("data_nascimento_admin"))));
+				$dataSave['paciente'] = $this->_post("paciente_admin");
+				$dataSave['cpf'] = $this->cleanCPF($this->_post("cpf_admin"));
+			}
+
+			// $this->printar($dataSave);
 	
 			$this->exames_model->edit($dataSave, 'id_exames = ' . $id);
 			$this->message->setMsg('success', 'Editado com sucesso.');
@@ -475,7 +485,7 @@ class exames extends Controller {
 		// $this->printar($dados['data']);
 
 		$dados['paciente'] = $this->exames_model->getPacienteByNome($dados['data'][0]['paciente'], $dados['data'][0]['data_nascimento'])[0];
-		
+		// $this->printar($dados['paciente']);
 		
 		$dados['pdfs'] = unserialize($dados['data'][0]['pdf']);
 	

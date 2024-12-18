@@ -39,6 +39,45 @@
                         <input name="exame" type="textfield" value="<?php print html_entity_decode($view_data[0]["exame"]); ?>" class="form-control" id="exame">
                     </div>
                 </div>
+                <div class="col-xs-1 name-id_paciente type-textfield">
+                    <div class="form-group fields">
+                        <label for="id_paciente">ID Paciente (<?php echo $this->master()?>)</label>
+                        <input name="id_pacientes_admin" type="textfield" value="<?php print $view_data[0][ "id_pacientes"]; ?>" class="form-control" id="id_paciente" <?php if (!$this->master()) echo 'readonly'; ?>>
+                    </div>
+                </div>
+                <div class="col-xs-2 name-id_paciente type-textfield">
+                    <div class="form-group fields">
+                        <label for="id_paciente">Código do Paciente</label>
+                        <input name="codigo_paciente_admin" type="textfield" value="<?php print $view_data[0]["codigo_paciente"]; ?>" class="form-control" id="id_paciente" <?php if (!$this->master()) echo 'readonly'; ?>>
+                    </div>
+                </div>,
+                <div class="col-xs-2 name-cpf_admin type-textfield">
+                    <div class="form-group fields">
+                        <label for="cpf_admin">CPF</label>
+                        <input name="cpf_admin" type="textfield" value="<?php print $view_data[0]["cpf"]; ?>" class="form-control" id="cpf_admin" <?php if (!$this->master()) echo 'readonly'; ?>>
+                    </div>
+                </div>
+                <div class="col-xs-3 name-paciente type-textfield">
+                    <div class="form-group fields">
+                        <label for="paciente">Paciente</label>
+                        <input name="paciente_admin" type="textfield" value="<?php print $view_data[0]["paciente"]; ?>" class="form-control" id="paciente" <?php if (!$this->master()) echo 'readonly'; ?>>
+                    </div>
+                </div>
+                <div class="col-xs-2 name-data_nascimento type-textfield">
+                    <div class="form-group fields">
+                        <label for="data_nascimento">Data Nascimento</label>
+                        <input name="data_nascimento_admin" type="textfield" value="<?php print date('d/m/Y', strtotime($view_data[0]["data_nascimento"])); ?>" class="form-control" id="data_nascimento" <?php if (!$this->master()) echo 'readonly'; ?>>
+                    </div>
+                </div>
+                <div class="col-xs-1 name-ativo type-select">
+                    <div class="form-group fields">
+                        <label for="ativo">Publicado</label>
+                        <select name="ativo" class="form-control" id="ativo" <?php if (!$this->master()) echo 'disabled'; ?>>
+                            <option value="ativo" <?php if ($view_data[0]["ativo"] == 'ativo') echo 'selected'; ?>>Sim</option>
+                            <option value="apagado" <?php if ($view_data[0]["ativo"] == 'apagado') echo 'selected'; ?>>Não</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="col-xs-6 name-paciente type-textfield">
                     <div class="form-group fields">
                         <label for="paciente">Paciente</label>
@@ -227,4 +266,9 @@ $(function(){
         });
     });
 });
+
+$('input[name=codigo_paciente_admin]').mask('00000000000');
+$('input[name=id_pacientes_admin]').mask('00000000000');
+$('input[name=data_nascimento_admin]').mask('00/00/0000');
+$('input[name=cpf_admin]').mask('000.000.000-00');
 </script>
