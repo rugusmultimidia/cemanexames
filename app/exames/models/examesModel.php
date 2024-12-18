@@ -107,18 +107,18 @@ class examesModel extends Model {
         
     } 
 
-    public function getPacienteByCode($cpf, $codigo_paciente) {
+    public function getPacienteByCode($cpf, $codigo_paciente, $name = null) {
         $clinica = $_SESSION['@userApp']['clinica'];
         $cpf = preg_replace('/[^0-9]/', '', $cpf);
     
         $where = "WHERE ativo='ativo' AND E.clinica='$clinica'";
     
         if ($cpf) {
-            $where .= " AND P.cpf LIKE '%$cpf%'";
+            $where .= " AND P.cpf = '$cpf'";
         }
     
         if ($codigo_paciente) {
-            $where .= " AND P.codigo_paciente LIKE '%$codigo_paciente%'";
+            $where .= " AND P.codigo_paciente = '$codigo_paciente'";
         }
     
         $sql = "SELECT P.*, E.*, E.clinica as clinica_exame, P.cpf as cpf_user
@@ -127,6 +127,35 @@ class examesModel extends Model {
                 $where
                 ORDER BY E.id_exames DESC
                 LIMIT 1";
+
+                echo "<pre>";
+                print($sql); die;
+    
+        return $this->executeSql($sql);
+    }
+
+
+    public function getPacienteByNome($nome, $data_nascimento) {
+        $clinica = $_SESSION['@userApp']['clinica'];
+        $cpf = preg_replace('/[^0-9]/', '', $cpf);
+    
+        $where = "
+            WHERE ativo='ativo' 
+                AND P.nome='$nome'
+                AND P.data_nascimento='$data_nascimento'
+                
+            ";
+    
+    
+        $sql = "SELECT P.*, E.*, E.clinica as clinica_exame, P.cpf as cpf_user
+                FROM tb_exames E
+                LEFT JOIN tb_pacientes P ON P.codigo_paciente = E.codigo_paciente
+                $where
+                ORDER BY E.id_exames DESC
+                LIMIT 1";
+
+                // echo "<pre>";
+                // print($sql); die;
     
         return $this->executeSql($sql);
     }

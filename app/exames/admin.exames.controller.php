@@ -472,7 +472,9 @@ class exames extends Controller {
 	
 		$dados = array();
 		$dados['data'] = $this->exames_model->get($id);
-		$dados['paciente'] = $this->exames_model->getPacienteByCode($dados['data'][0]['cpf'], $dados['data'][0]['codigo_paciente'])[0];
+		// $this->printar($dados['data']);
+
+		$dados['paciente'] = $this->exames_model->getPacienteByNome($dados['data'][0]['paciente'], $dados['data'][0]['data_nascimento'])[0];
 		
 		
 		$dados['pdfs'] = unserialize($dados['data'][0]['pdf']);
