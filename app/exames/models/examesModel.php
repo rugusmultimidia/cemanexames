@@ -143,7 +143,7 @@ class examesModel extends Model {
         // die($codigo);
         
         // $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
-        return $this->read("id_pacientes = '$codigo'", $this->_id.' DESC', $n);        
+        return $this->read("id_pacientes = '$codigo' and ativo='ativo'", $this->_id.' DESC', $n);        
         
     } 
 
@@ -153,14 +153,14 @@ class examesModel extends Model {
         // die($codigo.' - '.$name);
         
         // $clinica = $_SESSION['@userApp']['clinica'] == "ceman" ? "" : "and clinica = '$clinica'";
-        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name')", $this->_id.' DESC', $n);        
+        return $this->read("(codigo_paciente = '$codigo' OR paciente = '$name') and ativo='ativo'", $this->_id.' DESC', $n);        
         
     }  
 
     public function getIdPacienteResultSite($id, $n = null) {  
 
         $clinica = $_SESSION['@paciente']['clinica'];
-        return $this->read("id_pacientes = '$id' and clinica = '$clinica'", $this->_id.' DESC', $n);        
+        return $this->read("id_pacientes = '$id' and clinica = '$clinica' and ativo='ativo'", $this->_id.' DESC', $n);        
         
     }  
 
