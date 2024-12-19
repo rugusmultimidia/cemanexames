@@ -135,7 +135,7 @@ class pacientesModel extends Model {
     }  
     
     public function checkCPF($cpf) {
-        $result = $this->read('cpf = "'.$cpf.'"');
+        $result = $this->read('cpf = "'.$cpf.'" and status = "ativo"');
         return !empty($result);
     }
     
