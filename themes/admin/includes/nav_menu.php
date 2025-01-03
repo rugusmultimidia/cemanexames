@@ -43,7 +43,7 @@
                     <a href="javascript:void(0)"><i class="fa fa-medkit"></i> <span class="nav-label">Exames</span></a>
                     <ul class="nav nav-second-level collapse">
                         <?php if ($this->getUserPermissions('exames', 'exames_new')): ?>
-                            <li><a href="admin/exames/exames_new">Listar</a></li>
+                            <li><a href="admin/exames/exames_new?clinica=<?=$this->clinica();?>&ativo=ativo">Listar</a></li>
                         <?php endif; ?>
                     </ul>
                 </li>

@@ -472,6 +472,7 @@ class exames extends Controller {
 				$dataSave['data_nascimento'] = date('Y-m-d', strtotime(str_replace('/', '-', $this->_post("data_nascimento_admin"))));
 				$dataSave['paciente'] = $this->_post("paciente_admin");
 				$dataSave['cpf'] = $this->cleanCPF($this->_post("cpf_admin"));
+				$dataSave['clinica'] = $this->cleanCPF($this->_post("clinica"));
 			}
 
 			// $this->printar($dataSave);

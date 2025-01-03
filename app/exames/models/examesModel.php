@@ -60,6 +60,8 @@ class examesModel extends Model {
     }
 
      public function getAllByPacienteName($paciente, $n = null) {    
+
+        $paciente = trim($paciente);
         
         $clinica = $_SESSION['@userApp']['clinica'];
         
@@ -71,12 +73,30 @@ class examesModel extends Model {
 
         $cpf = preg_replace('/[^0-9]/', '', $paciente);
 
-        if($cpf) {
+        if (isset($_GET['ativo']) && $_GET['ativo'] == "all") {
+            $q_ativo .= "E.ativo IN ('apagado','ativo')";
+        }else if (isset($_GET['ativo']) && $_GET['ativo'] != "all") {
+            $ativo = $_GET['ativo'];
+            $q_ativo .= "E.ativo = '$ativo'";
+        }else{
+            $q_ativo .= "E.ativo IN ('apagado','ativo')";
+        }
+
+        if (isset($_GET['clinica']) && $_GET['clinica'] != "all") {
+            $clinica = $_GET['clinica'];
+            $q_cliica .= " AND E.clinica = '$clinica'";
+        }else{
+            $q_cliica .= "";
+        }
+
+        if ($cpf) {
             $q_cpf = "
-                OR P.cpf like '%".$cpf."%'
+            and (
+                P.cpf like '%".$cpf."%'
                 OR E.cpf like '%".$cpf."%'
                 OR E.codigo_paciente = '".$cpf."'
-                ";
+            )
+            ";
         }
 
         if($paciente) {
@@ -88,15 +108,19 @@ class examesModel extends Model {
                     OR E.id_pacientes like '%".$paciente."%' 
                     OR P.email like '%".$paciente."%' 
                     OR P.codigo_paciente like '%".$paciente."%' 
-                )";
+                )
+                ".$q_cpf."
+                ";
         }
 
         $sql =    "SELECT P.*, E.*, E.clinica as clinica_exame , P.cpf as cpf_user, E.data_nascimento as data_nascimento_exame
             from tb_exames E
              LEFT JOIN tb_pacientes P ON P.id_pacientes = E.id_pacientes
              WHERE 
-             E.ativo IN ('apagado','ativo')  
+                ".$q_ativo."
              ".$where."
+             ".$q_cliica."
+
              order by E.date_update DESC ".$limit."
              " ;
 

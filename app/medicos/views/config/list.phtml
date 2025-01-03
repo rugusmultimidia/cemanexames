@@ -22,7 +22,7 @@
         <td>Médico</td>
 <td>CRM</td>
 
-        <td width="138">Ações</td>
+        <td width="200">Ações</td>
       </tr>
     
     <?php  foreach($view_list as $dados ) { ?>
@@ -32,15 +32,15 @@
         <td><?php print $dados["nome"]; ?></td>
 <td><?php print $dados["crm"]; ?></td>
 
-        <td class="actions">
-        	<a href="<?php print ih_current_path; ?>/details/id/<?php print $dados['id_medicos'] ?>">
+        <td class="actions text-right">
+        	<a class="btn btn-success ml-1"href="<?php print ih_current_path; ?>/details/id/<?php print $dados['id_medicos'] ?>">
 				<i class="fa fa-files-o"></i>
 			</a>  
-            <a href="<?php print ih_current_path; ?>/edit/id/<?php print $dados['id_medicos'] ?>">
+            <a class="btn btn-success ml-1"href="<?php print ih_current_path; ?>/edit/id/<?php print $dados['id_medicos'] ?>">
 				<i class="fa fa-edit"></i>
 			</a>   
-            <a href="javascript:void(0)" class="del" data-controller="<?php print ih_current_path; ?>/del" title="Apagar registro" data-id="<?php print $dados['id_medicos']; ?>">
-                <i class="fa fa-ban"></i>
+            <a href="javascript:void(0)" class="del btn btn-success ml-1" data-controller="<?php print ih_current_path; ?>/del" title="Apagar registro" data-id="<?php print $dados['id_medicos']; ?>">
+                <i class="fa fa-ban  "></i>
             </a>
         </td>
     

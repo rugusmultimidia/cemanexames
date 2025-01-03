@@ -14,10 +14,29 @@
 	<div class="box">
 		<div class="box-body"> 
 
-	<div style="margin: 15px 0;">
+	<div style="margin: 15px 0; display: flex; align-items: center; gap: 10px;">
 
-		<label style="display: block;">Paciente</label>
-		<input type="text" name="paciente" id="paciente" value="<?php print $this->q; ?>" style="width: 40%;">
+		<label for="paciente">Paciente</label>
+		<input type="text" name="paciente" id="paciente" value="<?php print $this->q; ?>" style="width: 30%;">
+		
+		<label for="clinica">Clínica</label>
+		<select name="clinica" id="clinica" style="width: 10%;">
+		<?php
+		$selectedClinica = isset($_GET['clinica']) ? $_GET['clinica'] : 'all';
+		?>
+		<option value="all" <?php echo $selectedClinica == 'all' || $selectedClinica == '' || empty($selectedClinica)? 'selected' : ''; ?>>Clínicas</option>
+		<option value="ceman" <?php echo $selectedClinica == 'ceman' ? 'selected' : ''; ?>>Ceman</option>
+		<option value="imason" <?php echo $selectedClinica == 'imason' ? 'selected' : ''; ?>>Imason</option>
+		</select>
+		<label for="ativo">Publicado</label>
+		<select name="ativo" id="ativo" style="width: 10%;">
+			<?php
+			$selectedStatus = isset($_GET['ativo']) ? $_GET['ativo'] : 'all';
+			?>
+			<option value="all" <?php echo $selectedStatus == 'all' ? 'selected' : ''; ?>>Todos</option>
+			<option value="ativo" <?php echo $selectedStatus == 'ativo' ? 'selected' : ''; ?>>Publicado</option>
+			<option value="apagado" <?php echo $selectedStatus == 'apagado' ? 'selected' : ''; ?>>Apagado</option>
+		</select>
 		<button id="btn_busca" class="btn btn-default">Buscar</button>
 		<button id="btn_limpar" class="btn btn-default">Remover Filtro</button>
 
@@ -131,13 +150,15 @@
 		$('#btn_busca').click(function(){
 
 			var paciente = $('#paciente').val();
+			var clinica = $('#clinica').val();
+			var ativo = $('#ativo').val();
 
-			window.location.href = "admin/exames/exames_new?q="+encodeURI(paciente);
+			window.location.href = "admin/exames/exames_new?q="+encodeURI(paciente)+"&clinica="+encodeURI(clinica)+"&ativo="+encodeURI(ativo);
 		});
 
 		$('#btn_limpar').click(function(){
 
-			window.location.href = "admin/exames";
+			window.location.href = "admin/exames/exames_new?clinica=<?=$this->clinica();?>&ativo=ativo";
 		});
 
 		$('.copy').click(function(){
