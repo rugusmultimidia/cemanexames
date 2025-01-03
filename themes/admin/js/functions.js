@@ -7,7 +7,7 @@ $(function(){
 		
 		var url = $(this).attr('data-controller');
 		console.log(url);
-		return
+		// return
 		
 		var id = $(this).attr('data-id');
 		
