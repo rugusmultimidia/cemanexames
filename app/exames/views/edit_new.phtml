@@ -84,7 +84,8 @@
                             <div class="col-md-2 name-clinica type-select">
                                 <div class="form-group fields">
                                     <label for="clinica">Clínica</label>
-                                    <select name="clinica" class="form-control" id="clinica">
+                                    <select name="clinica_admin" class="form-control" id="clinica" required>
+                                        <option value="">Nenhum</option>
                                         <option value="imason" <?php if ($view_data[0]["clinica"] == 'imason') echo 'selected'; ?>>Imason</option>
                                         <option value="ceman" <?php if ($view_data[0]["clinica"] == 'ceman') echo 'selected'; ?>>Ceman</option>
                                     </select>

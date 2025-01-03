@@ -183,7 +183,7 @@ class exames extends Controller {
 					"id_pacientes" => html_entity_decode($this->_post("id_pacientes"), ENT_QUOTES, 'UTF-8'),
 					"pdf" => serialize($filesNames),
 					"imagem" => serialize($ImageNames),
-					"clinica" => html_entity_decode($this->clinica(), ENT_QUOTES, 'UTF-8'),
+					"clinica" => $this->clinica(),
 					"assinatura" => $assinatura,
 					'id_user' => $this->init->user['id_user'],
 					'date_created' => date('Y-m-d H:i'),
@@ -472,7 +472,7 @@ class exames extends Controller {
 				$dataSave['data_nascimento'] = date('Y-m-d', strtotime(str_replace('/', '-', $this->_post("data_nascimento_admin"))));
 				$dataSave['paciente'] = $this->_post("paciente_admin");
 				$dataSave['cpf'] = $this->cleanCPF($this->_post("cpf_admin"));
-				$dataSave['clinica'] = $this->cleanCPF($this->_post("clinica"));
+				$dataSave['clinica'] = $this->_post("clinica_admin");
 			}
 
 			// $this->printar($dataSave);

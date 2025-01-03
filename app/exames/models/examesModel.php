@@ -75,18 +75,20 @@ class examesModel extends Model {
 
         if (isset($_GET['ativo']) && $_GET['ativo'] == "all") {
             $q_ativo .= "E.ativo IN ('apagado','ativo')";
-        }else if (isset($_GET['ativo']) && $_GET['ativo'] != "all") {
+        }elseif (isset($_GET['ativo']) && $_GET['ativo'] != "all") {
             $ativo = $_GET['ativo'];
             $q_ativo .= "E.ativo = '$ativo'";
         }else{
             $q_ativo .= "E.ativo IN ('apagado','ativo')";
         }
 
-        if (isset($_GET['clinica']) && $_GET['clinica'] != "all") {
+        if ($_GET['clinica'] == "vazio") {
+            $q_clinica .= " AND (E.clinica is null or E.clinica = '')";
+        }else if (isset($_GET['clinica']) && $_GET['clinica'] != "all") {
             $clinica = $_GET['clinica'];
-            $q_cliica .= " AND E.clinica = '$clinica'";
+            $q_clinica .= " AND E.clinica = '$clinica'";
         }else{
-            $q_cliica .= "";
+            $q_clinica .= "";
         }
 
         if ($cpf) {
@@ -113,13 +115,19 @@ class examesModel extends Model {
                 ";
         }
 
-        $sql =    "SELECT P.*, E.*, E.clinica as clinica_exame , P.cpf as cpf_user, E.data_nascimento as data_nascimento_exame
+        $sql =    
+            "SELECT 
+                P.*, 
+                E.*, 
+                E.clinica as clinica_exame , 
+                P.cpf as cpf_user, 
+                E.data_nascimento as data_nascimento_exame
             from tb_exames E
              LEFT JOIN tb_pacientes P ON P.id_pacientes = E.id_pacientes
              WHERE 
                 ".$q_ativo."
              ".$where."
-             ".$q_cliica."
+             ".$q_clinica."
 
              order by E.date_update DESC ".$limit."
              " ;
