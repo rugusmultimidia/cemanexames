@@ -39,7 +39,7 @@
             <a class="btn btn-success ml-1"href="<?php print ih_current_path; ?>/edit/id/<?php print $dados['id_medicos'] ?>">
 				<i class="fa fa-edit"></i>
 			</a>   
-            <a href="javascript:void(0)" class="del btn btn-success ml-1" data-controller="<?php print ih_current_path; ?>/del" title="Apagar registro" data-id="<?php print $dados['id_medicos']; ?>">
+            <a href="javascript:void(0)" class="del btn btn-success ml-1" data-controller="<?=PATH?>admin/medicos/del" title="Apagar registro" data-id="<?php print $dados['id_medicos']; ?>">
                 <i class="fa fa-ban  "></i>
             </a>
         </td>

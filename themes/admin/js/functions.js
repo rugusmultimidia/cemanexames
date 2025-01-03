@@ -6,6 +6,8 @@ $(function(){
    $(document).on('click','.del',function(){
 		
 		var url = $(this).attr('data-controller');
+		console.log(url);
+		return
 		
 		var id = $(this).attr('data-id');
 		
