@@ -16,7 +16,7 @@ class pacientes extends Controller {
 			$dados['responsavel'] = $this->pacientes_model->get($id_responsavel);
 		}
 
-		$this->q = (isset($_GET['q']) ? $_GET['q'] : "");
+		$this->q = (isset($_GET['q']) ? trim($_GET['q']) : "");
 
 		$this->pagination = new Pagination();
 		$this->pagination->defineQryString("?q=" . $this->q);

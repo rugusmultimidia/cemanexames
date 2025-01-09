@@ -513,6 +513,9 @@ class exames extends Controller {
 
 	public function edit(){
 
+
+		die('erro no servidor');
+
 		$id = $this->_get('id');
 
 
