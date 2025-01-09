@@ -72,7 +72,7 @@ class exames extends Controller {
 		$this->pagination->setpaginate(count($count), ih_ItemsPerPage, ih_visibleItems, $this->_get('page') );		
 
 		$dados['list'] = $this->exames_model->getAllByPacienteName($this->q, $this->pagination->getLimit());		
-		$this->printar($dados);
+		// $this->printar($dados);
 
 		$this->view('list_new', $dados);		
 
