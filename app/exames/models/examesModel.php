@@ -119,6 +119,7 @@ class examesModel extends Model {
             "SELECT 
                 P.*, 
                 E.*, 
+                E.id_pacientes as id_paciente_exame,
                 E.clinica as clinica_exame , 
                 P.cpf as cpf_user, 
                 E.data_nascimento as data_nascimento_exame
