@@ -65,6 +65,9 @@ class exames extends Controller {
 			$this->q ="";
 		}
 
+		$queryString = $this->pagination->extrairQueryString($_SERVER['QUERY_STRING']);
+		$this->pagination->defineQryString($queryString);
+
 		$count = $this->exames_model->getAllByPacienteName($this->q);	
 
 		$this->pagination->link('admin/exames/exames_new/page');			

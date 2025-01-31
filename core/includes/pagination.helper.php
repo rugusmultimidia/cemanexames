@@ -50,6 +50,38 @@ class Pagination extends Model {
 		$this->query_string = $qs;
 		
 	}
+
+  public function extrairQueryString($url) {
+    // Verifica se a string parece ser uma URL completa ou um caminho relativo
+    if (strpos($url, 'http') === 0 || strpos($url, '/') === 0) {
+        // Decompondo a URL para obter suas partes
+        $partes = parse_url($url);
+
+        // Verificando se a parte da query existe
+        if (isset($partes['query'])) {
+            // Analisa a query string em um array
+            parse_str($partes['query'], $queryParams);
+
+            // Remove a variável 'page', se existir
+            unset($queryParams['page']);
+
+            // Reconstrói a query string sem a variável 'page'
+            $novaQueryString = http_build_query($queryParams);
+
+            return $novaQueryString ? '?' . $novaQueryString : '';
+        }
+    } else {
+        // Assume que a string é uma query string, analisa e modifica
+        parse_str($url, $queryParams);
+        unset($queryParams['page']);
+        $novaQueryString = http_build_query($queryParams);
+
+        return $novaQueryString ? '?' . $novaQueryString : '';
+    }
+
+    // Retorna uma string vazia se não houver query
+    return '';
+  }
 	
 
         
