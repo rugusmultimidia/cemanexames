@@ -64,6 +64,14 @@ class examesModel extends Model {
         $paciente = trim($paciente);
         
         $clinica = $_SESSION['@userApp']['clinica'];
+
+        $exames_apagados = isset($_GET['backup']) == "false"? true : false;
+
+        if ($exames_apagados) {
+            $where_date = " AND E.date_update BETWEEN '2024-12-04' AND '2024-12-20'";
+        }
+
+        // die($where_date);
         
         if($n) {
             $limit = 'Limit '.$n.'';
@@ -129,7 +137,7 @@ class examesModel extends Model {
                 ".$q_ativo."
              ".$where."
              ".$q_clinica."
-
+            ".$where_date."
              order by E.date_update DESC ".$limit."
              " ;
 
