@@ -42,6 +42,7 @@
 
         <td width="49">ID</td>
 
+        <td width="49">Clínica</td>
         <td width="49">Nome</td>
 
         <td width="49">Login</td>
@@ -65,6 +66,8 @@
 
          <td><?php print $dados['id_user']; ?></td>
 
+         <td><?php print ucfirst($dados['clinica']); ?></td>
+         
          <td><?php print $dados['name']; ?></td>
 
          <td><?php print $dados['login']; ?></td>
@@ -98,6 +101,8 @@
         <tr class="line">
 
          <td><?php print $dados['id_user']; ?></td>
+
+         <td><?php print ucfirst($dados['clinica']); ?></td>
 
          <td><?php print $dados['name']; ?></td>
 

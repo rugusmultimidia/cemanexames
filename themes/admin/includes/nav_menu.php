@@ -45,7 +45,7 @@
                         <?php if ($this->getUserPermissions('exames', 'exames_new')): ?>
                             <li><a href="admin/exames/exames_new?clinica=<?=$this->clinica();?>&ativo=ativo">Listar</a></li>
                         <?php endif; ?>
-                        <?php if ($this->getUserPermissions('exames', 'exames_new')): ?>
+                        <?php if ($this->getUserPermissions('exames', 'exames_new') && $this->getUserPermissions('users')): ?>
                             <li><a href="admin/exames/exames_new?clinica=<?=$this->clinica();?>&ativo=ativo&backup=false">Exames irregulares</a></li>
                         <?php endif; ?>
                     </ul>

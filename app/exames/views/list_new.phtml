@@ -9,6 +9,11 @@
 			<li class="active">Lista de Exames</li>
 		  </ol>
 </section>       
+<?php if (isset($_GET['backup']) && $_GET['backup'] == "false") { ?>
+	<div class="alert alert-warning" role="alert">
+	Essa lista de exames corresponde aos registros modificados entre os dias 04 e 20 de dezembro, os quais não foram armazenados na memória de longo prazo do sistema devido ao processo de atualização e implantação de novas ferramentas. Durante essa fase, houve uma limitação temporária na persistência dos dados, resultando na necessidade de revisão e reprocessamento dessas informações para garantir sua integridade e disponibilidade.
+	</div>
+<?php } ?>
 
 <section class="content"> 
 	<div class="box">
