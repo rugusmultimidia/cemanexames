@@ -73,8 +73,14 @@
     </div>
     
     <?php $this->pagination->paginate()?>
+
+    <div list-exames style="display:none;"><?=json_encode($view_list)?></div>
+    <div cadastro-paciente style="display:none;"><?=json_encode($view_paciente)?></div>
     
 </section>
 
-
+<script>
+  console.log("List Exames:", JSON.parse(document.querySelector('div[list-exames]').textContent));
+  console.log("Cadastro Paciente:", JSON.parse(document.querySelector('div[cadastro-paciente]').textContent));
+</script>
 
