@@ -794,6 +794,8 @@ class exames extends Controller {
 		// print_r($this->folder); die;
 
 		if($this->_post()) {
+
+			// $this->printar($_POST);
 			
 			// print_r($_POST); die;
 			// include_once 'helpers/mpdf_v6/mpdf.php';
@@ -803,20 +805,23 @@ class exames extends Controller {
 			// print_r($_POST['data'][$this->folder]); die;
 			$i = 0;
 			foreach ($_POST['data'][$this->folder] as $value) {
-
-
-
+			
 				$this->generate_image($this->folder, $value);
-				
-				//salva img no podf
-				//$html= $mpdf->AddPage();
-
-				if(file_exists("themes/files/resultados/".$this->folder."/exame-".$i.".png")) {
-					$mpdf->WriteHTML("<div><img src='themes/files/resultados/".$this->folder."/exame-".$i.".png'></div>");
-					// print "themes/files/resultados/".$this->folder."/exame-".$i.".jpg";
+			
+				// Determine image orientation
+				$imagePath = "themes/files/resultados/".$this->folder."/exame-".$i.".png";
+				if (file_exists($imagePath)) {
+					list($width, $height) = getimagesize($imagePath);
+					$orientation = ($width > $height) ? 'L' : 'P'; // L = Landscape, P = Portrait
+					// Add a new page with the correct orientation
+					$mpdf->AddPage($orientation);
+			
+					$mpdf->WriteHTML("<div><img src='" . $imagePath . "'></div>");
 					$i++;
 				}
-				
+			
+				// die("manutencao");
+			
 			}
 
 			//pega os dados ja gravados anteriormente.
@@ -854,7 +859,7 @@ class exames extends Controller {
 
 		$dados['data'] = $this->exames_model->get($id);
 
-		//print_r($dados['data']); die;
+		// print_r($dados['data']); die;
 
 		if(file_exists(getcwd().'/themes/files/exames/'.$this->folder)){
 
@@ -862,6 +867,20 @@ class exames extends Controller {
 			unset($dados['files'][0]);
 			unset($dados['files'][1]);
 
+			$dados['arquivos'] = array();
+			foreach ($dados['files'] as $file) {
+				$filePath = getcwd() . '/themes/files/exames/' . $this->folder . '/' . $file;
+				if (is_file($filePath)) {
+					$size = getimagesize($filePath);
+					if ($size) {
+						$orientation = ($size[0] > $size[1]) ? 'horizontal' : 'vertical';
+						$dados['arquivos'][] = array(
+							'arquivo' => $file,
+							'orientacao' => $orientation
+						);
+					}
+				}
+			}
 
 		} else {
 			print 'Arquivo não exite, verifique se o mesmo foi convertido.';
@@ -1128,7 +1147,23 @@ class exames extends Controller {
 			$imagick->setResolution(150, 150);
 
 		    $imagick->readImage($filename);
-		    $imagick->resizeImage(1240,1724,Imagick::FILTER_POINT,1);
+
+			// Ajusta a resolução com base na orientação da imagem
+			$orientation = $imagick->getImageOrientation();
+
+			$width = $imagick->getImageWidth();
+			$height = $imagick->getImageHeight();
+
+			// die("Largura: $width, Altura: $height, Orientação: $orientation");
+
+			// Se a imagem for retrato (portrait), usa 1240x1724. Se for paisagem (landscape), usa 1724x1240.
+			if ($width > $height) {
+				// Paisagem
+				$imagick->resizeImage(1724, 1240, Imagick::FILTER_POINT, 1);
+			} else {
+				// Retrato
+				$imagick->resizeImage(1240, 1724, Imagick::FILTER_POINT, 1);
+			}
 			// Writes an image or image sequence Example- converted-0.jpg, converted-1.jpg
 			$imagick->writeImages($location."exames/".$folder."/exame.png", false);
 

@@ -251,6 +251,7 @@ $(function(){
         var file = $(this).attr('data-pdf');
         $(this).closest('tr').find('.__msg').text('Convertendo');
         var fotos = $(this).attr('data-imgs');
+
         $.ajax({
             url: 'admin/exames/ConvertPDF',
             type: 'POST',

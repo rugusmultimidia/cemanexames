@@ -76,8 +76,7 @@ $(function(){
 
 	.page {
 
-		width:1240px; 
-		height:1724px; 
+		 
 		margin:0 auto;
 		position:relative; 
 		margin-top:50px;
@@ -85,6 +84,18 @@ $(function(){
     	border: solid 1px #EAEAEA;
     	box-shadow: 2px 2px 10px #DADADA;
 
+	}
+
+	.page-vertical {
+		width:1240px; 
+		height:1724px;
+		background-color: #fff;
+	}
+
+	.page-horizontal {
+		width:1724px; 
+		height:1240px;
+		background-color: #fff;
 	}
 
 	.assinatura_box {
@@ -142,13 +153,13 @@ $(function(){
 
 	    	$i = 0;
 
-	    	foreach ($view_files as $file) { ?>	    	
+	    	foreach ($view_arquivos as $file) { ?>	    	
 
-	    	<div class="page" data-page="1" style="background:url(themes/files/exames/<?php print $this->folder; ?>/<?php print $file; ?>) center top no-repeat; "> 
+	    	<div class="page page-<?=$file['orientacao']; ?>" data-page="1" style="background:url(themes/files/exames/<?php print $this->folder; ?>/<?php print $file['arquivo']; ?>) center top no-repeat; "> 
 
 	    		<input type="hidden" value="<?php print $i; ?>" name="data[<?php print $this->folder; ?>][<?php print $i; ?>][pagina]" class="_pagina">
-	    		<input type="hidden" value="<?php print $file ?>" name="data[<?php print $this->folder; ?>][<?php print $i; ?>][img]" class="_imagem">
-	    		
+	    		<input type="hidden" value="<?php print $file['arquivo'] ?>" name="data[<?php print $this->folder; ?>][<?php print $i; ?>][img]" class="_imagem">
+				<input type="hidden" value="<?php print $file['orientacao']; ?>" name="data[<?php print $this->folder; ?>][<?php print $i; ?>][orientacao]" class="_orientacao">
 	    		<input type="hidden" value="<?php if(isset($view_doc[$this->folder][$i]['assinatura']['img'])) print $view_doc[$this->folder][$i]['assinatura']['img']; ?>" name="data[<?php print $this->folder; ?>][<?php print $i; ?>][assinatura][img]" class="_assinatura">
 	    		
 	    		<input type="hidden" value="<?php if(isset($view_doc[$this->folder][$i]['assinatura']['y'])) print $view_doc[$this->folder][$i]['assinatura']['y']; ?>" name="data[<?php print $this->folder; ?>][<?php print $i; ?>][assinatura][y]" class="_assinatura_y">
